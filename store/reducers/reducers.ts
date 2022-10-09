@@ -7,7 +7,7 @@ export interface IGlobalState {
   snake: ISnakeCoord[] | [];
 }
 
-const globalState: IGlobalState = {
+export const globalState: IGlobalState = {
   //Postion of the entire snake
   snake: [
     { x: 580, y: 300 },

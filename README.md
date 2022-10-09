@@ -10,6 +10,7 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 ### _To Do_
 
 #### High-Priority
+- dont collect non desired items "stress/ procrastination, etc"
 
 
 #### Medium-Priority
