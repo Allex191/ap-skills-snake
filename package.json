@@ -17,17 +17,12 @@
     "@emotion/react": "^11.10.0",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.0",
-    "@fontsource/monoton": "^4.5.9",
-    "@fontsource/roboto": "^4.5.8",
     "@mantine/core": "^5.2.0",
-    "@mantine/hooks": "^5.2.0",
     "@mantine/next": "^5.2.0",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.4",
-    "redux": "^4.2.0",
-    "redux-saga": "^1.2.1"
+    "usehooks-ts": "^2.9.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.26.1",

@@ -1,5 +1,6 @@
 import CanvasBoard from "components/CanvasBoard";
-import TestComponent from "components/TestComponent";
+import SnakeTestC from "components/SnakeTestC";
+import TimerTestC from "components/TimerTestC";
 import Head from "next/head";
 
 export default function Home() {
@@ -11,7 +12,8 @@ export default function Home() {
       </Head>
       <h1>A.P. Skills snake</h1>
       <CanvasBoard width={1000} height={600} />
-      <TestComponent />
+      {/* <SnakeTestC width={1000} height={600} /> */}
+      <TimerTestC />
     </>
   );
 }

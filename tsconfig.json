@@ -33,9 +33,9 @@
       }
     ],
     //mby change?
-    "strictNullChecks": true,
+    // "strictNullChecks": true,
     "noImplicitAny": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "components/TimerTestC.tsx"],
   "exclude": ["node_modules", ".next"]
 }
