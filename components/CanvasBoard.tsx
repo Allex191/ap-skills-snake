@@ -23,20 +23,22 @@ const SnakeTestC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   const [currentKey, setCurrentKey] = useState<"w" | "a" | "s" | "d">("d");
-  const [lastKey, setLastKey] = useState("d");
+  // const [lastKey, setLastKey] = useState("d");
   const [gameSpeed, setGameSpeed] = useState<null | number>(null);
 
-  const snakeMoves = useCallback(
-    (currentKey) => {
+  const getNextHeadPos = useCallback(
+    () => {
       const snakeMoves = {
-        w: snake[0]!.y - ITEM_SIZE,
-        a: snake[0]!.x - ITEM_SIZE,
-        s: snake[0]!.y + ITEM_SIZE,
-        d: snake[0]!.x + ITEM_SIZE,
+        w: { x: snake[0]!.x, y: snake[0]!.y - ITEM_SIZE },
+        a: { x: snake[0]!.x - ITEM_SIZE, y: snake[0]!.y },
+        s: { x: snake[0]!.x, y: snake[0]!.y + ITEM_SIZE },
+        d: { x: snake[0]!.x + ITEM_SIZE, y: snake[0]!.y },
       };
+      console.log("key callback", currentKey);
+      console.log("newHeadCallback", snakeMoves[currentKey]);
       return snakeMoves[currentKey];
     },
-    [snake]
+    [snake, currentKey]
   );
 
   //start game loop when speed is non null
@@ -44,9 +46,10 @@ const SnakeTestC = () => {
     gameLoop();
   }, gameSpeed);
 
-  //isGameStarted subscription
+  //start/reset game
   useEffect(() => {
     isGameStarted ? setGameSpeed(GAME_SPEED) : setGameSpeed(null);
+    setSnake(initialCoords);
   }, [isGameStarted]);
 
   //draw when snake will change
@@ -60,39 +63,45 @@ const SnakeTestC = () => {
 
   function gameLoop() {
     setSnake(() => {
-      const newXPosition = snakeMoves(currentKey);
-      const newArr = [{ x: newXPosition, y: 300 }, ...snake];
-      newArr.length !== 0 && newArr.pop();
+      const newHeadPosition = getNextHeadPos();
+      const newArr = [newHeadPosition, ...snake];
       console.log("newArr", newArr);
+      newArr.length !== 0 && newArr.pop();
       return newArr;
     });
   }
 
-  // //keyhandler
-  // useEffect(() => {
-  //   window.addEventListener("keydown", (ev) => {
-  //     console.log("event", ev);
-  //     if (ev.key === " " && !isGameStarted) {
-  //       console.log("spacebar");
-  //       dispatch(startGameR());
-  //       dispatch(startCounterR());
-  //     }
-  //     if (isGameStarted) {
-  //       if ((ev.key === "w" || ev.key === "ArrowUp") && currentKey !== "w") {
-  //         setCurrentKey("w");
-  //       }
-  //       if ((ev.key === "a" || "ArrowLeft") && currentKey !== "a") {
-  //         setCurrentKey("a");
-  //       }
-  //       if ((ev.key === "s" || "ArrowDown") && currentKey !== "s") {
-  //         setCurrentKey("s");
-  //       }
-  //       if ((ev.key === "d" || "ArrowRight") && currentKey !== "d") {
-  //         setCurrentKey("d");
-  //       }
-  //     }
-  //   });
-  // }, [currentKey, dispatch, isGameStarted]);
+  //keyhandler
+  useEffect(() => {
+    const eventHanderCallBack = (ev) => {
+      console.log("ev.key", ev.key);
+      if (ev.key === " " && !isGameStarted) {
+        dispatch(startGameR());
+        dispatch(startCounterR());
+      }
+      if (isGameStarted) {
+        if ((ev.key === "w" || ev.key === "ArrowUp") && currentKey !== "w") {
+          setCurrentKey("w");
+          return;
+        }
+        if ((ev.key === "a" || ev.key ==="ArrowLeft") && currentKey !== "a") {
+          setCurrentKey("a");
+          return;
+        }
+        if ((ev.key === "s" ||ev.key === "ArrowDown") && currentKey !== "s") {
+          setCurrentKey("s");
+          return;
+        }
+        if ((ev.key === "d" || ev.key ==="ArrowRight") && currentKey !== "d") {
+          setCurrentKey("d");
+          return;
+        }
+      }
+    };
+    document.addEventListener("keydown", eventHanderCallBack);
+
+    return () => document.removeEventListener("keydown", eventHanderCallBack);
+  }, [currentKey, dispatch, isGameStarted]);
 
   return (
     <div>
