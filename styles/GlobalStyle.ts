@@ -1,12 +1,12 @@
 import { css } from "@emotion/react";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import "@fontsource/monoton";
+// import "@fontsource/roboto/300.css";
+// import "@fontsource/roboto/400.css";
+// import "@fontsource/roboto/500.css";
+// import "@fontsource/roboto/700.css";
+// import "@fontsource/monoton";
 
 export const GlobalStyle = css`
-  :root {
+  /* :root {
     //primary font
     --font-family-primary: "monoton", "Times New Roman", Times, serif;
     --title-regular-large: 400 clamp(16px, 5vw, 38px) var(--font-family-primary);
@@ -24,7 +24,7 @@ export const GlobalStyle = css`
     --text-regular-standart: 400 16px / 140% var(--font-family-secondary);
     --text-regular-small-bold: 400 15px/17px var(--font-family-secondary);
     --text-regular-small: 400 15px/17px var(--font-family-secondary);
-  }
+  } */
 
   html,
   body {

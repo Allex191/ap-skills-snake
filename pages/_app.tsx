@@ -4,7 +4,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { Global, ThemeProvider } from "@emotion/react";
 import { Provider } from "react-redux";
-// import store from "store";
+import { store } from "Redux/redux";
 
 const theme = {
   colors: {
@@ -25,12 +25,12 @@ export default function App(props: AppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      {/* <Provider store={store}> */}
+      <Provider store={store}>
         <ThemeProvider theme={theme}>
           <Global styles={GlobalStyle} />
           <Component {...pageProps} />
         </ThemeProvider>
-      {/* </Provider> */}
+      </Provider>
     </>
   );
 }

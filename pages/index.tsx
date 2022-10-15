@@ -1,5 +1,4 @@
 import CanvasBoard from "components/CanvasBoard";
-import SnakeTestC from "components/SnakeTestC";
 import TimerTestC from "components/TimerTestC";
 import Head from "next/head";
 
@@ -11,7 +10,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>A.P. Skills snake</h1>
-      <CanvasBoard width={1000} height={600} />
+      <CanvasBoard />
       {/* <SnakeTestC width={1000} height={600} /> */}
       <TimerTestC />
     </>

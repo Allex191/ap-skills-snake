@@ -1,6 +1,8 @@
+import { GAME_HEIGHT, GAME_WIDTH, ITEM_SIZE } from "data/constants";
+
 export const clearBoard = (context: CanvasRenderingContext2D | null) => {
   if (context) {
-    context.clearRect(0, 0, 1000, 600);
+    context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
   }
 };
 
@@ -19,9 +21,8 @@ export const drawObject = (
     objectBody.forEach((object: IObjectBody) => {
       context.fillStyle = fillColor;
       context.strokeStyle = strokeStyle;
-      context?.fillRect(object.x, object.y, 20, 20);
-      context?.strokeRect(object.x, object.y, 20, 20);
+      context?.fillRect(object.x, object.y, ITEM_SIZE, ITEM_SIZE);
+      context?.strokeRect(object.x, object.y, ITEM_SIZE, ITEM_SIZE);
     });
   }
 };
-
