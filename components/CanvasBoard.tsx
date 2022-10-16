@@ -1,16 +1,16 @@
 import { GAME_HEIGHT, GAME_SPEED, GAME_WIDTH, ITEM_SIZE } from "data/constants";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 import { startCounterR, startGameR } from "Redux/slices/snakeSlice";
 import { useInterval } from "usehooks-ts";
 import { clearBoard, drawObject } from "utils/utils";
-import TimerTestC from "./TimerTestC";
 
 const initialCoords = [
   { x: 300, y: 300 },
   { x: 280, y: 300 },
   { x: 260, y: 300 },
+  { x: 240, y: 300 },
 ];
 
 const SnakeTestC = () => {
@@ -23,23 +23,20 @@ const SnakeTestC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   const [currentKey, setCurrentKey] = useState<"w" | "a" | "s" | "d">("d");
-  // const [lastKey, setLastKey] = useState("d");
+  const [forbiddenKey, setForbiddenKey] = useState("a");
   const [gameSpeed, setGameSpeed] = useState<null | number>(null);
 
-  const getNextHeadPos = useCallback(
-    () => {
-      const snakeMoves = {
-        w: { x: snake[0]!.x, y: snake[0]!.y - ITEM_SIZE },
-        a: { x: snake[0]!.x - ITEM_SIZE, y: snake[0]!.y },
-        s: { x: snake[0]!.x, y: snake[0]!.y + ITEM_SIZE },
-        d: { x: snake[0]!.x + ITEM_SIZE, y: snake[0]!.y },
-      };
-      console.log("key callback", currentKey);
-      console.log("newHeadCallback", snakeMoves[currentKey]);
-      return snakeMoves[currentKey];
-    },
-    [snake, currentKey]
-  );
+  const getNextHeadPos = useCallback(() => {
+    const snakeMoves = {
+      w: { x: snake[0]!.x, y: snake[0]!.y - ITEM_SIZE },
+      a: { x: snake[0]!.x - ITEM_SIZE, y: snake[0]!.y },
+      s: { x: snake[0]!.x, y: snake[0]!.y + ITEM_SIZE },
+      d: { x: snake[0]!.x + ITEM_SIZE, y: snake[0]!.y },
+    };
+    console.log("key callback", currentKey);
+    console.log("newHeadCallback", snakeMoves[currentKey]);
+    return snakeMoves[currentKey];
+  }, [snake, currentKey]);
 
   //start game loop when speed is non null
   useInterval(() => {
@@ -48,14 +45,14 @@ const SnakeTestC = () => {
 
   //start/reset game
   useEffect(() => {
-    isGameStarted ? setGameSpeed(GAME_SPEED) : setGameSpeed(null);
+    setGameSpeed(isGameStarted ? GAME_SPEED : null);
     setSnake(initialCoords);
   }, [isGameStarted]);
 
   //draw when snake will change
   useEffect(() => {
     if (canvasRef.current) {
-      setContext(canvasRef.current.getContext("2d"));
+      !context && setContext(canvasRef.current.getContext("2d"));
       clearBoard(context);
       drawObject(context, snake, "black");
     }
@@ -73,35 +70,58 @@ const SnakeTestC = () => {
 
   //keyhandler
   useEffect(() => {
-    const eventHanderCallBack = (ev) => {
+    const handleDesktopKeys = (ev: KeyboardEvent) => {
       console.log("ev.key", ev.key);
       if (ev.key === " " && !isGameStarted) {
         dispatch(startGameR());
         dispatch(startCounterR());
       }
       if (isGameStarted) {
-        if ((ev.key === "w" || ev.key === "ArrowUp") && currentKey !== "w") {
+        if (
+          (ev.key === "w" || ev.key === "ArrowUp") &&
+          currentKey !== "w" &&
+          forbiddenKey !== "w"
+        ) {
           setCurrentKey("w");
+          setForbiddenKey("s");
           return;
         }
-        if ((ev.key === "a" || ev.key ==="ArrowLeft") && currentKey !== "a") {
+        if (
+          (ev.key === "a" || ev.key === "ArrowLeft") &&
+          currentKey !== "a" &&
+          forbiddenKey !== "a"
+        ) {
           setCurrentKey("a");
+          setForbiddenKey("d");
+
           return;
         }
-        if ((ev.key === "s" ||ev.key === "ArrowDown") && currentKey !== "s") {
+        if (
+          (ev.key === "s" || ev.key === "ArrowDown") &&
+          currentKey !== "s" &&
+          forbiddenKey !== "s"
+        ) {
           setCurrentKey("s");
+          setForbiddenKey("w");
+
           return;
         }
-        if ((ev.key === "d" || ev.key ==="ArrowRight") && currentKey !== "d") {
+        if (
+          (ev.key === "d" || ev.key === "ArrowRight") &&
+          currentKey !== "d" &&
+          forbiddenKey !== "d"
+        ) {
           setCurrentKey("d");
+          setForbiddenKey("a");
+
           return;
         }
       }
     };
-    document.addEventListener("keydown", eventHanderCallBack);
+    document.addEventListener("keydown", handleDesktopKeys);
 
-    return () => document.removeEventListener("keydown", eventHanderCallBack);
-  }, [currentKey, dispatch, isGameStarted]);
+    return () => document.removeEventListener("keydown", handleDesktopKeys);
+  }, [currentKey, dispatch, forbiddenKey, isGameStarted]);
 
   return (
     <div>

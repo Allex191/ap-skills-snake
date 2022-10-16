@@ -1,3 +1,4 @@
+import { GAME_SPEED } from "data/constants";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
@@ -21,7 +22,7 @@ const TestComponent2 = () => {
   function changeColor() {
     // check if an interval has already been set up
     if (!intervalRef.current) {
-      intervalRef.current = setInterval(loop, 1000);
+      intervalRef.current = setInterval(loop, GAME_SPEED);
     }
   }
 
@@ -31,9 +32,9 @@ const TestComponent2 = () => {
     intervalRef.current = null;
   }
 
-  function pauseCounter() {
-    resetInterval();
-  }
+  // function pauseCounter() {
+  //   resetInterval();
+  // }
 
   function loop() {
     dispatch(startCounterR());
@@ -62,9 +63,9 @@ const TestComponent2 = () => {
       <button id="start" onClick={() => changeColor()}>
         Start
       </button>
-      <button id="pause" onClick={() => pauseCounter()}>
+      {/* <button id="pause" onClick={() => pauseCounter()}>
         Pause
-      </button>
+      </button> */}
       <button id="reset" onClick={() => resetCounter()}>
         Reset
       </button>

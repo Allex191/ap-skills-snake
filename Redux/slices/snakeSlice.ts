@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+// import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface CounterState {
   counter: { number: number; color: string };

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { globalState } from "store/reducers/reducers";
 import { clearBoard, drawObject } from "utils/utils";
 
 interface ICanvasBoard {

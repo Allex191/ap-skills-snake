@@ -15,5 +15,9 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 #### Medium-Priority
 
 #### Low-Priority
+
 - dont collect non desired items "stress/ procrastination, etc"
-- fontsource 
+- fontsource
+
+#### Uncategorized
+- mobile navigation
