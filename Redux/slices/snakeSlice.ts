@@ -19,13 +19,13 @@ export const snakeSlice = createSlice({
       state.counter.number += 1;
       state.counter.color = state.counter.color === "green" ? "red" : "green";
     },
+    startGameR: (state) => {
+      state.isGameStarted = true;
+    },
     resetCounterR: (state) => {
       state.counter.number = 0;
       state.counter.color = "green";
       state.isGameStarted = false;
-    },
-    startGameR: (state) => {
-      state.isGameStarted = true;
     },
     stopGameR: (state) => {
       state.isGameStarted = false;

@@ -1,17 +1,21 @@
-import { GAME_HEIGHT, GAME_SPEED, GAME_WIDTH, ITEM_SIZE } from "data/constants";
+import {
+  GAME_HEIGHT,
+  GAME_SPEED,
+  GAME_WIDTH,
+  initialSnakeCoords,
+  ITEM_SIZE,
+} from "data/constants";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 import { startCounterR, startGameR } from "Redux/slices/snakeSlice";
 import { useInterval } from "usehooks-ts";
-import { clearBoard, drawObject } from "utils/utils";
-
-const initialCoords = [
-  { x: 300, y: 300 },
-  { x: 280, y: 300 },
-  { x: 260, y: 300 },
-  { x: 240, y: 300 },
-];
+import {
+  clearBoard,
+  drawObject,
+  getRandomApplePos,
+  IObjectBody,
+} from "utils/utils";
 
 const SnakeTestC = () => {
   const isGameStarted = useSelector(
@@ -19,12 +23,14 @@ const SnakeTestC = () => {
   );
   const dispatch = useDispatch();
 
-  const [snake, setSnake] = useState(initialCoords);
+  const [snake, setSnake] = useState(initialSnakeCoords);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   const [currentKey, setCurrentKey] = useState<"w" | "a" | "s" | "d">("d");
   const [forbiddenKey, setForbiddenKey] = useState("a");
   const [gameSpeed, setGameSpeed] = useState<null | number>(null);
+  const [applePos, setApplePos] = useState<null | IObjectBody[]>(null);
+  const [isAppleConsumed, setIsAppleConsumed] = useState(false);
 
   const getNextHeadPos = useCallback(() => {
     const snakeMoves = {
@@ -33,9 +39,7 @@ const SnakeTestC = () => {
       s: { x: snake[0]!.x, y: snake[0]!.y + ITEM_SIZE },
       d: { x: snake[0]!.x + ITEM_SIZE, y: snake[0]!.y },
     };
-    console.log("key callback", currentKey);
-    console.log("newHeadCallback", snakeMoves[currentKey]);
-    return snakeMoves[currentKey];
+    return [snakeMoves[currentKey]];
   }, [snake, currentKey]);
 
   //start game loop when speed is non null
@@ -43,35 +47,49 @@ const SnakeTestC = () => {
     gameLoop();
   }, gameSpeed);
 
-  //start/reset game
+  //start stop game 
   useEffect(() => {
     setGameSpeed(isGameStarted ? GAME_SPEED : null);
-    setSnake(initialCoords);
   }, [isGameStarted]);
 
-  //draw when snake will change
+  //set Initial item coords
+  useEffect(() => {
+    !isGameStarted && setSnake(initialSnakeCoords);
+    applePos === null && setApplePos(getRandomApplePos());
+  }, [applePos, isGameStarted]);
+
+  //draw on canvas
   useEffect(() => {
     if (canvasRef.current) {
       !context && setContext(canvasRef.current.getContext("2d"));
       clearBoard(context);
+      applePos && drawObject(context, applePos, "red");
       drawObject(context, snake, "black");
     }
-  }, [snake, context]);
+  }, [snake, context, applePos]);
+
+  const checkAppleCollision = (headPos, applePos, setIsAppleConsumed) => {
+    if (headPos[0].x === applePos[0].x && headPos[0].y === applePos[0].y) {
+      setIsAppleConsumed(true);
+    }
+  };
 
   function gameLoop() {
-    setSnake(() => {
-      const newHeadPosition = getNextHeadPos();
-      const newArr = [newHeadPosition, ...snake];
-      console.log("newArr", newArr);
-      newArr.length !== 0 && newArr.pop();
-      return newArr;
-    });
+    setIsAppleConsumed(false);
+    const newHeadPosition = getNextHeadPos();
+    checkAppleCollision(newHeadPosition, applePos, setIsAppleConsumed);
+    const newSnakeArr = [...newHeadPosition, ...snake];
+    if (isAppleConsumed) {
+      setApplePos(getRandomApplePos(snake));
+    } else {
+      newSnakeArr.length !== 0 && newSnakeArr.pop();
+    }
+    setSnake(newSnakeArr);
   }
 
   //keyhandler
   useEffect(() => {
     const handleDesktopKeys = (ev: KeyboardEvent) => {
-      console.log("ev.key", ev.key);
       if (ev.key === " " && !isGameStarted) {
         dispatch(startGameR());
         dispatch(startCounterR());

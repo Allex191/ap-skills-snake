@@ -1,4 +1,9 @@
-import { GAME_HEIGHT, GAME_WIDTH, ITEM_SIZE } from "data/constants";
+import {
+  GAME_HEIGHT,
+  GAME_WIDTH,
+  initialSnakeCoords,
+  ITEM_SIZE,
+} from "data/constants";
 
 export const clearBoard = (context: CanvasRenderingContext2D | null) => {
   if (context) {
@@ -25,4 +30,27 @@ export const drawObject = (
       context?.strokeRect(object.x, object.y, ITEM_SIZE, ITEM_SIZE);
     });
   }
+};
+
+export const getRandomApplePos = (snake = initialSnakeCoords) => {
+  console.log("getRandomPos running");
+  const getXY = () => {
+    const randomX = Math.random() * GAME_WIDTH;
+    const randomY = Math.random() * GAME_HEIGHT;
+    const x = randomX - (randomX % ITEM_SIZE);
+    const y = randomY - (randomY % ITEM_SIZE);
+    return { x, y };
+  };
+  const newPos = getXY();
+
+  let isRepeated = true;
+  while (isRepeated) {
+    console.log("while running");
+    snake.forEach((object) => {
+      if (object.x !== newPos.x && object.y !== newPos.y) {
+        isRepeated = false;
+      }
+    });
+  }
+  return [newPos];
 };
