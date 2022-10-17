@@ -1,6 +1,6 @@
 export const GAME_WIDTH = 600;
 export const GAME_HEIGHT = 600;
-export const GAME_SPEED = 300;
+export const GAME_SPEED = 200;
 export const ITEM_SIZE = 20;
 
 export const initialSnakeCoords = [

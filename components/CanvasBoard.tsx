@@ -5,7 +5,13 @@ import {
   initialSnakeCoords,
   ITEM_SIZE,
 } from "data/constants";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useImperativeHandle,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 import { startCounterR, startGameR } from "Redux/slices/snakeSlice";
@@ -17,6 +23,35 @@ import {
   IObjectBody,
 } from "utils/utils";
 
+const useInterval2 = (callback: () => void, interval: number | null) => {
+  const state = useRef<() => void>();
+
+  useImperativeHandle(state, () => callback, [callback]);
+
+  useEffect(() => {
+    if (interval == null) {
+      return;
+    }
+
+    const intervalHandle = setInterval(() => {
+      state.current && state.current();
+    }, interval);
+
+    return () => clearInterval(intervalHandle);
+  }, [interval]);
+};
+
+const DIR_UP = "up";
+const DIR_LEFT = "left";
+const DIR_DOWN = "down";
+const DIR_RIGHT = "right";
+
+type DIR_TYPES =
+  | typeof DIR_UP
+  | typeof DIR_LEFT
+  | typeof DIR_DOWN
+  | typeof DIR_RIGHT;
+
 const SnakeTestC = () => {
   const isGameStarted = useSelector(
     (state: RootState) => state.snakeReducer.isGameStarted
@@ -24,37 +59,34 @@ const SnakeTestC = () => {
   const dispatch = useDispatch();
 
   const [snake, setSnake] = useState(initialSnakeCoords);
+  const [snakeDir, setSnakeDir] = useState<DIR_TYPES>(DIR_RIGHT);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
-  const [currentKey, setCurrentKey] = useState<"w" | "a" | "s" | "d">("d");
-  const [forbiddenKey, setForbiddenKey] = useState("a");
-  const [gameSpeed, setGameSpeed] = useState<null | number>(null);
+  const [currentKey, setCurrentKey] = useState<DIR_TYPES>(DIR_RIGHT);
   const [applePos, setApplePos] = useState<null | IObjectBody[]>(null);
   const [isAppleConsumed, setIsAppleConsumed] = useState(false);
 
   const getNextHeadPos = useCallback(() => {
     const snakeMoves = {
-      w: { x: snake[0]!.x, y: snake[0]!.y - ITEM_SIZE },
-      a: { x: snake[0]!.x - ITEM_SIZE, y: snake[0]!.y },
-      s: { x: snake[0]!.x, y: snake[0]!.y + ITEM_SIZE },
-      d: { x: snake[0]!.x + ITEM_SIZE, y: snake[0]!.y },
+      [DIR_UP]: { x: snake[0]!.x, y: snake[0]!.y - ITEM_SIZE },
+      [DIR_LEFT]: { x: snake[0]!.x - ITEM_SIZE, y: snake[0]!.y },
+      [DIR_DOWN]: { x: snake[0]!.x, y: snake[0]!.y + ITEM_SIZE },
+      [DIR_RIGHT]: { x: snake[0]!.x + ITEM_SIZE, y: snake[0]!.y },
     };
     return [snakeMoves[currentKey]];
   }, [snake, currentKey]);
 
-  //start game loop when speed is non null
-  useInterval(() => {
-    gameLoop();
-  }, gameSpeed);
+  const gameSpeed = isGameStarted ? GAME_SPEED : null;
 
-  //start stop game 
-  useEffect(() => {
-    setGameSpeed(isGameStarted ? GAME_SPEED : null);
-  }, [isGameStarted]);
+  //start game loop when speed is non null
+  useInterval2(gameLoop, gameSpeed);
 
   //set Initial item coords
   useEffect(() => {
-    !isGameStarted && setSnake(initialSnakeCoords);
+    if (!isGameStarted) {
+      setSnake(initialSnakeCoords);
+      setCurrentKey(DIR_RIGHT);
+    }
     applePos === null && setApplePos(getRandomApplePos());
   }, [applePos, isGameStarted]);
 
@@ -68,13 +100,14 @@ const SnakeTestC = () => {
     }
   }, [snake, context, applePos]);
 
-  const checkAppleCollision = (headPos, applePos, setIsAppleConsumed) => {
-    if (headPos[0].x === applePos[0].x && headPos[0].y === applePos[0].y) {
-      setIsAppleConsumed(true);
-    }
-  };
+  // put in game loop draw canvas
 
   function gameLoop() {
+    const checkAppleCollision = (headPos, applePos, setIsAppleConsumed) => {
+      if (headPos[0].x === applePos[0].x && headPos[0].y === applePos[0].y) {
+        setIsAppleConsumed(true);
+      }
+    };
     setIsAppleConsumed(false);
     const newHeadPosition = getNextHeadPos();
     checkAppleCollision(newHeadPosition, applePos, setIsAppleConsumed);
@@ -85,6 +118,7 @@ const SnakeTestC = () => {
       newSnakeArr.length !== 0 && newSnakeArr.pop();
     }
     setSnake(newSnakeArr);
+    setSnakeDir(currentKey);
   }
 
   //keyhandler
@@ -94,52 +128,35 @@ const SnakeTestC = () => {
         dispatch(startGameR());
         dispatch(startCounterR());
       }
+
       if (isGameStarted) {
-        if (
-          (ev.key === "w" || ev.key === "ArrowUp") &&
-          currentKey !== "w" &&
-          forbiddenKey !== "w"
-        ) {
-          setCurrentKey("w");
-          setForbiddenKey("s");
-          return;
-        }
-        if (
-          (ev.key === "a" || ev.key === "ArrowLeft") &&
-          currentKey !== "a" &&
-          forbiddenKey !== "a"
-        ) {
-          setCurrentKey("a");
-          setForbiddenKey("d");
+        const moveUp = ev.key === "w" || ev.key === "ArrowUp";
+        const moveDown = ev.key === "s" || ev.key === "ArrowDown";
+        const moveLeft = ev.key === "a" || ev.key === "ArrowLeft";
+        const moveRight = ev.key === "d" || ev.key === "ArrowRight";
 
-          return;
+        if (snakeDir === DIR_UP || snakeDir === DIR_DOWN) {
+          if (moveLeft) {
+            setCurrentKey(DIR_LEFT);
+          }
+          if (moveRight) {
+            setCurrentKey(DIR_RIGHT);
+          }
         }
-        if (
-          (ev.key === "s" || ev.key === "ArrowDown") &&
-          currentKey !== "s" &&
-          forbiddenKey !== "s"
-        ) {
-          setCurrentKey("s");
-          setForbiddenKey("w");
-
-          return;
-        }
-        if (
-          (ev.key === "d" || ev.key === "ArrowRight") &&
-          currentKey !== "d" &&
-          forbiddenKey !== "d"
-        ) {
-          setCurrentKey("d");
-          setForbiddenKey("a");
-
-          return;
+        if (snakeDir === DIR_LEFT || snakeDir === DIR_RIGHT) {
+          if (moveUp) {
+            setCurrentKey(DIR_UP);
+          }
+          if (moveDown) {
+            setCurrentKey(DIR_DOWN);
+          }
         }
       }
     };
     document.addEventListener("keydown", handleDesktopKeys);
 
     return () => document.removeEventListener("keydown", handleDesktopKeys);
-  }, [currentKey, dispatch, forbiddenKey, isGameStarted]);
+  }, [snakeDir, dispatch, isGameStarted]);
 
   return (
     <div>
