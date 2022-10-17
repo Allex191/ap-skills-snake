@@ -54,3 +54,11 @@ export const getRandomApplePos = (snake = initialSnakeCoords) => {
   }
   return [newPos];
 };
+
+export const checkIsAppleConsumed = (headPos, applePos) => {
+  if (headPos[0].x === applePos[0].x && headPos[0].y === applePos[0].y) {
+    return true;
+  } else {
+    return false;
+  }
+};
