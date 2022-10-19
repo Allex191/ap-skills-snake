@@ -62,3 +62,26 @@ export const checkIsAppleConsumed = (headPos, applePos) => {
     return false;
   }
 };
+
+export const chechIfSnakeCollided = (newHeadPosition, snake): boolean => {
+  // });
+  const hasCollidedItself = snake.some(
+    (object) =>
+      newHeadPosition[0].x === object.x && newHeadPosition[0].y === object.y
+  );
+
+  const checkIfCollidedBorders = () => {
+    if (
+      newHeadPosition[0].x < 0 ||
+      newHeadPosition[0].x > GAME_WIDTH - ITEM_SIZE ||
+      newHeadPosition[0].y < 0 ||
+      newHeadPosition[0].y > GAME_HEIGHT - ITEM_SIZE
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  console.log("hasCollidedItself", hasCollidedItself);
+  return hasCollidedItself || checkIfCollidedBorders();
+};

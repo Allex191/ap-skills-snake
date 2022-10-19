@@ -1,14 +1,29 @@
-import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/constants";
+import {
+  DIR_DOWN,
+  DIR_LEFT,
+  DIR_RIGHT,
+  DIR_TYPES,
+  DIR_UP,
+} from "data/constants";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "Redux/redux";
+import { AnyAction, Dispatch } from "redux";
 import { startCounterR, startGameR } from "Redux/slices/snakeSlice";
 
-export const useKeyHandler = (snakeDir, setCurrentKey) => {
-  const dispatch = useDispatch();
-  const isGameStarted = useSelector(
-    (state: RootState) => state.snakeReducer.isGameStarted
+interface IuseKeyHandler {
+  (
+    snakeDir: DIR_TYPES,
+    setCurrentKey: any,
+    isGameStarted: boolean,
+    dispatch: Dispatch<AnyAction>
   );
+}
+
+export const useKeyHandler: IuseKeyHandler = (
+  snakeDir,
+  setCurrentKey,
+  isGameStarted,
+  dispatch
+) => {
   useEffect(() => {
     const keysHandler = (ev: KeyboardEvent) => {
       if (ev.key === " " && !isGameStarted) {
