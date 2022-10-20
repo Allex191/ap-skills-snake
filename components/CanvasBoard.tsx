@@ -15,7 +15,7 @@ import { useKeyHandler } from "hooks/useKeyHandler";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
-import { resetCounterR } from "Redux/slices/snakeSlice";
+import { setGameOver, startGameR } from "Redux/slices/snakeSlice";
 import {
   chechIfSnakeCollided,
   checkIsAppleConsumed,
@@ -26,8 +26,8 @@ import {
 } from "utils/utils";
 
 const SnakeTestC = () => {
-  const isGameStarted = useSelector(
-    (state: RootState) => state.snakeReducer.isGameStarted
+  const { isGameStarted, isGameOver, gameSpeed } = useSelector(
+    (state: RootState) => state.snakeReducer
   );
   const dispatch = useDispatch();
 
@@ -37,8 +37,6 @@ const SnakeTestC = () => {
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   const [currentKey, setCurrentKey] = useState<DIR_TYPES>(DIR_RIGHT);
   const [applePos, setApplePos] = useState<null | IObjectBody[]>(null);
-  const [isGameOver, setIsGameOver] = useState(false);
-  const [gameSpeed, setGameSpeed] = useState<null | number>(GAME_SPEED);
 
   const getNextHeadPos = useCallback(() => {
     const snakeMoves = {
@@ -59,13 +57,10 @@ const SnakeTestC = () => {
   //set Initial item coords
   useEffect(() => {
     if (!isGameStarted) {
-      console.log(gameSpeed);
       setSnake(initialSnakeCoords);
       setCurrentKey(DIR_RIGHT);
-    } else {
-      setGameSpeed(GAME_SPEED);
-      setIsGameOver(false);
     }
+
     applePos === null && setApplePos(getRandomApplePos());
   }, [applePos, isGameStarted, gameSpeed]);
 
@@ -83,10 +78,7 @@ const SnakeTestC = () => {
     const newHeadPosition = getNextHeadPos();
     const isSnakeCollided = chechIfSnakeCollided(newHeadPosition, snake);
     if (isSnakeCollided) {
-      console.log("collided");
-      dispatch(resetCounterR());
-      setIsGameOver(true);
-      setGameSpeed(null);
+      dispatch(setGameOver());
       return;
     }
     const isAppleConsumed = checkIsAppleConsumed(newHeadPosition, applePos);
@@ -111,6 +103,13 @@ const SnakeTestC = () => {
         height={GAME_HEIGHT}
       />
       {!isGameStarted && <h2>Press space or start to start the game</h2>}
+      <button
+        style={{ width: "100px", height: "100px" }}
+        id="start"
+        onClick={() => dispatch(startGameR())}
+      >
+        Start
+      </button>
     </div>
   );
 };
