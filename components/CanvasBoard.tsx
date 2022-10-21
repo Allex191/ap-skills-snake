@@ -5,7 +5,6 @@ import {
   DIR_TYPES,
   DIR_UP,
   GAME_HEIGHT,
-  GAME_SPEED,
   GAME_WIDTH,
   initialSnakeCoords,
   ITEM_SIZE,
@@ -48,8 +47,6 @@ const SnakeTestC = () => {
     return [snakeMoves[currentKey]];
   }, [snake, currentKey]);
 
-  // const gameSpeed = isGameStarted ? GAME_SPEED : null;
-
   //start game loop when speed is non null
   useInterval(gameLoop, gameSpeed);
   useKeyHandler(snakeDir, setCurrentKey, isGameStarted, dispatch);
@@ -64,11 +61,32 @@ const SnakeTestC = () => {
     applePos === null && setApplePos(getRandomApplePos());
   }, [applePos, isGameStarted, gameSpeed]);
 
+  const drawBackground = async (context) => {
+    const img = new Image();
+    img.src = "grass-white-flowers.png";
+    const rows = GAME_HEIGHT / ITEM_SIZE;
+    const cols = GAME_WIDTH / ITEM_SIZE;
+    img.onload = () => {
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          context.drawImage(
+            img,
+            j * ITEM_SIZE,
+            i * ITEM_SIZE,
+            ITEM_SIZE,
+            ITEM_SIZE
+          );
+        }
+      }
+    };
+  };
+
   //draw on canvas
   useEffect(() => {
     if (canvasRef.current) {
       !context && setContext(canvasRef.current.getContext("2d"));
       clearBoard(context);
+      context && drawBackground(context);
       applePos && drawObject(context, applePos, "red");
       drawObject(context, snake, "black");
     }

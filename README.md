@@ -1,4 +1,4 @@
-### A.P. Skills Snake Game
+## A.P. Skills Snake Game
 
 A snake game which starts with collecting my current programming skills.
 
@@ -8,7 +8,8 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 
 ### Live Demo
 
-### _To Do_
+---
+## _To Do_
 
 #### High-Priority
 
@@ -21,4 +22,9 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 
 #### Uncategorized
 - mobile navigation
-
+- color change based on collected items
+- sound effects
+- dark theme
+- high score/local storage
+- movement animation 
+- 
