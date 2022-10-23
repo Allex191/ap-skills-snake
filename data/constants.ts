@@ -1,13 +1,16 @@
-export const GAME_WIDTH = 600;
-export const GAME_HEIGHT = 600;
+export const GAME_WIDTH = 1200;
+export const GAME_HEIGHT = 1200;
 export const GAME_SPEED = 200;
-export const ITEM_SIZE = 20;
+export const ITEM_SIZE = 40;
+
+const MIDDLE_WIDTH = GAME_WIDTH / 2;
+const MIDDLE_HEIGHT = GAME_HEIGHT / 2;
 
 export const initialSnakeCoords = [
-  { x: 300, y: 300 },
-  { x: 280, y: 300 },
-  { x: 260, y: 300 },
-  { x: 240, y: 300 },
+  { x: MIDDLE_WIDTH, y: GAME_HEIGHT },
+  { x: MIDDLE_WIDTH - ITEM_SIZE, y: MIDDLE_HEIGHT },
+  { x: MIDDLE_WIDTH - ITEM_SIZE * 2, y: MIDDLE_HEIGHT },
+  { x: MIDDLE_WIDTH - ITEM_SIZE * 3, y: MIDDLE_HEIGHT },
 ];
 
 export const DIR_UP = "up";

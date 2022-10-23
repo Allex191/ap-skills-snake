@@ -14,7 +14,7 @@ import { useKeyHandler } from "hooks/useKeyHandler";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
-import { setGameOver, startGameR } from "Redux/slices/snakeSlice";
+import { setGameOver } from "Redux/slices/snakeSlice";
 import {
   chechIfSnakeCollided,
   checkIsAppleConsumed,
@@ -61,36 +61,19 @@ const SnakeTestC = () => {
     applePos === null && setApplePos(getRandomApplePos());
   }, [applePos, isGameStarted, gameSpeed]);
 
-  const drawBackground = async (context) => {
-    const img = new Image();
-    img.src = "grass-white-flowers.png";
-    const rows = GAME_HEIGHT / ITEM_SIZE;
-    const cols = GAME_WIDTH / ITEM_SIZE;
-    img.onload = () => {
-      for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-          context.drawImage(
-            img,
-            j * ITEM_SIZE,
-            i * ITEM_SIZE,
-            ITEM_SIZE,
-            ITEM_SIZE
-          );
-        }
-      }
-    };
-  };
-
   //draw on canvas
   useEffect(() => {
     if (canvasRef.current) {
       !context && setContext(canvasRef.current.getContext("2d"));
       clearBoard(context);
-      context && drawBackground(context);
       applePos && drawObject(context, applePos, "red");
       drawObject(context, snake, "black");
     }
   }, [snake, context, applePos]);
+
+  // useEffect(() => {
+  //   context && context.scale(0.5, 0.5);
+  // }, [context, snake, applePos]);
 
   function gameLoop() {
     const newHeadPosition = getNextHeadPos();
@@ -120,14 +103,6 @@ const SnakeTestC = () => {
         width={GAME_WIDTH}
         height={GAME_HEIGHT}
       />
-      {!isGameStarted && <h2>Press space or start to start the game</h2>}
-      <button
-        style={{ width: "100px", height: "100px" }}
-        id="start"
-        onClick={() => dispatch(startGameR())}
-      >
-        Start
-      </button>
     </div>
   );
 };

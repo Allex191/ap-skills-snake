@@ -27,4 +27,8 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 - dark theme
 - high score/local storage
 - movement animation 
-- 
+- change from timeout to requestAnimationFrame()
+- responsive canvas
+- prerender canvas elements 
+- use diferent z-index for canvas 
+
