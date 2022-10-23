@@ -15,6 +15,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 import { setGameOver } from "Redux/slices/snakeSlice";
+import { StyledGameLayer } from "components/index.styled";
 import {
   chechIfSnakeCollided,
   checkIsAppleConsumed,
@@ -25,7 +26,7 @@ import {
 } from "utils/utils";
 
 const SnakeTestC = () => {
-  const { isGameStarted, isGameOver, gameSpeed } = useSelector(
+  const { isGameStarted, gameSpeed } = useSelector(
     (state: RootState) => state.snakeReducer
   );
   const dispatch = useDispatch();
@@ -71,10 +72,6 @@ const SnakeTestC = () => {
     }
   }, [snake, context, applePos]);
 
-  // useEffect(() => {
-  //   context && context.scale(0.5, 0.5);
-  // }, [context, snake, applePos]);
-
   function gameLoop() {
     const newHeadPosition = getNextHeadPos();
     const isSnakeCollided = chechIfSnakeCollided(newHeadPosition, snake);
@@ -95,15 +92,12 @@ const SnakeTestC = () => {
   }
 
   return (
-    <div>
-      {isGameOver && <h2>Game Over</h2>}
-      <canvas
-        ref={canvasRef}
-        style={{ border: "2px solid black" }}
-        width={GAME_WIDTH}
-        height={GAME_HEIGHT}
-      />
-    </div>
+    <StyledGameLayer
+      ref={canvasRef}
+      style={{ border: "2px solid black" }}
+      width={GAME_WIDTH}
+      height={GAME_HEIGHT}
+    />
   );
 };
 

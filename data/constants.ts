@@ -7,7 +7,7 @@ const MIDDLE_WIDTH = GAME_WIDTH / 2;
 const MIDDLE_HEIGHT = GAME_HEIGHT / 2;
 
 export const initialSnakeCoords = [
-  { x: MIDDLE_WIDTH, y: GAME_HEIGHT },
+  { x: MIDDLE_WIDTH, y: MIDDLE_HEIGHT },
   { x: MIDDLE_WIDTH - ITEM_SIZE, y: MIDDLE_HEIGHT },
   { x: MIDDLE_WIDTH - ITEM_SIZE * 2, y: MIDDLE_HEIGHT },
   { x: MIDDLE_WIDTH - ITEM_SIZE * 3, y: MIDDLE_HEIGHT },

@@ -3,14 +3,12 @@ import { GAME_SPEED } from "data/constants";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface CounterState {
-  counter: { number: number; color: string };
   isGameStarted: boolean;
   isGameOver: null | boolean;
   gameSpeed: null | number;
 }
 
 const initialState: CounterState = {
-  counter: { number: 0, color: "green" },
   isGameStarted: false,
   isGameOver: null,
   gameSpeed: null,
