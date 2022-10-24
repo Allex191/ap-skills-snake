@@ -26,15 +26,15 @@ export const StyledLayers = styled.div`
 
 export const StyledBackgroundLayer = styled.canvas`
   position: absolute;
-  left: 0;
-  top: 0;
+  /* left: 0; */
+  /* top: 0; */
   z-index: 1;
 `;
 
 export const StyledGameLayer = styled.canvas`
   position: absolute;
-  left: 0;
-  top: 0;
+  /* left: 0; */
+  /* top: 0; */
   z-index: 2;
 `;
 
