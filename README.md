@@ -12,6 +12,8 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 ## _To Do_
 
 #### High-Priority
+- fix promise backgroundLayer img.onload
+
 
 #### Medium-Priority
 
@@ -31,4 +33,3 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 - responsive canvas
 - prerender canvas elements 
 - use diferent z-index for canvas 
-

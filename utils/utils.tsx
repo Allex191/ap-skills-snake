@@ -1,13 +1,10 @@
-import {
-  GAME_HEIGHT,
-  GAME_WIDTH,
-  initialSnakeCoords,
-  ITEM_SIZE,
-} from "data/constants";
-
-export const clearBoard = (context: CanvasRenderingContext2D | null) => {
+export const clearBoard = (
+  context: CanvasRenderingContext2D | null,
+  gameWidth: number,
+  gameHeight: number
+) => {
   if (context) {
-    context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+    context.clearRect(0, 0, gameWidth, gameHeight);
   }
 };
 
@@ -20,25 +17,31 @@ export const drawObject = (
   context: CanvasRenderingContext2D | null,
   objectBody: IObjectBody[],
   fillColor: string,
+  itemSize: number,
   strokeStyle = "#146356"
 ) => {
   if (context) {
     objectBody.forEach((object: IObjectBody) => {
       context.fillStyle = fillColor;
       context.strokeStyle = strokeStyle;
-      context?.fillRect(object.x, object.y, ITEM_SIZE, ITEM_SIZE);
-      context?.strokeRect(object.x, object.y, ITEM_SIZE, ITEM_SIZE);
+      context?.fillRect(object.x, object.y, itemSize, itemSize);
+      context?.strokeRect(object.x, object.y, itemSize, itemSize);
     });
   }
 };
 
-export const getRandomApplePos = (snake = initialSnakeCoords) => {
+export const getRandomApplePos = (
+  snake: any[],
+  gameWidth: number,
+  gameHeight: number,
+  itemSize: number
+) => {
   console.log("getRandomPos running");
   const getXY = () => {
-    const randomX = Math.random() * GAME_WIDTH;
-    const randomY = Math.random() * GAME_HEIGHT;
-    const x = randomX - (randomX % ITEM_SIZE);
-    const y = randomY - (randomY % ITEM_SIZE);
+    const randomX = Math.random() * gameWidth;
+    const randomY = Math.random() * gameHeight;
+    const x = randomX - (randomX % itemSize);
+    const y = randomY - (randomY % itemSize);
     return { x, y };
   };
   const newPos = getXY();
@@ -63,7 +66,13 @@ export const checkIsAppleConsumed = (headPos, applePos) => {
   }
 };
 
-export const chechIfSnakeCollided = (newHeadPosition, snake): boolean => {
+export const chechIfSnakeCollided = (
+  newHeadPosition,
+  snake,
+  gameWidth,
+  gameHeight,
+  itemSize
+): boolean => {
   // });
   const hasCollidedItself = snake.some(
     (object) =>
@@ -73,9 +82,9 @@ export const chechIfSnakeCollided = (newHeadPosition, snake): boolean => {
   const checkIfCollidedBorders = () => {
     if (
       newHeadPosition[0].x < 0 ||
-      newHeadPosition[0].x > GAME_WIDTH - ITEM_SIZE ||
+      newHeadPosition[0].x > gameWidth - itemSize ||
       newHeadPosition[0].y < 0 ||
-      newHeadPosition[0].y > GAME_HEIGHT - ITEM_SIZE
+      newHeadPosition[0].y > gameHeight - itemSize
     ) {
       return true;
     } else {

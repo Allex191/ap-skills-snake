@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
-import { startGameR } from "Redux/slices/snakeSlice";
+import { startGame } from "Redux/slices/snakeSlice";
 import { StyledUILayer } from "components/index.styled";
 
 const UILayer = () => {
@@ -18,7 +18,7 @@ const UILayer = () => {
         <button
           style={{ width: "100px", height: "100px" }}
           id="start"
-          onClick={() => dispatch(startGameR())}
+          onClick={() => dispatch(startGame())}
         >
           Start
         </button>

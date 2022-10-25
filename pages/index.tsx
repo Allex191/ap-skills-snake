@@ -8,8 +8,15 @@ import {
   StyledOuterWrapper,
 } from "components/index.styled";
 import Navigation from "components/Navigation";
+import { useResize } from "hooks/useResize";
+import { useSelector } from "react-redux";
+import { RootState } from "Redux/redux";
 
 export default function Home() {
+  const { gameWidth, gameHeight } = useSelector(
+    (state: RootState) => state.snakeReducer.gameSizes
+  );
+  useResize();
   return (
     <>
       <Head>
@@ -18,7 +25,7 @@ export default function Home() {
       </Head>
       <StyledContainer>
         <StyledOuterWrapper>
-          <StyledLayers>
+          <StyledLayers gameWidth={gameWidth} gameHeight={gameHeight}>
             <BackgroundLayer />
             <GameLayer />
             <UILayer />

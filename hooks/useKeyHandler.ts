@@ -7,7 +7,7 @@ import {
 } from "data/constants";
 import { useEffect } from "react";
 import { AnyAction, Dispatch } from "redux";
-import { startGameR } from "Redux/slices/snakeSlice";
+import { startGame } from "Redux/slices/snakeSlice";
 
 interface IuseKeyHandler {
   (
@@ -27,7 +27,7 @@ export const useKeyHandler: IuseKeyHandler = (
   useEffect(() => {
     const keysHandler = (ev: KeyboardEvent) => {
       if (ev.key === " " && !isGameStarted) {
-        dispatch(startGameR());
+        dispatch(startGame());
       }
 
       if (isGameStarted) {
