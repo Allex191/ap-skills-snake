@@ -1,20 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import type { PayloadAction } from "@reduxjs/toolkit";
 
-const GAME_WIDTH = 1200;
-const GAME_HEIGHT = 1200;
 const GAME_SPEED = 200;
-const ITEM_SIZE = 40;
-
-const MIDDLE_WIDTH = GAME_WIDTH / 2;
-const MIDDLE_HEIGHT = GAME_HEIGHT / 2;
-
-const SNAKE_COORDS = [
-  { x: MIDDLE_WIDTH, y: MIDDLE_HEIGHT },
-  { x: MIDDLE_WIDTH - ITEM_SIZE, y: MIDDLE_HEIGHT },
-  { x: MIDDLE_WIDTH - ITEM_SIZE * 2, y: MIDDLE_HEIGHT },
-  { x: MIDDLE_WIDTH - ITEM_SIZE * 3, y: MIDDLE_HEIGHT },
-];
 
 export interface CounterState {
   isGameStarted: boolean;
@@ -33,16 +19,11 @@ const initialState: CounterState = {
   isGameOver: null,
   gameSpeed: null,
   gameSizes: {
-    gameWidth: 1200,
-    gameHeight: 1200,
+    gameWidth: 800,
+    gameHeight: 800,
     itemSize: 40,
   },
-  snakeCoords: [
-    { x: MIDDLE_WIDTH, y: MIDDLE_HEIGHT },
-    { x: MIDDLE_WIDTH - ITEM_SIZE, y: MIDDLE_HEIGHT },
-    { x: MIDDLE_WIDTH - ITEM_SIZE * 2, y: MIDDLE_HEIGHT },
-    { x: MIDDLE_WIDTH - ITEM_SIZE * 3, y: MIDDLE_HEIGHT },
-  ],
+  snakeCoords: [{ x: 0, y: 0 }],
 };
 
 export const snakeSlice = createSlice({
@@ -63,13 +44,15 @@ export const snakeSlice = createSlice({
       state.gameSpeed = null;
     },
     setSnakeInitialCoords: (state) => {
-      state.snakeCoords = SNAKE_COORDS;
+      state.snakeCoords[0]!.x = state.gameSizes.gameWidth / 3;
+      state.snakeCoords[0]!.y = state.gameSizes.gameHeight / 3;
     },
     setSnakeNewCoords: (state, action) => {
       state.snakeCoords = action.payload;
     },
     setGameSizes: (state, action) => {
-      state.gameSizes.gameWidth = action.payload.width - 100;
+      if (action.payload.width < 800 || action.payload.height < 800)
+        state.gameSizes.gameWidth = action.payload.width - 100;
       state.gameSizes.gameHeight = action.payload.height - 100;
     },
   },

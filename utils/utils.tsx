@@ -44,7 +44,7 @@ export const getRandomApplePos = (
     const y = randomY - (randomY % itemSize);
     return { x, y };
   };
-  const newPos = getXY();
+  let newPos = getXY();
 
   let isRepeated = true;
   while (isRepeated) {
@@ -52,6 +52,8 @@ export const getRandomApplePos = (
     snake.forEach((object) => {
       if (object.x !== newPos.x && object.y !== newPos.y) {
         isRepeated = false;
+      } else {
+        newPos = getXY();
       }
     });
   }
@@ -93,4 +95,12 @@ export const chechIfSnakeCollided = (
   };
   console.log("hasCollidedItself", hasCollidedItself);
   return hasCollidedItself || checkIfCollidedBorders();
+};
+
+export const getWindowSize = () => {
+  const windowSize = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  };
+  return windowSize;
 };
