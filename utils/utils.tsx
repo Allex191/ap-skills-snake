@@ -36,7 +36,6 @@ export const getRandomApplePos = (
   gameHeight: number,
   itemSize: number
 ) => {
-  console.log("getRandomPos running");
   const getXY = () => {
     const randomX = Math.random() * gameWidth;
     const randomY = Math.random() * gameHeight;
@@ -47,8 +46,10 @@ export const getRandomApplePos = (
   let newPos = getXY();
 
   let isRepeated = true;
-  while (isRepeated) {
-    console.log("while running");
+  let tempCount = 0;
+  while (isRepeated && tempCount < 500) {
+    if (tempCount > 450)
+      console.error("apple spawn in same area as snake or some error");
     snake.forEach((object) => {
       if (object.x !== newPos.x && object.y !== newPos.y) {
         isRepeated = false;
@@ -56,6 +57,7 @@ export const getRandomApplePos = (
         newPos = getXY();
       }
     });
+    tempCount++;
   }
   return [newPos];
 };
@@ -93,7 +95,6 @@ export const chechIfSnakeCollided = (
       return false;
     }
   };
-  console.log("hasCollidedItself", hasCollidedItself);
   return hasCollidedItself || checkIfCollidedBorders();
 };
 

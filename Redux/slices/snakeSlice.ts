@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { GAME_SPEED } from "data/constants";
 
-const GAME_SPEED = 200;
 
 export interface CounterState {
   isGameStarted: boolean;
@@ -44,16 +44,11 @@ export const snakeSlice = createSlice({
       state.gameSpeed = null;
     },
     setSnakeInitialCoords: (state) => {
-      state.snakeCoords[0]!.x = state.gameSizes.gameWidth / 3;
-      state.snakeCoords[0]!.y = state.gameSizes.gameHeight / 3;
+      state.snakeCoords[0]!.x = state.gameSizes.gameWidth / 2;
+      state.snakeCoords[0]!.y = state.gameSizes.gameHeight / 2;
     },
     setSnakeNewCoords: (state, action) => {
       state.snakeCoords = action.payload;
-    },
-    setGameSizes: (state, action) => {
-      if (action.payload.width < 800 || action.payload.height < 800)
-        state.gameSizes.gameWidth = action.payload.width - 100;
-      state.gameSizes.gameHeight = action.payload.height - 100;
     },
   },
 });
@@ -64,7 +59,6 @@ export const {
   setGameOver,
   setSnakeInitialCoords,
   setSnakeNewCoords,
-  setGameSizes,
 } = snakeSlice.actions;
 
 export default snakeSlice.reducer;

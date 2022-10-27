@@ -13,8 +13,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 
 export default function Home() {
-  const { gameWidth, gameHeight } = useSelector(
-    (state: RootState) => state.snakeReducer.gameSizes
+  const { windowWidth, windowHeight, scale } = useSelector(
+    (state: RootState) => state.viewReducer
   );
   useResize();
   return (
@@ -25,7 +25,7 @@ export default function Home() {
       </Head>
       <StyledContainer>
         <StyledOuterWrapper>
-          <StyledLayers gameWidth={gameWidth} gameHeight={gameHeight}>
+          <StyledLayers scale={scale} gameWidth={windowWidth} gameHeight={windowHeight}>
             <BackgroundLayer />
             <GameLayer />
             <UILayer />

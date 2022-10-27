@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setGameSizes } from "Redux/slices/snakeSlice";
+import { setGameSizes } from "Redux/slices/viewSlice";
 
 export const useResize = () => {
   const dispatch = useDispatch();
@@ -15,5 +15,5 @@ export const useResize = () => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [dispatch]);
 };

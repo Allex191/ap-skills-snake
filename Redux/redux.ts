@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import snakeReducer from "./slices/snakeSlice";
+import viewReducer from "./slices/viewSlice";
 
 export const store = configureStore({
-  reducer: { snakeReducer },
+  reducer: { snakeReducer, viewReducer },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
