@@ -7,7 +7,6 @@ import {
 } from "data/constants";
 import { useEffect } from "react";
 import { AnyAction, Dispatch } from "redux";
-import { startGame } from "Redux/slices/snakeSlice";
 
 interface IuseKeyHandler {
   (
@@ -26,10 +25,6 @@ export const useKeyHandler: IuseKeyHandler = (
 ) => {
   useEffect(() => {
     const keysHandler = (ev: KeyboardEvent) => {
-      if (ev.key === " " && !isGameStarted) {
-        dispatch(startGame());
-      }
-
       if (isGameStarted) {
         const moveUp = ev.key === "w" || ev.key === "ArrowUp";
         const moveDown = ev.key === "s" || ev.key === "ArrowDown";
@@ -38,18 +33,18 @@ export const useKeyHandler: IuseKeyHandler = (
 
         if (snakeDir === DIR_UP || snakeDir === DIR_DOWN) {
           if (moveLeft) {
-            setCurrentKey(DIR_LEFT);
+            dispatch(setCurrentKey(DIR_LEFT));
           }
           if (moveRight) {
-            setCurrentKey(DIR_RIGHT);
+            dispatch(setCurrentKey(DIR_RIGHT));
           }
         }
         if (snakeDir === DIR_LEFT || snakeDir === DIR_RIGHT) {
           if (moveUp) {
-            setCurrentKey(DIR_UP);
+            dispatch(setCurrentKey(DIR_UP));
           }
           if (moveDown) {
-            setCurrentKey(DIR_DOWN);
+            dispatch(setCurrentKey(DIR_DOWN));
           }
         }
       }

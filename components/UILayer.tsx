@@ -5,7 +5,7 @@ import { startGame } from "Redux/slices/snakeSlice";
 import { StyledUILayer } from "components/index.styled";
 
 const UILayer = () => {
-  const { isGameOver, isGameStarted } = useSelector(
+  const { isGameOver, isUIShown, isStartArrowsShown } = useSelector(
     (state: RootState) => state.snakeReducer
   );
 
@@ -14,14 +14,22 @@ const UILayer = () => {
     <StyledUILayer className="UILayer">
       {isGameOver && <h2>Game Over</h2>}
 
-      {!isGameStarted && (
-        <button
-          style={{ width: "100px", height: "100px" }}
-          id="start"
-          onClick={() => dispatch(startGame())}
-        >
-          Start
-        </button>
+      {isUIShown && (
+        <div style={{ backgroundColor: "white " }}>
+          <h1>Snake Game</h1>
+          <button
+            style={{ width: "150px", height: "100px" }}
+            id="start"
+            onClick={() => dispatch(startGame())}
+          >
+            Start
+          </button>
+        </div>
+      )}
+      {isStartArrowsShown && (
+        <div>
+          <h1 style={{ color: "white" }}>wasd</h1>
+        </div>
       )}
     </StyledUILayer>
   );

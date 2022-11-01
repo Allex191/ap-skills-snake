@@ -8,20 +8,20 @@ export const clearBoard = (
   }
 };
 
-export interface IObjectBody {
+export type TCanvasItemShape = {
   x: number;
   y: number;
-}
+};
 
 export const drawObject = (
   context: CanvasRenderingContext2D | null,
-  objectBody: IObjectBody[],
+  objectBody: TCanvasItemShape[],
   fillColor: string,
   itemSize: number,
   strokeStyle = "#146356"
 ) => {
   if (context) {
-    objectBody.forEach((object: IObjectBody) => {
+    objectBody.forEach((object: TCanvasItemShape) => {
       context.fillStyle = fillColor;
       context.strokeStyle = strokeStyle;
       context?.fillRect(object.x, object.y, itemSize, itemSize);
