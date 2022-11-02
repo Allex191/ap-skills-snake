@@ -1,14 +1,17 @@
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/constants";
 import { useEffect } from "react";
 import { AnyAction, Dispatch } from "redux";
-import { CounterState } from "Redux/slices/snakeSlice";
+import {
+  CounterState,
+  startSnakeMovement as IstartSnakeMovement,
+  setCurrentKey as IsetCurrentKey,
+} from "Redux/slices/snakeSlice";
 
 interface IuseKeyHandler {
   (
     snakeDir: CounterState["snakeDir"],
-    setCurrentKey: ActionCreatorWithPayload<string, string>,
-    startSnakeMovement: ActionCreatorWithPayload<string, string>,
+    setCurrentKey: typeof IsetCurrentKey,
+    startSnakeMovement: typeof IstartSnakeMovement,
     isGameStarted: CounterState["isGameStarted"],
     dispatch: Dispatch<AnyAction>,
     isArrowsTempShown: CounterState["isArrowsTempShown"]

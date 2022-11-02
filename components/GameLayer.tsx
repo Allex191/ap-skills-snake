@@ -80,6 +80,7 @@ const GameLayer = () => {
     gameHeight,
     itemSize,
     isGameStarted,
+    isGameOver,
   ]);
 
   function gameLoop() {

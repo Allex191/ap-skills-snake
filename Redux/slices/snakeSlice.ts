@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DIR_RIGHT, DIR_TYPES, GAME_SPEED } from "data/constants";
 import { getRandomApplePos, TCanvasItemShape } from "utils/utils";
 
@@ -55,7 +55,10 @@ export const snakeSlice = createSlice({
         state.gameSizes.itemSize
       );
     },
-    startSnakeMovement: (state, action) => {
+    startSnakeMovement: (
+      state,
+      action: PayloadAction<CounterState["currentKey"]>
+    ) => {
       state.currentKey = action.payload;
       state.gameSpeed = GAME_SPEED;
       state.isArrowsTempShown = false;
@@ -69,13 +72,19 @@ export const snakeSlice = createSlice({
     setSnakeNewCoords: (state, action) => {
       state.snakeCoords = action.payload;
     },
-    setRandomApplePos: (state, action) => {
+    setRandomApplePos: (
+      state,
+      action: PayloadAction<CounterState["applePos"]>
+    ) => {
       state.applePos = action.payload;
     },
     setSnakeDir: (state, action) => {
       state.snakeDir = action.payload;
     },
-    setCurrentKey: (state, action) => {
+    setCurrentKey: (
+      state,
+      action: PayloadAction<CounterState["currentKey"]>
+    ) => {
       state.currentKey = action.payload;
     },
   },
