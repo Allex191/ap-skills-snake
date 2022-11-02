@@ -1,8 +1,7 @@
 import { StyledGameLayer } from "components/index.styled";
-import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/constants";
 import { useInterval } from "hooks/useInterval";
 import { useKeyHandler } from "hooks/useKeyHandler";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 import {
@@ -11,14 +10,15 @@ import {
   setRandomApplePos,
   setSnakeDir,
   setSnakeNewCoords,
-  startSnakeMovement,
+  startSnakeMovement
 } from "Redux/slices/snakeSlice";
+import { getNextHeadPos } from "utils/getNextHeadPos";
 import {
   chechIfSnakeCollided,
   checkIsAppleConsumed,
   clearBoard,
   drawObject,
-  getRandomApplePos,
+  getRandomApplePos
 } from "utils/utils";
 
 const GameLayer = () => {
@@ -39,16 +39,6 @@ const GameLayer = () => {
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
-
-  const getNextHeadPos = useCallback(() => {
-    const snakeMoves = {
-      [DIR_UP]: { x: snakeCoords[0]!.x, y: snakeCoords[0]!.y - itemSize },
-      [DIR_LEFT]: { x: snakeCoords[0]!.x - itemSize, y: snakeCoords[0]!.y },
-      [DIR_DOWN]: { x: snakeCoords[0]!.x, y: snakeCoords[0]!.y + itemSize },
-      [DIR_RIGHT]: { x: snakeCoords[0]!.x + itemSize, y: snakeCoords[0]!.y },
-    };
-    return [snakeMoves[currentKey]];
-  }, [snakeCoords, itemSize, currentKey]);
 
   //start game loop when speed is non null
   useInterval(gameLoop, gameSpeed);
@@ -84,7 +74,7 @@ const GameLayer = () => {
   ]);
 
   function gameLoop() {
-    const newHeadPosition = getNextHeadPos();
+    const newHeadPosition = getNextHeadPos(snakeCoords, itemSize, currentKey);
     const isSnakeCollided = chechIfSnakeCollided(
       newHeadPosition,
       snakeCoords,
