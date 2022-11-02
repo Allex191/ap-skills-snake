@@ -5,7 +5,7 @@ import { startGame } from "Redux/slices/snakeSlice";
 import { StyledUILayer } from "components/index.styled";
 
 const UILayer = () => {
-  const { isGameOver, isUIShown, isStartArrowsShown } = useSelector(
+  const { isGameOver, isUIShown, isArrowsTempShown: isStartArrowsShown } = useSelector(
     (state: RootState) => state.snakeReducer
   );
 

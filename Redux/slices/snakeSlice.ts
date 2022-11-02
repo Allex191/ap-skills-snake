@@ -13,7 +13,7 @@ export interface CounterState {
     itemSize: number;
   };
   snakeCoords: TCanvasItemShape[];
-  isStartArrowsShown: boolean;
+  isArrowsTempShown: boolean;
   applePos: TCanvasItemShape[];
   snakeDir: DIR_TYPES;
   currentKey: DIR_TYPES;
@@ -30,7 +30,7 @@ const initialState: CounterState = {
     itemSize: 40,
   },
   snakeCoords: [{ x: 0, y: 0 }],
-  isStartArrowsShown: false,
+  isArrowsTempShown: false,
   applePos: [{ x: 0, y: 0 }],
   snakeDir: DIR_RIGHT,
   currentKey: DIR_RIGHT,
@@ -41,11 +41,11 @@ export const snakeSlice = createSlice({
   initialState,
   reducers: {
     startGame: (state) => {
+      state.snakeCoords = [{ x: 0, y: 0 }];
       state.isGameStarted = true;
       state.isGameOver = false;
-      state.gameSpeed = GAME_SPEED;
       state.isUIShown = false;
-      state.isStartArrowsShown = true;
+      state.isArrowsTempShown = true;
       state.snakeCoords[0]!.x = state.gameSizes.gameWidth / 2;
       state.snakeCoords[0]!.y = state.gameSizes.gameHeight / 2;
       state.applePos = getRandomApplePos(
@@ -55,7 +55,11 @@ export const snakeSlice = createSlice({
         state.gameSizes.itemSize
       );
     },
-    // startSnake: (state, action) => {},
+    startSnakeMovement: (state, action) => {
+      state.currentKey = action.payload;
+      state.gameSpeed = GAME_SPEED;
+      state.isArrowsTempShown = false;
+    },
     setGameOver: (state) => {
       state.isGameOver = true;
       state.isGameStarted = false;
@@ -84,6 +88,7 @@ export const {
   setRandomApplePos,
   setSnakeDir,
   setCurrentKey,
+  startSnakeMovement,
 } = snakeSlice.actions;
 
 export default snakeSlice.reducer;

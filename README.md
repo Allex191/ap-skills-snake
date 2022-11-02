@@ -32,3 +32,4 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 - change from timeout to requestAnimationFrame()
 - prerender canvas elements 
 - option -+ for responsive padding or scale
+- getNeaxtPos refactor

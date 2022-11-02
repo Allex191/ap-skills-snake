@@ -11,6 +11,7 @@ import {
   setRandomApplePos,
   setSnakeDir,
   setSnakeNewCoords,
+  startSnakeMovement,
 } from "Redux/slices/snakeSlice";
 import {
   chechIfSnakeCollided,
@@ -20,9 +21,16 @@ import {
   getRandomApplePos,
 } from "utils/utils";
 
-const SnakeTestC = () => {
-  const { isGameStarted, gameSpeed, applePos, snakeDir, currentKey } =
-    useSelector((state: RootState) => state.snakeReducer);
+const GameLayer = () => {
+  const {
+    isGameStarted,
+    gameSpeed,
+    applePos,
+    snakeDir,
+    currentKey,
+    isArrowsTempShown,
+    isGameOver,
+  } = useSelector((state: RootState) => state.snakeReducer);
   const { gameWidth, gameHeight, itemSize } = useSelector(
     (state: RootState) => state.snakeReducer.gameSizes
   );
@@ -44,7 +52,14 @@ const SnakeTestC = () => {
 
   //start game loop when speed is non null
   useInterval(gameLoop, gameSpeed);
-  useKeyHandler(snakeDir, setCurrentKey, isGameStarted, dispatch);
+  useKeyHandler(
+    snakeDir,
+    setCurrentKey,
+    startSnakeMovement,
+    isGameStarted,
+    dispatch,
+    isArrowsTempShown
+  );
 
   //draw on canvas
   useEffect(() => {
@@ -52,7 +67,7 @@ const SnakeTestC = () => {
       !context && setContext(canvasRef.current.getContext("2d"));
       clearBoard(context, gameWidth, gameHeight);
 
-      if (isGameStarted) {
+      if (isGameStarted || isGameOver) {
         drawObject(context, applePos, "red", itemSize);
         drawObject(context, snakeCoords, "black", itemSize);
       }
@@ -103,4 +118,4 @@ const SnakeTestC = () => {
   );
 };
 
-export default SnakeTestC;
+export default GameLayer;

@@ -1,27 +1,27 @@
-import {
-  DIR_DOWN,
-  DIR_LEFT,
-  DIR_RIGHT,
-  DIR_TYPES,
-  DIR_UP,
-} from "data/constants";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/constants";
 import { useEffect } from "react";
 import { AnyAction, Dispatch } from "redux";
+import { CounterState } from "Redux/slices/snakeSlice";
 
 interface IuseKeyHandler {
   (
-    snakeDir: DIR_TYPES,
-    setCurrentKey: any,
-    isGameStarted: boolean,
-    dispatch: Dispatch<AnyAction>
+    snakeDir: CounterState["snakeDir"],
+    setCurrentKey: ActionCreatorWithPayload<string, string>,
+    startSnakeMovement: ActionCreatorWithPayload<string, string>,
+    isGameStarted: CounterState["isGameStarted"],
+    dispatch: Dispatch<AnyAction>,
+    isArrowsTempShown: CounterState["isArrowsTempShown"]
   );
 }
 
 export const useKeyHandler: IuseKeyHandler = (
   snakeDir,
   setCurrentKey,
+  startSnakeMovement,
   isGameStarted,
-  dispatch
+  dispatch,
+  isArrowsTempShown
 ) => {
   useEffect(() => {
     const keysHandler = (ev: KeyboardEvent) => {
@@ -47,10 +47,28 @@ export const useKeyHandler: IuseKeyHandler = (
             dispatch(setCurrentKey(DIR_DOWN));
           }
         }
+
+        if (isArrowsTempShown) {
+          const startingMov = moveUp
+            ? DIR_UP
+            : moveRight
+            ? DIR_RIGHT
+            : moveDown
+            ? DIR_DOWN
+            : null;
+          startingMov && dispatch(startSnakeMovement(startingMov));
+        }
       }
     };
     document.addEventListener("keydown", keysHandler);
 
     return () => document.removeEventListener("keydown", keysHandler);
-  }, [snakeDir, dispatch, isGameStarted, setCurrentKey]);
+  }, [
+    snakeDir,
+    dispatch,
+    isGameStarted,
+    setCurrentKey,
+    isArrowsTempShown,
+    startSnakeMovement,
+  ]);
 };
