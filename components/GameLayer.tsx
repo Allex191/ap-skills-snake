@@ -1,5 +1,5 @@
 import { StyledGameLayer } from "components/index.styled";
-import { useInterval } from "hooks/useInterval";
+import { GAME_SPEED } from "data/constants";
 import { useKeyHandler } from "hooks/useKeyHandler";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,7 @@ import {
   setRandomApplePos,
   setSnakeDir,
   setSnakeNewCoords,
-  startSnakeMovement
+  startSnakeMovement,
 } from "Redux/slices/snakeSlice";
 import { getNextHeadPos } from "utils/getNextHeadPos";
 import {
@@ -18,7 +18,7 @@ import {
   checkIsAppleConsumed,
   clearBoard,
   drawObject,
-  getRandomApplePos
+  getRandomApplePos,
 } from "utils/utils";
 
 const GameLayer = () => {
@@ -40,8 +40,15 @@ const GameLayer = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
+  const prevTime = useRef(0);
+
   //start game loop when speed is non null
-  useInterval(gameLoop, gameSpeed);
+  // useInterval(gameLoop, gameSpeed);
+
+  useEffect(() => {
+    if (gameSpeed) window.requestAnimationFrame(gameLoop);
+  }, [gameSpeed]);
+
   useKeyHandler(
     snakeDir,
     setCurrentKey,
@@ -73,7 +80,16 @@ const GameLayer = () => {
     isGameOver,
   ]);
 
-  function gameLoop() {
+  function gameLoop(curTime) {
+    if (prevTime.current === 0 || curTime - prevTime.current >= GAME_SPEED) {
+      console.log(curTime - prevTime.current);
+      prevTime.current = curTime;
+      moveSnake();
+    }
+    window.requestAnimationFrame(gameLoop);
+  }
+
+  function moveSnake() {
     const newHeadPosition = getNextHeadPos(snakeCoords, itemSize, currentKey);
     const isSnakeCollided = chechIfSnakeCollided(
       newHeadPosition,
@@ -101,7 +117,10 @@ const GameLayer = () => {
       newSnakeArr.length !== 0 && newSnakeArr.pop();
     }
     dispatch(setSnakeNewCoords(newSnakeArr));
+    console.log("newSnakeArr", newSnakeArr);
     dispatch(setSnakeDir(currentKey));
+
+    console.log("loop running");
   }
 
   return (
