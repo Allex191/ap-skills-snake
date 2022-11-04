@@ -4,22 +4,9 @@ import { useKeyHandler } from "hooks/useKeyHandler";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
-import {
-  setCurrentKey,
-  setGameOver,
-  setRandomApplePos,
-  setSnakeDir,
-  setSnakeNewCoords,
-  startSnakeMovement,
-} from "Redux/slices/snakeSlice";
-import { getNextHeadPos } from "utils/getNextHeadPos";
-import {
-  chechIfSnakeCollided,
-  checkIsAppleConsumed,
-  clearBoard,
-  drawObject,
-  getRandomApplePos,
-} from "utils/utils";
+import { setCurrentKey, startSnakeMovement } from "Redux/slices/snakeSlice";
+import { snakeLogic } from "utils/snakeLogic";
+import { clearBoard, drawObject } from "utils/utils";
 
 const GameLayer = () => {
   const {
@@ -34,7 +21,9 @@ const GameLayer = () => {
   const { gameWidth, gameHeight, itemSize } = useSelector(
     (state: RootState) => state.snakeReducer.gameSizes
   );
-  const { snakeCoords } = useSelector((state: RootState) => state.snakeReducer);
+  const { snakeCoords, tempCount } = useSelector(
+    (state: RootState) => state.snakeReducer
+  );
   const dispatch = useDispatch();
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -45,9 +34,33 @@ const GameLayer = () => {
   //start game loop when speed is non null
   // useInterval(gameLoop, gameSpeed);
 
+  const gameLoop = (curTime?: DOMHighResTimeStamp) => {
+    if (curTime) {
+      if (prevTime.current === 0 || curTime - prevTime.current >= GAME_SPEED) {
+        console.log("gameLoop", curTime - prevTime.current);
+        prevTime.current = curTime;
+        snakeLogic(
+          snakeCoords,
+          itemSize,
+          currentKey,
+          gameWidth,
+          gameHeight,
+          applePos,
+          dispatch,
+          tempCount
+        );
+      }
+    }
+    window.requestAnimationFrame(gameLoop);
+  };
+
+  //start game loop
   useEffect(() => {
-    if (gameSpeed) window.requestAnimationFrame(gameLoop);
-  }, [gameSpeed]);
+    if (gameSpeed && isGameStarted) gameLoop();
+
+    //else stop gameLoop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameSpeed, isGameStarted]);
 
   useKeyHandler(
     snakeDir,
@@ -80,51 +93,13 @@ const GameLayer = () => {
     isGameOver,
   ]);
 
-  function gameLoop(curTime) {
-    if (prevTime.current === 0 || curTime - prevTime.current >= GAME_SPEED) {
-      console.log(curTime - prevTime.current);
-      prevTime.current = curTime;
-      moveSnake();
-    }
-    window.requestAnimationFrame(gameLoop);
-  }
-
-  function moveSnake() {
-    const newHeadPosition = getNextHeadPos(snakeCoords, itemSize, currentKey);
-    const isSnakeCollided = chechIfSnakeCollided(
-      newHeadPosition,
-      snakeCoords,
-      gameWidth,
-      gameHeight,
-      itemSize
-    );
-    if (isSnakeCollided) {
-      dispatch(setGameOver());
-      return;
-    }
-    const isAppleConsumed = checkIsAppleConsumed(newHeadPosition, applePos);
-    const newSnakeArr = [...newHeadPosition, ...snakeCoords];
-
-    if (isAppleConsumed) {
-      const randomApplePos = getRandomApplePos(
-        snakeCoords,
-        gameWidth,
-        gameHeight,
-        itemSize
-      );
-      dispatch(setRandomApplePos(randomApplePos));
-    } else {
-      newSnakeArr.length !== 0 && newSnakeArr.pop();
-    }
-    dispatch(setSnakeNewCoords(newSnakeArr));
-    console.log("newSnakeArr", newSnakeArr);
-    dispatch(setSnakeDir(currentKey));
-
-    console.log("loop running");
-  }
-
   return (
-    <StyledGameLayer ref={canvasRef} width={gameWidth} height={gameHeight} />
+    <>
+      <h1 style={{ color: "black", zIndex: "100", marginLeft: "auto" }}>
+        tempCount{tempCount}
+      </h1>
+      <StyledGameLayer ref={canvasRef} width={gameWidth} height={gameHeight} />
+    </>
   );
 };
 
