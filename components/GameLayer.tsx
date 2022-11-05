@@ -4,7 +4,11 @@ import { useKeyHandler } from "hooks/useKeyHandler";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
-import { setCurrentKey, startSnakeMovement } from "Redux/slices/snakeSlice";
+import {
+  setCurrentKey,
+  setTriggerToRunGameLogic,
+  startSnakeMovement,
+} from "Redux/slices/snakeSlice";
 import { snakeLogic } from "utils/snakeLogic";
 import { clearBoard, drawObject } from "utils/utils";
 
@@ -14,53 +18,66 @@ const GameLayer = () => {
     gameSpeed,
     applePos,
     snakeDir,
-    currentKey,
     isArrowsTempShown,
     isGameOver,
+    triggerToRunGameLogic,
+    currentKey,
   } = useSelector((state: RootState) => state.snakeReducer);
   const { gameWidth, gameHeight, itemSize } = useSelector(
     (state: RootState) => state.snakeReducer.gameSizes
   );
-  const { snakeCoords, tempCount } = useSelector(
-    (state: RootState) => state.snakeReducer
-  );
+  const { snakeCoords } = useSelector((state: RootState) => state.snakeReducer);
   const dispatch = useDispatch();
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
-  const prevTime = useRef(0);
+  const prevTimeRef = useRef(0);
+  const gameLoopRef = useRef(0);
 
   //start game loop when speed is non null
   // useInterval(gameLoop, gameSpeed);
 
   const gameLoop = (curTime?: DOMHighResTimeStamp) => {
     if (curTime) {
-      if (prevTime.current === 0 || curTime - prevTime.current >= GAME_SPEED) {
-        console.log("gameLoop", curTime - prevTime.current);
-        prevTime.current = curTime;
-        snakeLogic(
-          snakeCoords,
-          itemSize,
-          currentKey,
-          gameWidth,
-          gameHeight,
-          applePos,
-          dispatch,
-          tempCount
-        );
+      if (
+        prevTimeRef.current === 0 ||
+        curTime - prevTimeRef.current >= GAME_SPEED
+      ) {
+        console.log("gameLoop", curTime - prevTimeRef.current);
+        prevTimeRef.current = curTime;
+        dispatch(setTriggerToRunGameLogic(true));
+      } else {
+        dispatch(setTriggerToRunGameLogic(false));
       }
     }
-    window.requestAnimationFrame(gameLoop);
+    gameLoopRef.current = window.requestAnimationFrame(gameLoop);
   };
 
   //start game loop
   useEffect(() => {
-    if (gameSpeed && isGameStarted) gameLoop();
-
-    //else stop gameLoop
+    if (gameSpeed && isGameStarted) {
+      gameLoop();
+    } else {
+      window.cancelAnimationFrame(gameLoopRef.current);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameSpeed, isGameStarted]);
+
+  // run snake logic when trigger on
+  useEffect(() => {
+    if (triggerToRunGameLogic)
+      snakeLogic(
+        snakeCoords,
+        itemSize,
+        currentKey,
+        gameWidth,
+        gameHeight,
+        applePos,
+        dispatch
+      );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [triggerToRunGameLogic]);
 
   useKeyHandler(
     snakeDir,
@@ -95,9 +112,6 @@ const GameLayer = () => {
 
   return (
     <>
-      <h1 style={{ color: "black", zIndex: "100", marginLeft: "auto" }}>
-        tempCount{tempCount}
-      </h1>
       <StyledGameLayer ref={canvasRef} width={gameWidth} height={gameHeight} />
     </>
   );

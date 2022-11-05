@@ -17,8 +17,7 @@ export interface CounterState {
   applePos: TCanvasItemShape[];
   snakeDir: DIR_TYPES;
   currentKey: DIR_TYPES;
-  tempCount: number;
-  isSnakeMoving: boolean;
+  triggerToRunGameLogic: boolean;
 }
 
 const initialState: CounterState = {
@@ -36,8 +35,7 @@ const initialState: CounterState = {
   applePos: [{ x: 0, y: 0 }],
   snakeDir: DIR_RIGHT,
   currentKey: DIR_RIGHT,
-  tempCount: 0,
-  isSnakeMoving: false,
+  triggerToRunGameLogic: false,
 };
 
 export const snakeSlice = createSlice({
@@ -66,14 +64,12 @@ export const snakeSlice = createSlice({
       state.currentKey = action.payload;
       state.gameSpeed = GAME_SPEED;
       state.isArrowsTempShown = false;
-      state.isSnakeMoving = true;
     },
     setGameOver: (state) => {
       state.isGameOver = true;
       state.isGameStarted = false;
       state.gameSpeed = null;
       state.isUIShown = true;
-      state.isSnakeMoving = false;
     },
     setSnakeNewCoords: (state, action) => {
       state.snakeCoords = action.payload;
@@ -93,8 +89,8 @@ export const snakeSlice = createSlice({
     ) => {
       state.currentKey = action.payload;
     },
-    setTempCount: (state) => {
-      state.tempCount++;
+    setTriggerToRunGameLogic: (state, action) => {
+      state.triggerToRunGameLogic = action.payload;
     },
   },
 });
@@ -107,7 +103,7 @@ export const {
   setSnakeDir,
   setCurrentKey,
   startSnakeMovement,
-  setTempCount,
+  setTriggerToRunGameLogic,
 } = snakeSlice.actions;
 
 export default snakeSlice.reducer;

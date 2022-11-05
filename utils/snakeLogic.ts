@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import {
   setGameOver,
   setRandomApplePos,
@@ -20,7 +19,6 @@ export const snakeLogic = (
   gameHeight,
   applePos,
   dispatch,
-  tempCount
 ) => {
   const newHeadPosition = getNextHeadPos(snakeCoords, itemSize, currentKey);
   const isSnakeCollided = chechIfSnakeCollided(
@@ -52,5 +50,4 @@ export const snakeLogic = (
   console.log("newSnakeArr", newSnakeArr);
   dispatch(setSnakeDir(currentKey));
 
-  console.log("tempCount", tempCount);
 };

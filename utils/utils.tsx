@@ -46,9 +46,9 @@ export const getRandomApplePos = (
   let newPos = getXY();
 
   let isRepeated = true;
-  let tempCount = 0;
-  while (isRepeated && tempCount < 500) {
-    if (tempCount > 450)
+  let countTempDev = 0;
+  while (isRepeated && countTempDev < 500) {
+    if (countTempDev > 450)
       console.error("apple spawn in same area as snake or some error");
     snake.forEach((object) => {
       if (object.x !== newPos.x && object.y !== newPos.y) {
@@ -57,7 +57,7 @@ export const getRandomApplePos = (
         newPos = getXY();
       }
     });
-    tempCount++;
+    countTempDev++;
   }
   return [newPos];
 };
