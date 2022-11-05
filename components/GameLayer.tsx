@@ -35,9 +35,6 @@ const GameLayer = () => {
   const prevTimeRef = useRef(0);
   const gameLoopRef = useRef(0);
 
-  //start game loop when speed is non null
-  // useInterval(gameLoop, gameSpeed);
-
   const gameLoop = (curTime?: DOMHighResTimeStamp) => {
     if (curTime) {
       if (
@@ -46,9 +43,7 @@ const GameLayer = () => {
       ) {
         console.log("gameLoop", curTime - prevTimeRef.current);
         prevTimeRef.current = curTime;
-        dispatch(setTriggerToRunGameLogic(true));
-      } else {
-        dispatch(setTriggerToRunGameLogic(false));
+        dispatch(setTriggerToRunGameLogic());
       }
     }
     gameLoopRef.current = window.requestAnimationFrame(gameLoop);
@@ -61,7 +56,6 @@ const GameLayer = () => {
     } else {
       window.cancelAnimationFrame(gameLoopRef.current);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameSpeed, isGameStarted]);
 
   // run snake logic when trigger on
@@ -76,7 +70,6 @@ const GameLayer = () => {
         applePos,
         dispatch
       );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggerToRunGameLogic]);
 
   useKeyHandler(

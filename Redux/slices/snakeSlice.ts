@@ -89,8 +89,8 @@ export const snakeSlice = createSlice({
     ) => {
       state.currentKey = action.payload;
     },
-    setTriggerToRunGameLogic: (state, action) => {
-      state.triggerToRunGameLogic = action.payload;
+    setTriggerToRunGameLogic: (state) => {
+      state.triggerToRunGameLogic = !state.triggerToRunGameLogic;
     },
   },
 });
