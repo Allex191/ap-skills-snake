@@ -25,7 +25,11 @@ export default function Home() {
       </Head>
       <StyledContainer>
         <StyledOuterWrapper>
-          <StyledLayers scale={scale} gameWidth={windowWidth} gameHeight={windowHeight}>
+          <StyledLayers
+            scale={scale}
+            gameWidth={windowWidth}
+            gameHeight={windowHeight}
+          >
             <BackgroundLayer />
             <GameLayer />
             <UILayer />

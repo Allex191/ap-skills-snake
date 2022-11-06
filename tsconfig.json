@@ -13,7 +13,7 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "typeRoots": ["./node_modules/@types"],
     "lib": ["dom", "es2015", "es2016"],
     "forceConsistentCasingInFileNames": true,
@@ -36,6 +36,6 @@
     // "strictNullChecks": true,
     "noImplicitAny": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "components/TimerTestC.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "src/components/TimerTestC.tsx"],
   "exclude": ["node_modules", ".next"]
 }

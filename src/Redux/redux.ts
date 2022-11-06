@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import snakeReducer from "./slices/snakeSlice";
-import viewReducer from "./slices/viewSlice";
+import snakeReducer from "Redux/slices/snakeSlice";
+import viewReducer from "Redux/slices/viewSlice";
 
 export const store = configureStore({
   reducer: { snakeReducer, viewReducer },

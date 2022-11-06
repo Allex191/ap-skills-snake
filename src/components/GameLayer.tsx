@@ -33,20 +33,20 @@ const GameLayer = () => {
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
   const prevTimeRef = useRef(0);
-  const gameLoopRef = useRef(0);
+  const gameLoopIDRef = useRef(0);
 
   const gameLoop = (curTime?: DOMHighResTimeStamp) => {
     if (curTime) {
-      if (
-        prevTimeRef.current === 0 ||
-        curTime - prevTimeRef.current >= GAME_SPEED - ONE_FRAME_TIME
-      ) {
+      const isFirstRun = prevTimeRef.current === 0;
+      const isFrameDelayElapsed =
+        curTime - prevTimeRef.current >= GAME_SPEED - ONE_FRAME_TIME / 2;
+      if (isFirstRun || isFrameDelayElapsed) {
         console.log("gameLoop", curTime - prevTimeRef.current);
         prevTimeRef.current = curTime;
         dispatch(setTriggerToRunGameLogic());
       }
     }
-    gameLoopRef.current = window.requestAnimationFrame(gameLoop);
+    gameLoopIDRef.current = window.requestAnimationFrame(gameLoop);
   };
 
   //start game loop
@@ -54,7 +54,7 @@ const GameLayer = () => {
     if (gameSpeed) {
       gameLoop();
     } else {
-      window.cancelAnimationFrame(gameLoopRef.current);
+      window.cancelAnimationFrame(gameLoopIDRef.current);
     }
   }, [gameSpeed]);
 
