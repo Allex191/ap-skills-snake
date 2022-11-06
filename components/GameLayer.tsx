@@ -1,5 +1,5 @@
 import { StyledGameLayer } from "components/index.styled";
-import { GAME_SPEED } from "data/constants";
+import { GAME_SPEED, ONE_FRAME_TIME } from "data/constants";
 import { useKeyHandler } from "hooks/useKeyHandler";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +39,7 @@ const GameLayer = () => {
     if (curTime) {
       if (
         prevTimeRef.current === 0 ||
-        curTime - prevTimeRef.current >= GAME_SPEED
+        curTime - prevTimeRef.current >= GAME_SPEED - ONE_FRAME_TIME
       ) {
         console.log("gameLoop", curTime - prevTimeRef.current);
         prevTimeRef.current = curTime;
@@ -51,12 +51,12 @@ const GameLayer = () => {
 
   //start game loop
   useEffect(() => {
-    if (gameSpeed && isGameStarted) {
+    if (gameSpeed) {
       gameLoop();
     } else {
       window.cancelAnimationFrame(gameLoopRef.current);
     }
-  }, [gameSpeed, isGameStarted]);
+  }, [gameSpeed]);
 
   // run snake logic when trigger on
   useEffect(() => {

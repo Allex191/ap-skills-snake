@@ -9,11 +9,13 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 ### Live Demo
 
 ---
+
 ## _To Do_
 
 #### High-Priority
-- fix promise backgroundLayer img.onload
 
+- fix promise backgroundLayer img.onload
+- onLoad game calculate one frame value to be subtracted from gameSpeed
 
 #### Medium-Priority
 
@@ -23,13 +25,13 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 - fontsource
 
 #### Uncategorized
+
 - mobile navigation
 - color change based on collected items
 - sound effects
 - dark theme
 - high score/local storage
-- movement animation 
-- change from timeout to requestAnimationFrame()
-- prerender canvas elements 
+- movement animation
+- prerender canvas elements
 - option -+ for responsive padding or scale
 - getNeaxtPos refactor

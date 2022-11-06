@@ -1,4 +1,5 @@
 export const GAME_SPEED = 200;
+export const ONE_FRAME_TIME = 16.6;
 export const GAME_WIDTH = 800;
 export const GAME_HEIGHT = 800;
 export const SCREEN_PADDING = 200;
