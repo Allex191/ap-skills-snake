@@ -3,30 +3,20 @@ import { GAME_SPEED, ONE_FRAME_TIME } from "data/constants";
 import { useKeyHandler } from "hooks/useKeyHandler";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { moveSnake } from "Redux/actions/actions";
 import { RootState } from "Redux/redux";
-import {
-  setCurrentKey,
-  setTriggerToRunGameLogic,
-  startSnakeMovement,
-} from "Redux/slices/snakeSlice";
-import { snakeLogic } from "utils/snakeLogic";
+import { setCurrentKey, startSnakeMovement } from "Redux/slices/snakeSlice";
 import { clearBoard, drawObject } from "utils/utils";
 
 const GameLayer = () => {
-  const {
-    isGameStarted,
-    gameSpeed,
-    applePos,
-    snakeDir,
-    isArrowsTempShown,
-    isGameOver,
-    triggerToRunGameLogic,
-    currentKey,
-  } = useSelector((state: RootState) => state.snakeReducer);
+  const { isGameStarted, applePos, snakeDir, isArrowsTempShown, isGameOver } =
+    useSelector((state: RootState) => state.snakeReducer);
   const { gameWidth, gameHeight, itemSize } = useSelector(
     (state: RootState) => state.snakeReducer.gameSizes
   );
-  const { snakeCoords } = useSelector((state: RootState) => state.snakeReducer);
+  const { snakeCoords, isSnakeReadyToMove } = useSelector(
+    (state: RootState) => state.snakeReducer
+  );
   const dispatch = useDispatch();
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -43,7 +33,7 @@ const GameLayer = () => {
       if (isFirstRun || isFrameDelayElapsed) {
         console.log("gameLoop", curTime - prevTimeRef.current);
         prevTimeRef.current = curTime;
-        dispatch(setTriggerToRunGameLogic());
+        dispatch(moveSnake());
       }
     }
     gameLoopIDRef.current = window.requestAnimationFrame(gameLoop);
@@ -51,26 +41,12 @@ const GameLayer = () => {
 
   //start game loop
   useEffect(() => {
-    if (gameSpeed) {
+    if (isSnakeReadyToMove) {
       gameLoop();
     } else {
       window.cancelAnimationFrame(gameLoopIDRef.current);
     }
-  }, [gameSpeed]);
-
-  // run snake logic when trigger on
-  useEffect(() => {
-    if (triggerToRunGameLogic)
-      snakeLogic(
-        snakeCoords,
-        itemSize,
-        currentKey,
-        gameWidth,
-        gameHeight,
-        applePos,
-        dispatch
-      );
-  }, [triggerToRunGameLogic]);
+  }, [isSnakeReadyToMove]);
 
   useKeyHandler(
     snakeDir,

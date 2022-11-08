@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DIR_RIGHT, DIR_TYPES, GAME_SPEED } from "data/constants";
 import { getRandomApplePos, TCanvasItemShape } from "utils/utils";
 
-export interface CounterState {
+export interface IsnakeSliceState {
   isUIShown: boolean;
   isGameStarted: boolean;
   isGameOver: null | boolean;
@@ -13,6 +13,8 @@ export interface CounterState {
     itemSize: number;
   };
   snakeCoords: TCanvasItemShape[];
+  isSnakeReadyToMove: boolean;
+
   isArrowsTempShown: boolean;
   applePos: TCanvasItemShape[];
   snakeDir: DIR_TYPES;
@@ -20,17 +22,18 @@ export interface CounterState {
   triggerToRunGameLogic: boolean;
 }
 
-const initialState: CounterState = {
+const initialState: IsnakeSliceState = {
   isUIShown: true,
   isGameStarted: false,
   isGameOver: null,
-  gameSpeed: null,
+  gameSpeed: GAME_SPEED,
   gameSizes: {
     gameWidth: 800,
     gameHeight: 800,
     itemSize: 40,
   },
   snakeCoords: [{ x: 0, y: 0 }],
+  isSnakeReadyToMove: false,
   isArrowsTempShown: false,
   applePos: [{ x: 0, y: 0 }],
   snakeDir: DIR_RIGHT,
@@ -59,16 +62,17 @@ export const snakeSlice = createSlice({
     },
     startSnakeMovement: (
       state,
-      action: PayloadAction<CounterState["currentKey"]>
+      action: PayloadAction<IsnakeSliceState["currentKey"]>
     ) => {
       state.currentKey = action.payload;
-      state.gameSpeed = GAME_SPEED;
+      state.isSnakeReadyToMove = true;
       state.isArrowsTempShown = false;
     },
     setGameOver: (state) => {
       state.isGameOver = true;
       state.isGameStarted = false;
-      state.gameSpeed = null;
+      state.isSnakeReadyToMove = false;
+
       state.isUIShown = true;
     },
     setSnakeNewCoords: (state, action) => {
@@ -76,7 +80,7 @@ export const snakeSlice = createSlice({
     },
     setRandomApplePos: (
       state,
-      action: PayloadAction<CounterState["applePos"]>
+      action: PayloadAction<IsnakeSliceState["applePos"]>
     ) => {
       state.applePos = action.payload;
     },
@@ -85,7 +89,7 @@ export const snakeSlice = createSlice({
     },
     setCurrentKey: (
       state,
-      action: PayloadAction<CounterState["currentKey"]>
+      action: PayloadAction<IsnakeSliceState["currentKey"]>
     ) => {
       state.currentKey = action.payload;
     },

@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GAME_WIDTH, SCREEN_PADDING } from "data/constants";
 
-export interface CounterState {
+export interface IviewSliceState {
   windowWidth: number;
   windowHeight: number;
   scale: number;
 }
 
-const initialState: CounterState = {
+const initialState: IviewSliceState = {
   windowWidth: 800,
   windowHeight: 800,
   scale: 1,

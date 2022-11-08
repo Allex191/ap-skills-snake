@@ -2,19 +2,19 @@ import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/constants";
 import { useEffect } from "react";
 import { AnyAction, Dispatch } from "redux";
 import {
-  CounterState,
+  IsnakeSliceState,
   startSnakeMovement as IstartSnakeMovement,
   setCurrentKey as IsetCurrentKey,
 } from "Redux/slices/snakeSlice";
 
 interface IuseKeyHandler {
   (
-    snakeDir: CounterState["snakeDir"],
+    snakeDir: IsnakeSliceState["snakeDir"],
     setCurrentKey: typeof IsetCurrentKey,
     startSnakeMovement: typeof IstartSnakeMovement,
-    isGameStarted: CounterState["isGameStarted"],
+    isGameStarted: IsnakeSliceState["isGameStarted"],
     dispatch: Dispatch<AnyAction>,
-    isArrowsTempShown: CounterState["isArrowsTempShown"]
+    isArrowsTempShown: IsnakeSliceState["isArrowsTempShown"]
   );
 }
 

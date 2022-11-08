@@ -1,10 +1,10 @@
 import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/constants";
-import { CounterState } from "Redux/slices/snakeSlice";
+import { IsnakeSliceState } from "Redux/slices/snakeSlice";
 
 export const getNextHeadPos = (
-  snakeCoords: CounterState["snakeCoords"],
-  itemSize: CounterState["gameSizes"]["itemSize"],
-  currentKey: CounterState["currentKey"]
+  snakeCoords: IsnakeSliceState["snakeCoords"],
+  itemSize: IsnakeSliceState["gameSizes"]["itemSize"],
+  currentKey: IsnakeSliceState["currentKey"]
 ) => {
   const snakeMoves = {
     [DIR_UP]: { x: snakeCoords[0]!.x, y: snakeCoords[0]!.y - itemSize },
