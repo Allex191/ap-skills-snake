@@ -14,14 +14,14 @@ export interface Idirections {
 }
 
 export const useKeysHandler: IuseKeysHandler = (dispatch) => {
-  console.log("dispatch", dispatch);
   useEffect(() => {
     const keysHandler = (ev: KeyboardEvent) => {
+      console.log( ev.code)
       const directions: Idirections = {
-        moveUp: ev.key === "w" || ev.key === "ArrowUp",
-        moveDown: ev.key === "s" || ev.key === "ArrowDown",
-        moveLeft: ev.key === "a" || ev.key === "ArrowLeft",
-        moveRight: ev.key === "d" || ev.key === "ArrowRight",
+        moveUp: ev.code === "KeyW" || ev.key === "ArrowUp",
+        moveDown: ev.code === "KeyS" || ev.key === "ArrowDown",
+        moveLeft: ev.code === "KeyA" || ev.key === "ArrowLeft",
+        moveRight: ev.code=== "KeyD" || ev.key === "ArrowRight",
       };
       dispatch(userPressedMoveSnakeKey(directions));
     };

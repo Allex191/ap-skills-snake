@@ -57,6 +57,5 @@ export const startSnakeLogic = (
     newSnakeArr.length !== 0 && newSnakeArr.pop();
   }
   dispatch(setSnakeNewCoords(newSnakeArr));
-  console.log("newSnakeArr", newSnakeArr);
   dispatch(setSnakeDir(currentKey));
 };

@@ -50,7 +50,7 @@ const BackgroundLayer = () => {
       clearBoard(context, gameWidth, gameHeight);
       context && drawBackground(context);
     }
-  }, [context, drawBackground]);
+  }, [context, drawBackground, gameHeight, gameWidth]);
 
   return (
     <StyledBackgroundLayer

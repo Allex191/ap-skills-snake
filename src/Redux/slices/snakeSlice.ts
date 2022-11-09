@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DIR_RIGHT, DIR_TYPES, GAME_SPEED } from "data/constants";
+import {
+  DIR_RIGHT,
+  DIR_TYPES,
+  GAME_HEIGHT,
+  GAME_SPEED,
+  GAME_WIDTH,
+  ITEM_SIZE,
+} from "data/constants";
 import { getRandomApplePos, TCanvasItemShape } from "utils/utils";
 
 export interface IsnakeSliceState {
@@ -28,9 +35,9 @@ const initialState: IsnakeSliceState = {
   isGameOver: null,
   gameSpeed: GAME_SPEED,
   gameSizes: {
-    gameWidth: 800,
-    gameHeight: 800,
-    itemSize: 40,
+    gameWidth: GAME_WIDTH,
+    gameHeight: GAME_HEIGHT,
+    itemSize: ITEM_SIZE,
   },
   snakeCoords: [{ x: 0, y: 0 }],
   isSnakeReadyToMove: false,

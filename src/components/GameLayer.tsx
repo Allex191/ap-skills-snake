@@ -25,19 +25,22 @@ const GameLayer = () => {
   const prevTimeRef = useRef(0);
   const gameLoopIDRef = useRef(0);
 
-  const gameLoop = useCallback((curTime?: DOMHighResTimeStamp) => {
-    if (curTime) {
-      const isFirstRun = prevTimeRef.current === 0;
-      const isFrameDelayElapsed =
-        curTime - prevTimeRef.current >= GAME_SPEED - ONE_FRAME_TIME / 2;
-      if (isFirstRun || isFrameDelayElapsed) {
-        console.log("gameLoop", curTime - prevTimeRef.current);
-        prevTimeRef.current = curTime;
-        dispatch(moveSnake());
+  const gameLoop = useCallback(
+    (curTime?: DOMHighResTimeStamp) => {
+      if (curTime) {
+        const isFirstRun = prevTimeRef.current === 0;
+        const isFrameDelayElapsed =
+          curTime - prevTimeRef.current >= GAME_SPEED - ONE_FRAME_TIME / 2;
+        if (isFirstRun || isFrameDelayElapsed) {
+          console.log("gameLoop", curTime - prevTimeRef.current);
+          prevTimeRef.current = curTime;
+          dispatch(moveSnake());
+        }
       }
-    }
-    gameLoopIDRef.current = window.requestAnimationFrame(gameLoop);
-  },[dispatch]);
+      gameLoopIDRef.current = window.requestAnimationFrame(gameLoop);
+    },
+    [dispatch]
+  );
 
   //start/stop game loop
   useEffect(() => {

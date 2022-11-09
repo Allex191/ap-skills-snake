@@ -36,3 +36,4 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 - option -+ for responsive padding or scale
 - getNeaxtPos refactor
 - while loop applePos fix/enable
+- fix first move without direction restriction
