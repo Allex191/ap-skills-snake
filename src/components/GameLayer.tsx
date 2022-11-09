@@ -1,16 +1,16 @@
 import { StyledGameLayer } from "components/index.styled";
 import { GAME_SPEED, ONE_FRAME_TIME } from "data/constants";
-import { useKeyHandler } from "hooks/useKeyHandler";
-import { useEffect, useRef, useState } from "react";
+import { useKeysHandler } from "hooks/useKeysHandler";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveSnake } from "Redux/actions/actions";
 import { RootState } from "Redux/redux";
-import { setCurrentKey, startSnakeMovement } from "Redux/slices/snakeSlice";
 import { clearBoard, drawObject } from "utils/utils";
 
 const GameLayer = () => {
-  const { isGameStarted, applePos, snakeDir, isArrowsTempShown, isGameOver } =
-    useSelector((state: RootState) => state.snakeReducer);
+  const { isGameStarted, applePos, isGameOver } = useSelector(
+    (state: RootState) => state.snakeReducer
+  );
   const { gameWidth, gameHeight, itemSize } = useSelector(
     (state: RootState) => state.snakeReducer.gameSizes
   );
@@ -25,7 +25,7 @@ const GameLayer = () => {
   const prevTimeRef = useRef(0);
   const gameLoopIDRef = useRef(0);
 
-  const gameLoop = (curTime?: DOMHighResTimeStamp) => {
+  const gameLoop = useCallback((curTime?: DOMHighResTimeStamp) => {
     if (curTime) {
       const isFirstRun = prevTimeRef.current === 0;
       const isFrameDelayElapsed =
@@ -37,25 +37,19 @@ const GameLayer = () => {
       }
     }
     gameLoopIDRef.current = window.requestAnimationFrame(gameLoop);
-  };
+  },[dispatch]);
 
-  //start game loop
+  //start/stop game loop
   useEffect(() => {
     if (isSnakeReadyToMove) {
       gameLoop();
     } else {
       window.cancelAnimationFrame(gameLoopIDRef.current);
     }
-  }, [isSnakeReadyToMove]);
+  }, [gameLoop, isSnakeReadyToMove]);
 
-  useKeyHandler(
-    snakeDir,
-    setCurrentKey,
-    startSnakeMovement,
-    isGameStarted,
-    dispatch,
-    isArrowsTempShown
-  );
+  //dispatch userKeys
+  useKeysHandler(dispatch);
 
   //draw on canvas
   useEffect(() => {

@@ -35,3 +35,4 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 - prerender canvas elements
 - option -+ for responsive padding or scale
 - getNeaxtPos refactor
+- while loop applePos fix/enable
