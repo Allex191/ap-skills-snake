@@ -1,8 +1,17 @@
-import { AnyAction, ListenerEffectAPI, ThunkDispatch } from "@reduxjs/toolkit";
+import {
+  AnyAction,
+  createAction,
+  ListenerEffectAPI,
+  ThunkDispatch,
+} from "@reduxjs/toolkit";
 import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/constants";
 import { Idirections } from "hooks/useKeysHandler";
 import { RootState } from "Redux/redux";
 import { setCurrentKey, startSnakeMovement } from "Redux/slices/snakeSlice";
+
+export const userPressedMoveSnakeKey = createAction<Idirections>(
+  "snake/manageUserMoveSnakeKey"
+);
 
 export const manageUserMoveSnakeKey = (
   action: {
@@ -20,6 +29,9 @@ export const manageUserMoveSnakeKey = (
 
   const dispatch = listenerApi.dispatch;
   const { moveLeft, moveRight, moveUp, moveDown } = action.payload;
+  console.log("payload", action.payload);
+  console.log(action.payload);
+  console.log(moveLeft, moveRight, moveUp, moveDown);
 
   if (isGameStarted) {
     if (snakeDir === DIR_UP || snakeDir === DIR_DOWN) {

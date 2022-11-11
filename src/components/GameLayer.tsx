@@ -3,7 +3,7 @@ import { GAME_SPEED, ONE_FRAME_TIME } from "data/constants";
 import { useKeysHandler } from "hooks/useKeysHandler";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { moveSnake } from "Redux/actions/actions";
+import { moveSnake } from "Redux/middleware/startSnakeLogic";
 import { RootState } from "Redux/redux";
 import { clearBoard, drawObject } from "utils/utils";
 
@@ -16,6 +16,10 @@ const GameLayer = () => {
   );
   const { snakeCoords, isSnakeReadyToMove } = useSelector(
     (state: RootState) => state.snakeReducer
+  );
+
+  const { spawnedImage, collectedImages } = useSelector(
+    (state: RootState) => state.snakeReducer.skillsImagesData
   );
   const dispatch = useDispatch();
 
@@ -61,20 +65,11 @@ const GameLayer = () => {
       clearBoard(context, gameWidth, gameHeight);
 
       if (isGameStarted || isGameOver) {
-        drawObject(context, applePos, "red", itemSize);
-        drawObject(context, snakeCoords, "black", itemSize);
+        drawObject(context, itemSize, applePos, spawnedImage);
+        drawObject(context, itemSize, snakeCoords, collectedImages);
       }
     }
-  }, [
-    snakeCoords,
-    context,
-    applePos,
-    gameWidth,
-    gameHeight,
-    itemSize,
-    isGameStarted,
-    isGameOver,
-  ]);
+  }, [snakeCoords, isGameStarted, isGameOver]);
 
   return (
     <>

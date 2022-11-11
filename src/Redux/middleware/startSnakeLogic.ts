@@ -1,4 +1,9 @@
-import { AnyAction, ListenerEffectAPI, ThunkDispatch } from "@reduxjs/toolkit";
+import {
+  AnyAction,
+  createAction,
+  ListenerEffectAPI,
+  ThunkDispatch,
+} from "@reduxjs/toolkit";
 import { RootState } from "Redux/redux";
 import {
   setGameOver,
@@ -12,6 +17,8 @@ import {
   checkIsAppleConsumed,
   getRandomApplePos,
 } from "utils/utils";
+
+export const moveSnake = createAction<undefined>("snake/startSnakeLogic");
 
 export const startSnakeLogic = (
   _action: AnyAction,

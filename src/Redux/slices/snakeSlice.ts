@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AllSkillsImages, ALL_SKILLS_IMAGES } from "data/canvasImages";
 import {
   DIR_RIGHT,
   DIR_TYPES,
@@ -7,9 +8,9 @@ import {
   GAME_WIDTH,
   ITEM_SIZE,
 } from "data/constants";
-import { getRandomApplePos, TCanvasItemShape } from "utils/utils";
+import { getRandomApplePos, CanvasItemShape } from "utils/utils";
 
-export interface IsnakeSliceState {
+export interface SnakeSliceState {
   isUIShown: boolean;
   isGameStarted: boolean;
   isGameOver: null | boolean;
@@ -19,17 +20,21 @@ export interface IsnakeSliceState {
     gameHeight: number;
     itemSize: number;
   };
-  snakeCoords: TCanvasItemShape[];
+  snakeCoords: CanvasItemShape[];
   isSnakeReadyToMove: boolean;
-
   isArrowsTempShown: boolean;
-  applePos: TCanvasItemShape[];
+  applePos: CanvasItemShape[];
   snakeDir: DIR_TYPES;
   currentKey: DIR_TYPES;
   triggerToRunGameLogic: boolean;
+  skillsImagesData: {
+    allSkillsImages: AllSkillsImages;
+    spawnedImage: AllSkillsImages;
+    collectedImages: AllSkillsImages;
+  };
 }
 
-const initialState: IsnakeSliceState = {
+const initialState: SnakeSliceState = {
   isUIShown: true,
   isGameStarted: false,
   isGameOver: null,
@@ -46,6 +51,11 @@ const initialState: IsnakeSliceState = {
   snakeDir: DIR_RIGHT,
   currentKey: DIR_RIGHT,
   triggerToRunGameLogic: false,
+  skillsImagesData: {
+    allSkillsImages: ALL_SKILLS_IMAGES,
+    spawnedImage: [ALL_SKILLS_IMAGES[1]!],
+    collectedImages: [ALL_SKILLS_IMAGES[0]!],
+  },
 };
 
 export const snakeSlice = createSlice({
@@ -69,7 +79,7 @@ export const snakeSlice = createSlice({
     },
     startSnakeMovement: (
       state,
-      action: PayloadAction<IsnakeSliceState["currentKey"]>
+      action: PayloadAction<SnakeSliceState["currentKey"]>
     ) => {
       state.currentKey = action.payload;
       state.isSnakeReadyToMove = true;
@@ -87,7 +97,7 @@ export const snakeSlice = createSlice({
     },
     setRandomApplePos: (
       state,
-      action: PayloadAction<IsnakeSliceState["applePos"]>
+      action: PayloadAction<SnakeSliceState["applePos"]>
     ) => {
       state.applePos = action.payload;
     },
@@ -96,7 +106,7 @@ export const snakeSlice = createSlice({
     },
     setCurrentKey: (
       state,
-      action: PayloadAction<IsnakeSliceState["currentKey"]>
+      action: PayloadAction<SnakeSliceState["currentKey"]>
     ) => {
       state.currentKey = action.payload;
     },

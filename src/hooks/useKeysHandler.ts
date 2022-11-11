@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { AnyAction, Dispatch } from "redux";
-import { userPressedMoveSnakeKey } from "Redux/actions/actions";
+import { userPressedMoveSnakeKey } from "Redux/middleware/manageUserMoveSnakeKey";
 
 interface IuseKeysHandler {
   (dispatch: Dispatch<AnyAction>);
@@ -16,12 +16,12 @@ export interface Idirections {
 export const useKeysHandler: IuseKeysHandler = (dispatch) => {
   useEffect(() => {
     const keysHandler = (ev: KeyboardEvent) => {
-      console.log( ev.code)
+      console.log(ev.code);
       const directions: Idirections = {
         moveUp: ev.code === "KeyW" || ev.key === "ArrowUp",
         moveDown: ev.code === "KeyS" || ev.key === "ArrowDown",
         moveLeft: ev.code === "KeyA" || ev.key === "ArrowLeft",
-        moveRight: ev.code=== "KeyD" || ev.key === "ArrowRight",
+        moveRight: ev.code === "KeyD" || ev.key === "ArrowRight",
       };
       dispatch(userPressedMoveSnakeKey(directions));
     };

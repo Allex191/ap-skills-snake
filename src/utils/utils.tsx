@@ -1,3 +1,6 @@
+import { AllSkillsImages } from "data/canvasImages";
+import { CANVAS_ITEM_STROKE_STYLE } from "data/constants";
+
 export const clearBoard = (
   context: CanvasRenderingContext2D | null,
   gameWidth: number,
@@ -8,24 +11,25 @@ export const clearBoard = (
   }
 };
 
-export type TCanvasItemShape = {
+export type CanvasItemShape = {
   x: number;
   y: number;
 };
 
 export const drawObject = (
   context: CanvasRenderingContext2D | null,
-  objectBody: TCanvasItemShape[],
-  fillColor: string,
   itemSize: number,
-  strokeStyle = "#146356"
+  objectBody: CanvasItemShape[],
+  imagesArr: AllSkillsImages,
+  strokeStyle = CANVAS_ITEM_STROKE_STYLE
 ) => {
   if (context) {
-    objectBody.forEach((object: TCanvasItemShape) => {
-      context.fillStyle = fillColor;
-      context.strokeStyle = strokeStyle;
-      context?.fillRect(object.x, object.y, itemSize, itemSize);
-      context?.strokeRect(object.x, object.y, itemSize, itemSize);
+    objectBody.forEach((object, i) => {
+      const img = new Image();
+      img.src = imagesArr[i]!.url;
+      img.onload = () => {
+        context.drawImage(img, object.y, object.x, itemSize, itemSize);
+      };
     });
   }
 };
@@ -105,5 +109,3 @@ export const getWindowSize = () => {
   };
   return windowSize;
 };
-
-

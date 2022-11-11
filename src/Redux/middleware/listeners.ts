@@ -1,4 +1,5 @@
-import { userPressedMoveSnakeKey, moveSnake } from "Redux/actions/actions";
+import { userPressedMoveSnakeKey } from "Redux/middleware/manageUserMoveSnakeKey";
+import { moveSnake } from "Redux/middleware/startSnakeLogic";
 import { startAppListening } from "./listenerMiddleware";
 import { manageUserMoveSnakeKey } from "./manageUserMoveSnakeKey";
 import { startSnakeLogic } from "./startSnakeLogic";
@@ -12,5 +13,4 @@ export const startListeners = () => {
     actionCreator: userPressedMoveSnakeKey,
     effect: manageUserMoveSnakeKey,
   });
-
 };
