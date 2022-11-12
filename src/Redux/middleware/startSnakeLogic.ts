@@ -10,6 +10,7 @@ import {
   setRandomApplePos,
   setSnakeDir,
   setSnakeNewCoords,
+  updateSkillsImages,
 } from "Redux/slices/snakeSlice";
 import { getNextHeadPos } from "utils/getNextHeadPos";
 import {
@@ -60,6 +61,7 @@ export const startSnakeLogic = (
       gameSizes.itemSize
     );
     dispatch(setRandomApplePos(randomApplePos));
+    dispatch(updateSkillsImages());
   } else {
     newSnakeArr.length !== 0 && newSnakeArr.pop();
   }

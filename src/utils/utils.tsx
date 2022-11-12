@@ -1,4 +1,4 @@
-import { AllSkillsImages } from "data/canvasImages";
+import { SkillImageArrShape, FALLBACK_IMAGE } from "data/canvasImages";
 import { CANVAS_ITEM_STROKE_STYLE } from "data/constants";
 
 export const clearBoard = (
@@ -20,15 +20,15 @@ export const drawObject = (
   context: CanvasRenderingContext2D | null,
   itemSize: number,
   objectBody: CanvasItemShape[],
-  imagesArr: AllSkillsImages,
+  imagesArr: SkillImageArrShape,
   strokeStyle = CANVAS_ITEM_STROKE_STYLE
 ) => {
   if (context) {
     objectBody.forEach((object, i) => {
       const img = new Image();
-      img.src = imagesArr[i]!.url;
+      img.src = imagesArr[i]?.url || FALLBACK_IMAGE;
       img.onload = () => {
-        context.drawImage(img, object.y, object.x, itemSize, itemSize);
+        context.drawImage(img, object.x, object.y, itemSize, itemSize);
       };
     });
   }

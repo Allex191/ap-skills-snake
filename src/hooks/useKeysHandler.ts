@@ -16,7 +16,6 @@ export interface Idirections {
 export const useKeysHandler: IuseKeysHandler = (dispatch) => {
   useEffect(() => {
     const keysHandler = (ev: KeyboardEvent) => {
-      console.log(ev.code);
       const directions: Idirections = {
         moveUp: ev.code === "KeyW" || ev.key === "ArrowUp",
         moveDown: ev.code === "KeyS" || ev.key === "ArrowDown",

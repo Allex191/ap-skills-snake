@@ -29,9 +29,6 @@ export const manageUserMoveSnakeKey = (
 
   const dispatch = listenerApi.dispatch;
   const { moveLeft, moveRight, moveUp, moveDown } = action.payload;
-  console.log("payload", action.payload);
-  console.log(action.payload);
-  console.log(moveLeft, moveRight, moveUp, moveDown);
 
   if (isGameStarted) {
     if (snakeDir === DIR_UP || snakeDir === DIR_DOWN) {

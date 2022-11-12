@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AllSkillsImages, ALL_SKILLS_IMAGES } from "data/canvasImages";
+import {
+  SkillImageArrShape,
+  ALL_SKILLS_IMAGES,
+  FIRST_IMAGE_ARR,
+  SECOND_IMAGE_ARR,
+} from "data/canvasImages";
 import {
   DIR_RIGHT,
   DIR_TYPES,
@@ -28,9 +33,9 @@ export interface SnakeSliceState {
   currentKey: DIR_TYPES;
   triggerToRunGameLogic: boolean;
   skillsImagesData: {
-    allSkillsImages: AllSkillsImages;
-    spawnedImage: AllSkillsImages;
-    collectedImages: AllSkillsImages;
+    allSkillsImages: SkillImageArrShape;
+    spawnedImage: SkillImageArrShape;
+    collectedImages: SkillImageArrShape;
   };
 }
 
@@ -53,8 +58,8 @@ const initialState: SnakeSliceState = {
   triggerToRunGameLogic: false,
   skillsImagesData: {
     allSkillsImages: ALL_SKILLS_IMAGES,
-    spawnedImage: [ALL_SKILLS_IMAGES[1]!],
-    collectedImages: [ALL_SKILLS_IMAGES[0]!],
+    spawnedImage: SECOND_IMAGE_ARR,
+    collectedImages: FIRST_IMAGE_ARR,
   },
 };
 
@@ -76,6 +81,9 @@ export const snakeSlice = createSlice({
         state.gameSizes.gameHeight,
         state.gameSizes.itemSize
       );
+
+      state.skillsImagesData.spawnedImage = SECOND_IMAGE_ARR;
+      state.skillsImagesData.collectedImages = FIRST_IMAGE_ARR;
     },
     startSnakeMovement: (
       state,
@@ -89,7 +97,6 @@ export const snakeSlice = createSlice({
       state.isGameOver = true;
       state.isGameStarted = false;
       state.isSnakeReadyToMove = false;
-
       state.isUIShown = true;
     },
     setSnakeNewCoords: (state, action) => {
@@ -113,6 +120,15 @@ export const snakeSlice = createSlice({
     setTriggerToRunGameLogic: (state) => {
       state.triggerToRunGameLogic = !state.triggerToRunGameLogic;
     },
+    updateSkillsImages: (state) => {
+      const collectedImages = state.skillsImagesData.collectedImages;
+      const spawnedImageArr = state.skillsImagesData.spawnedImage;
+      const allSkillsImages = state.skillsImagesData.allSkillsImages;
+      const indexToMatchLastImage = state.snakeCoords.length + 1;
+
+      collectedImages.push(spawnedImageArr[0]!);
+      spawnedImageArr[0] = allSkillsImages[indexToMatchLastImage]!;
+    },
   },
 });
 
@@ -125,6 +141,7 @@ export const {
   setCurrentKey,
   startSnakeMovement,
   setTriggerToRunGameLogic,
+  updateSkillsImages,
 } = snakeSlice.actions;
 
 export default snakeSlice.reducer;
