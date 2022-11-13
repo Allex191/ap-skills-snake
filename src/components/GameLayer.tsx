@@ -1,10 +1,15 @@
 import { StyledGameLayer } from "components/index.styled";
+import {
+  STROKE_STYLE_COLLECTED_ITEMS,
+  STROKE_STYLE_SPAWNED_ITEM,
+} from "data/canvasImages";
 import { GAME_SPEED, ONE_FRAME_TIME } from "data/constants";
 import { useKeysHandler } from "hooks/useKeysHandler";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { moveSnake } from "Redux/middleware/startSnakeLogic";
 import { RootState } from "Redux/redux";
+import { preloadCanvasImages } from "utils/preloadCanvasImages";
 import { clearBoard, drawObject } from "utils/utils";
 
 const GameLayer = () => {
@@ -36,7 +41,7 @@ const GameLayer = () => {
         const isFrameDelayElapsed =
           curTime - prevTimeRef.current >= GAME_SPEED - ONE_FRAME_TIME / 2;
         if (isFirstRun || isFrameDelayElapsed) {
-          console.log("gameLoop", curTime - prevTimeRef.current);
+          // console.log("gameLoop", curTime - prevTimeRef.current);
           prevTimeRef.current = curTime;
           dispatch(moveSnake());
         }
@@ -65,12 +70,27 @@ const GameLayer = () => {
       clearBoard(context, gameWidth, gameHeight);
 
       if (isGameStarted || isGameOver) {
-        drawObject(context, itemSize, applePos, spawnedImage);
-        drawObject(context, itemSize, snakeCoords, collectedImages);
+        drawObject(
+          context,
+          itemSize,
+          applePos,
+          spawnedImage,
+          STROKE_STYLE_SPAWNED_ITEM
+        );
+        drawObject(
+          context,
+          itemSize,
+          snakeCoords,
+          collectedImages,
+          STROKE_STYLE_COLLECTED_ITEMS
+        );
       }
     }
   }, [snakeCoords, isGameStarted, isGameOver]);
 
+  useEffect(() => {
+    preloadCanvasImages();
+  }, []);
   return (
     <>
       <StyledGameLayer ref={canvasRef} width={gameWidth} height={gameHeight} />

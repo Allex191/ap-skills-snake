@@ -37,3 +37,6 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 - getNeaxtPos refactor
 - while loop applePos fix/enable
 - fix first move without direction restriction
+- refactor/types utils
+- bug: apple in snake getRandomApplePos async in middleware mby
+- preloadedImagesObj types and nonNull

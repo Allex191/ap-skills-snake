@@ -1,5 +1,5 @@
-import { SkillImageArrShape, FALLBACK_IMAGE } from "data/canvasImages";
-import { CANVAS_ITEM_STROKE_STYLE } from "data/constants";
+import { ImageIdArr } from "data/canvasImages";
+import { PRELOADED_IMAGES_OBJ } from "./preloadCanvasImages";
 
 export const clearBoard = (
   context: CanvasRenderingContext2D | null,
@@ -20,22 +20,25 @@ export const drawObject = (
   context: CanvasRenderingContext2D | null,
   itemSize: number,
   objectBody: CanvasItemShape[],
-  imagesArr: SkillImageArrShape,
-  strokeStyle = CANVAS_ITEM_STROKE_STYLE
+  spawnedOrCollectedImgDataArr: ImageIdArr,
+  strokeStyle: string
 ) => {
   if (context) {
     objectBody.forEach((object, i) => {
-      const img = new Image();
-      img.src = imagesArr[i]?.url || FALLBACK_IMAGE;
-      img.onload = () => {
+      const draw = (img: HTMLImageElement) => {
         context.drawImage(img, object.x, object.y, itemSize, itemSize);
       };
+      draw(PRELOADED_IMAGES_OBJ[spawnedOrCollectedImgDataArr[i]!]);
+
+      context.strokeStyle = strokeStyle;
+      context.lineWidth = 5;
+      context.strokeRect(object.x, object.y, itemSize, itemSize);
     });
   }
 };
 
 export const getRandomApplePos = (
-  snake: any[],
+  snake: CanvasItemShape[],
   gameWidth: number,
   gameHeight: number,
   itemSize: number
@@ -52,13 +55,15 @@ export const getRandomApplePos = (
   let isRepeated = true;
   let countTempDev = 0;
   while (isRepeated && countTempDev < 500) {
-    if (countTempDev > 450)
+    if (countTempDev > 450) {
       console.error("apple spawn in same area as snake or some error");
+    }
     snake.forEach((object) => {
       if (object.x !== newPos.x && object.y !== newPos.y) {
         isRepeated = false;
       } else {
         newPos = getXY();
+        console.log("spanwed inside snake, repeat?");
       }
     });
     countTempDev++;
@@ -81,7 +86,6 @@ export const chechIfSnakeCollided = (
   gameHeight,
   itemSize
 ): boolean => {
-  // });
   const hasCollidedItself = snake.some(
     (object) =>
       newHeadPosition[0].x === object.x && newHeadPosition[0].y === object.y

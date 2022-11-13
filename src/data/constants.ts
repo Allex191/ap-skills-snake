@@ -4,7 +4,7 @@ const gameSizes = {
   sm: { size: 840, itemSize: { x15: 56, x20: 42 } },
 };
 
-export const GAME_SPEED = 150;
+export const GAME_SPEED = 100;
 export const ONE_FRAME_TIME = 16.6;
 export const GAME_WIDTH = gameSizes.lg.size;
 export const GAME_HEIGHT = gameSizes.lg.size;
@@ -21,5 +21,3 @@ export type DIR_TYPES =
   | typeof DIR_LEFT
   | typeof DIR_DOWN
   | typeof DIR_RIGHT;
-
-  export const CANVAS_ITEM_STROKE_STYLE = "#146356"

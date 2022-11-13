@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  SkillImageArrShape,
-  ALL_SKILLS_IMAGES,
-  FIRST_IMAGE_ARR,
-  SECOND_IMAGE_ARR,
+  FIRST_IMAGE_ARR_ID,
+  ImageIdArr,
+  SECOND_IMAGE_ARR_ID,
 } from "data/canvasImages";
 import {
   DIR_RIGHT,
@@ -13,6 +12,7 @@ import {
   GAME_WIDTH,
   ITEM_SIZE,
 } from "data/constants";
+import { getAllImagesId } from "utils/getAllImagesId";
 import { getRandomApplePos, CanvasItemShape } from "utils/utils";
 
 export interface SnakeSliceState {
@@ -33,9 +33,9 @@ export interface SnakeSliceState {
   currentKey: DIR_TYPES;
   triggerToRunGameLogic: boolean;
   skillsImagesData: {
-    allSkillsImages: SkillImageArrShape;
-    spawnedImage: SkillImageArrShape;
-    collectedImages: SkillImageArrShape;
+    allSkillsImages: ImageIdArr;
+    spawnedImage: ImageIdArr;
+    collectedImages: ImageIdArr;
   };
 }
 
@@ -57,9 +57,9 @@ const initialState: SnakeSliceState = {
   currentKey: DIR_RIGHT,
   triggerToRunGameLogic: false,
   skillsImagesData: {
-    allSkillsImages: ALL_SKILLS_IMAGES,
-    spawnedImage: SECOND_IMAGE_ARR,
-    collectedImages: FIRST_IMAGE_ARR,
+    allSkillsImages: getAllImagesId(),
+    spawnedImage: SECOND_IMAGE_ARR_ID,
+    collectedImages: FIRST_IMAGE_ARR_ID,
   },
 };
 
@@ -82,8 +82,8 @@ export const snakeSlice = createSlice({
         state.gameSizes.itemSize
       );
 
-      state.skillsImagesData.spawnedImage = SECOND_IMAGE_ARR;
-      state.skillsImagesData.collectedImages = FIRST_IMAGE_ARR;
+      state.skillsImagesData.collectedImages = FIRST_IMAGE_ARR_ID;
+      state.skillsImagesData.spawnedImage = SECOND_IMAGE_ARR_ID;
     },
     startSnakeMovement: (
       state,
@@ -124,10 +124,20 @@ export const snakeSlice = createSlice({
       const collectedImages = state.skillsImagesData.collectedImages;
       const spawnedImageArr = state.skillsImagesData.spawnedImage;
       const allSkillsImages = state.skillsImagesData.allSkillsImages;
-      const indexToMatchLastImage = state.snakeCoords.length + 1;
+      const indexToMatchNextImage = state.snakeCoords.length + 1;
+      const snakeLength = state.snakeCoords.length;
 
       collectedImages.push(spawnedImageArr[0]!);
-      spawnedImageArr[0] = allSkillsImages[indexToMatchLastImage]!;
+
+      console.log("snakeLength", snakeLength);
+      console.log("allSkillsImagesLength", allSkillsImages.length);
+
+      if (snakeLength >= allSkillsImages.length - 1) {
+        console.log("snake bigger it is running");
+        spawnedImageArr[0] = allSkillsImages[allSkillsImages.length - 1]!;
+      } else {
+        spawnedImageArr[0] = allSkillsImages[indexToMatchNextImage]!;
+      }
     },
   },
 });
