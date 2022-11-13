@@ -68,13 +68,18 @@ export const snakeSlice = createSlice({
   initialState,
   reducers: {
     startGame: (state) => {
-      state.snakeCoords = [{ x: 0, y: 0 }];
+      const middleOfScreen =
+        state.gameSizes.itemSize *
+        Math.floor(state.gameSizes.gameWidth / state.gameSizes.itemSize / 2);
+
+      state.snakeCoords[0]!.x = middleOfScreen;
+      state.snakeCoords[0]!.y = middleOfScreen;
+
       state.isGameStarted = true;
       state.isGameOver = false;
       state.isUIShown = false;
       state.isArrowsTempShown = true;
-      state.snakeCoords[0]!.x = state.gameSizes.gameWidth / 2;
-      state.snakeCoords[0]!.y = state.gameSizes.gameHeight / 2;
+
       state.applePos = getRandomApplePos(
         state.snakeCoords,
         state.gameSizes.gameWidth,

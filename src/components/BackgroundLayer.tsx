@@ -30,15 +30,17 @@ const BackgroundLayer = () => {
           }
         }
       };
+      
       const img1 = new Image();
       const img2 = new Image();
-      // img1.onload = () => drawBGParts(img1, 1);
-      img2.onload = () => {
-        drawBGParts(img1, 1);
-        drawBGParts(img2, 2);
-      };
       img1.src = "grass-yellow.png";
       img2.src = "grass-blue.png";
+      img1.onload = () => {
+        img2.onload = () => {
+          drawBGParts(img1, 1);
+          drawBGParts(img2, 2);
+        };
+      };
     },
     [gameWidth, itemSize]
   );
