@@ -15,5 +15,5 @@ export const useResize = () => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [dispatch]);
+  }, []);
 };

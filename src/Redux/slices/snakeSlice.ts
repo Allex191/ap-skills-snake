@@ -135,11 +135,7 @@ export const snakeSlice = createSlice({
 
       collectedImages.push(spawnedImageArr[0]!);
 
-      console.log("snakeLength", snakeLength);
-      console.log("allSkillsImagesLength", allSkillsImages.length);
-
       if (snakeLength >= allSkillsImages.length - 1) {
-        console.log("snake bigger it is running");
         spawnedImageArr[0] = allSkillsImages[allSkillsImages.length - 1]!;
       } else {
         spawnedImageArr[0] = allSkillsImages[indexToMatchNextImage]!;

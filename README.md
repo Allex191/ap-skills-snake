@@ -26,13 +26,12 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 
 #### Uncategorized
 
-- mobile navigation
+- touch for mobile
 - color change based on collected items
 - sound effects
 - dark theme
 - high score/local storage
 - movement animation
-- prerender canvas elements
 - option -+ for responsive padding or scale
 - getNeaxtPos refactor
 - while loop applePos fix/enable
@@ -40,3 +39,4 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 - refactor/types utils
 - bug: apple in snake getRandomApplePos async in middleware mby
 - preloadedImagesObj types and nonNull
+- diferent aspect ratio for small devices

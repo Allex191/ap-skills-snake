@@ -26,15 +26,15 @@ export default function Home() {
       <StyledContainer>
         <StyledOuterWrapper>
           <StyledLayers
-            scale={scale}
+            Scale={scale}
             gameWidth={windowWidth}
             gameHeight={windowHeight}
           >
             <BackgroundLayer />
             <GameLayer />
-            <UILayer />
           </StyledLayers>
-          <Navigation />
+          <UILayer />
+          {/* <Navigation /> */}
         </StyledOuterWrapper>
       </StyledContainer>
     </>

@@ -41,6 +41,7 @@ export const GlobalStyle = css`
 
   body {
     user-select: text;
+    background-color: gray;
   }
 
   *,

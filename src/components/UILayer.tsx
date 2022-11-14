@@ -19,11 +19,7 @@ const UILayer = () => {
       {isUIShown && (
         <div style={{ backgroundColor: "white " }}>
           <h1>Snake Game</h1>
-          <button
-            style={{ width: "150px", height: "100px", fontSize: "24px" }}
-            id="start"
-            onClick={() => dispatch(startGame())}
-          >
+          <button id="start" onClick={() => dispatch(startGame())}>
             Start
           </button>
         </div>

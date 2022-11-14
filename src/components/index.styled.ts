@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const StyledContainer = styled.div`
   padding: 0 10px;
   margin: 0 auto;
+  max-width: 1200px;
 `;
 
 export const StyledOuterWrapper = styled.div`
@@ -17,17 +18,16 @@ export const StyledOuterWrapper = styled.div`
 interface IStyledLayers {
   gameWidth: number;
   gameHeight: number;
-  scale: number;
+  Scale: number;
 }
 export const StyledLayers = styled.div<IStyledLayers>`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${(props) => props.gameWidth + "px"};
-  height: ${(props) => props.gameHeight + "px"};
-  max-width: 1200px;
-  transform: scale(${(props) => props.scale});
+  width: ${({ gameWidth }) => gameWidth + "px"};
+  height: ${({ gameHeight }) => gameHeight + "px"};
+  transform: scale(${({ Scale }) => Scale});
 `;
 
 export const StyledBackgroundLayer = styled.canvas`
@@ -45,4 +45,6 @@ export const StyledGameLayer = styled.canvas`
 export const StyledUILayer = styled.div`
   position: absolute;
   z-index: 3;
+  /* width: 100%; */
+  /* height: 100%; */
 `;
