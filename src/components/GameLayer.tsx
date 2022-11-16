@@ -41,7 +41,6 @@ const GameLayer = () => {
         const isFrameDelayElapsed =
           curTime - prevTimeRef.current >= GAME_SPEED - ONE_FRAME_TIME / 2;
         if (isFirstRun || isFrameDelayElapsed) {
-          // console.log("gameLoop", curTime - prevTimeRef.current);
           prevTimeRef.current = curTime;
           dispatch(moveSnake());
         }

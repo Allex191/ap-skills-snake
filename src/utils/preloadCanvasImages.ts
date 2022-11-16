@@ -9,5 +9,4 @@ export const preloadCanvasImages = async () => {
     PRELOADED_IMAGES_OBJ[object.url] = img;
   });
 
-  console.log(PRELOADED_IMAGES_OBJ);
 };

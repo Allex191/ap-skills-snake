@@ -8,12 +8,13 @@ const gameSizes = {
   sm: { size: 840, itemSize: { div15: 56, div20: 42 } },
 };
 
-export const GAME_SPEED = 100;
+export const GAME_SPEED = 150;
 export const ONE_FRAME_TIME = 16.6;
 export const GAME_WIDTH = gameSizes.lg.size;
 export const GAME_HEIGHT = gameSizes.lg.size;
 export const ITEM_SIZE = gameSizes.lg.itemSize.div13;
 export const SCREEN_PADDING = 200;
+export const UI_RAW_PERCENTAGE = 60;
 
 export const DIR_UP = "up";
 export const DIR_LEFT = "left";

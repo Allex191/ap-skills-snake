@@ -18,16 +18,16 @@ export const StyledOuterWrapper = styled.div`
 interface IStyledLayers {
   gameWidth: number;
   gameHeight: number;
-  Scale: number;
+  gameScale: number;
 }
-export const StyledLayers = styled.div<IStyledLayers>`
+export const CanvasLayers = styled.div<IStyledLayers>`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: ${({ gameWidth }) => gameWidth + "px"};
   height: ${({ gameHeight }) => gameHeight + "px"};
-  transform: scale(${({ Scale }) => Scale});
+  transform: scale(${({ gameScale }) => gameScale});
 `;
 
 export const StyledBackgroundLayer = styled.canvas`
@@ -40,11 +40,4 @@ export const StyledGameLayer = styled.canvas`
   position: absolute;
   z-index: 2;
   border: none;
-`;
-
-export const StyledUILayer = styled.div`
-  position: absolute;
-  z-index: 3;
-  /* width: 100%; */
-  /* height: 100%; */
 `;

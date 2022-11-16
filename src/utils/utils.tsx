@@ -63,7 +63,6 @@ export const getRandomApplePos = (
         isRepeated = false;
       } else {
         newPos = getXY();
-        console.log("spanwed inside snake, repeat?");
       }
     });
     countTempDev++;

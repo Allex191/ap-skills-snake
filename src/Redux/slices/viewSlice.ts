@@ -1,16 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { GAME_WIDTH, SCREEN_PADDING } from "data/constants";
+import {
+  GAME_HEIGHT,
+  GAME_WIDTH,
+  SCREEN_PADDING,
+  UI_RAW_PERCENTAGE,
+} from "data/constants";
 
 export interface IviewSliceState {
   windowWidth: number;
   windowHeight: number;
-  scale: number;
+  gameScale: number;
+  uISize: number;
 }
 
 const initialState: IviewSliceState = {
   windowWidth: 800,
   windowHeight: 800,
-  scale: 1,
+  gameScale: 1,
+  uISize: 400,
 };
 
 export const viewSlice = createSlice({
@@ -22,9 +29,20 @@ export const viewSlice = createSlice({
       state.windowHeight = action.payload.height;
 
       if (action.payload.width < action.payload.height) {
-        state.scale = action.payload.width / (GAME_WIDTH + SCREEN_PADDING);
+        const widthScale = action.payload.width / (GAME_WIDTH + SCREEN_PADDING);
+
+        state.gameScale = widthScale;
+        state.uISize = Math.floor(
+          (widthScale * GAME_WIDTH * UI_RAW_PERCENTAGE) / 100
+        );
       } else {
-        state.scale = action.payload.height / (GAME_WIDTH + SCREEN_PADDING);
+        const heightScale =
+          action.payload.height / (GAME_HEIGHT + SCREEN_PADDING);
+
+        state.gameScale = heightScale;
+        state.uISize = Math.floor(
+          (heightScale * GAME_HEIGHT * UI_RAW_PERCENTAGE) / 100
+        );
       }
     },
   },

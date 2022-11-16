@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 import { startGame } from "Redux/slices/snakeSlice";
-import { StyledUILayer } from "components/index.styled";
+import { StyledUILayer } from "components/UIlayer.styled";
 
 const UILayer = () => {
   const {
@@ -11,9 +11,13 @@ const UILayer = () => {
     isArrowsTempShown: isStartArrowsShown,
   } = useSelector((state: RootState) => state.snakeReducer);
 
+  const {  uISize } = useSelector(
+    (state: RootState) => state.viewReducer
+  );
+
   const dispatch = useDispatch();
   return (
-    <StyledUILayer className="UILayer">
+    <StyledUILayer uISize={uISize} className="UILayer">
       {isGameOver && <h1>Game Over</h1>}
 
       {isUIShown && (

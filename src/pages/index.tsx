@@ -4,7 +4,7 @@ import UILayer from "components/UILayer";
 import Head from "next/head";
 import {
   StyledContainer,
-  StyledLayers,
+  CanvasLayers,
   StyledOuterWrapper,
 } from "components/index.styled";
 import Navigation from "components/Navigation";
@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 
 export default function Home() {
-  const { windowWidth, windowHeight, scale } = useSelector(
+  const { windowWidth, windowHeight, gameScale } = useSelector(
     (state: RootState) => state.viewReducer
   );
   useResize();
@@ -25,14 +25,14 @@ export default function Home() {
       </Head>
       <StyledContainer>
         <StyledOuterWrapper>
-          <StyledLayers
-            Scale={scale}
+          <CanvasLayers
+            gameScale={gameScale}
             gameWidth={windowWidth}
             gameHeight={windowHeight}
           >
             <BackgroundLayer />
             <GameLayer />
-          </StyledLayers>
+          </CanvasLayers>
           <UILayer />
           {/* <Navigation /> */}
         </StyledOuterWrapper>
