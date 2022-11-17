@@ -11,6 +11,7 @@ export interface IviewSliceState {
   windowHeight: number;
   gameScale: number;
   uISize: number;
+  isDark: boolean;
 }
 
 const initialState: IviewSliceState = {
@@ -18,6 +19,7 @@ const initialState: IviewSliceState = {
   windowHeight: 800,
   gameScale: 1,
   uISize: 400,
+  isDark: false,
 };
 
 export const viewSlice = createSlice({
@@ -45,9 +47,16 @@ export const viewSlice = createSlice({
         );
       }
     },
+    setDefaultThemeMode: (state, action) => {
+      state.isDark = action.payload;
+    },
+    changeThemeMode: (state) => {
+      state.isDark = !state.isDark;
+    },
   },
 });
 
-export const { setGameSizes } = viewSlice.actions;
+export const { setGameSizes, setDefaultThemeMode,changeThemeMode } =
+  viewSlice.actions;
 
 export default viewSlice.reducer;

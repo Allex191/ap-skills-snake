@@ -17,7 +17,7 @@ const BackgroundLayer = () => {
         const rows = gameWidth / itemSize;
         const cols = gameWidth / itemSize;
         for (let x = 0; x < rows; x++) {
-          for (let y = 0; y < cols; y++) {
+          for (let y = 0; y < cols; y++) { 
             if (x % oneOrTwo == y % oneOrTwo) {
               context.drawImage(
                 img,

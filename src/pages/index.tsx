@@ -1,14 +1,13 @@
 import BackgroundLayer from "components/BackgroundLayer";
 import GameLayer from "components/GameLayer";
-import UILayer from "components/UILayer";
-import Head from "next/head";
 import {
-  StyledContainer,
   CanvasLayers,
+  StyledContainer,
   StyledOuterWrapper,
 } from "components/index.styled";
-import Navigation from "components/Navigation";
+import UILayer from "components/UILayer/UILayer";
 import { useResize } from "hooks/useResize";
+import Head from "next/head";
 import { useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 
@@ -34,7 +33,6 @@ export default function Home() {
             <GameLayer />
           </CanvasLayers>
           <UILayer />
-          {/* <Navigation /> */}
         </StyledOuterWrapper>
       </StyledContainer>
     </>

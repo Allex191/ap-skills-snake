@@ -40,3 +40,4 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 - bug: apple in snake getRandomApplePos async in middleware mby
 - preloadedImagesObj types and nonNull
 - diferent aspect ratio for small devices
+- show current presed key in first block/game border, mby person position 

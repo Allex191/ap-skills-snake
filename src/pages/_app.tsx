@@ -1,17 +1,8 @@
-import { GlobalStyle } from "styles/GlobalStyle";
-
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { Global, ThemeProvider } from "@emotion/react";
+import { StylesProvider } from "Providers/StylesProvider";
 import { Provider } from "react-redux";
 import { store } from "Redux/redux";
-
-const theme = {
-  colors: {
-    primary: "black",
-    secondary: "white",
-  },
-};
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -26,10 +17,9 @@ export default function App(props: AppProps) {
         />
       </Head>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Global styles={GlobalStyle} />
+        <StylesProvider>
           <Component {...pageProps} />
-        </ThemeProvider>
+        </StylesProvider>
       </Provider>
     </>
   );
