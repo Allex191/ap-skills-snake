@@ -7,6 +7,8 @@ A snake game which starts with collecting my current programming skills.
 Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 
 ## Live Demo
+Version 0.5 Alpha
+https://ap-skills-snake-game.vercel.app/
 
 ## _To Do_
 
