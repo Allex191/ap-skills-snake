@@ -12,7 +12,13 @@ const Settings = () => {
           return (
             <St.settingsOption key={object.title}>
               {object.title}
-              
+              {object.images.map((object) => {
+                return (
+                  <St.settingsOptionButton key={object.src}>
+                    <St.settingsOptionImg src={object.src} />
+                  </St.settingsOptionButton>
+                );
+              })}
             </St.settingsOption>
           );
         })}

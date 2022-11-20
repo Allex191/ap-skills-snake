@@ -11,5 +11,5 @@ export const getGameScaledValue = (
   size: getGameScaledValueProps["size"],
   unit: getGameScaledValueProps["unit"]
 ) => {
-  return Math.trunc(size * theme.gameScale) + unit;
+  return Math.trunc(size * theme.uIItemsScale) + unit;
 };

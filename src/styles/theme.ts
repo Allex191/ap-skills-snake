@@ -4,15 +4,19 @@ const themeLight = {
   colors: {
     primary: "#ffffff",
     secondary: "#000000",
-    uIBackgroundColor: "#E7E6D1",
+    uIBackground: "#E7E6D1",
+    optionsBorder: "#565656",
+    buttonStart: "#8a278a",
   },
 };
 
 const themeDark = {
   colors: {
     primary: "black",
-    secondary: "white",
-    uIBackgroundColor: "#323232",
+    secondary: "#eeeeee",
+    uIBackground: "#323232",
+    optionsBorder: "#d8d8d8",
+    buttonStart: "#8a278a",
   },
 };
 

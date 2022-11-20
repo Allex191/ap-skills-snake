@@ -5,11 +5,11 @@ import { GlobalStyle } from "styles/GlobalStyle";
 import { getCurrentTheme } from "styles/theme";
 
 export const StylesProvider = ({ children }) => {
-  const { isDark, gameScale } = useSelector(
+  const { isDark, uIItemsScale } = useSelector(
     (state: RootState) => state.viewReducer
   );
 
-  const modifiedTheme = { ...getCurrentTheme(isDark), gameScale };
+  const modifiedTheme = { ...getCurrentTheme(isDark), uIItemsScale };
 
   return (
     <ThemeProvider theme={modifiedTheme}>

@@ -3,6 +3,7 @@ import {
   GAME_HEIGHT,
   GAME_WIDTH,
   SCREEN_PADDING,
+  UI_ADITIONAL_SCALE,
   UI_RAW_PERCENTAGE,
 } from "data/gameConst";
 
@@ -11,6 +12,7 @@ export interface IviewSliceState {
   windowHeight: number;
   gameScale: number;
   uISize: number;
+  uIItemsScale: number;
   isDark: boolean;
 }
 
@@ -18,6 +20,7 @@ const initialState: IviewSliceState = {
   windowWidth: 800,
   windowHeight: 800,
   gameScale: 1,
+  uIItemsScale: 1,
   uISize: 400,
   isDark: false,
 };
@@ -34,6 +37,8 @@ export const viewSlice = createSlice({
         const widthScale = action.payload.width / (GAME_WIDTH + SCREEN_PADDING);
 
         state.gameScale = widthScale;
+        state.uIItemsScale = widthScale + UI_ADITIONAL_SCALE;
+
         state.uISize = Math.floor(
           (widthScale * GAME_WIDTH * UI_RAW_PERCENTAGE) / 100
         );
@@ -42,6 +47,8 @@ export const viewSlice = createSlice({
           action.payload.height / (GAME_HEIGHT + SCREEN_PADDING);
 
         state.gameScale = heightScale;
+        state.uIItemsScale = heightScale + UI_ADITIONAL_SCALE;
+
         state.uISize = Math.floor(
           (heightScale * GAME_HEIGHT * UI_RAW_PERCENTAGE) / 100
         );

@@ -10,8 +10,8 @@ export const uILayer = styled.div<StyledUILayerProps>`
   z-index: 3;
   top: calc(50% - ${(props) => `${props.uISize / 2}px`});
   left: calc(50% - ${(props) => `${props.uISize / 2}px`});
-  background-color: white;
   font-size: ${({ theme }) => getGameScaledValue(theme, 50, "px")};
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 interface StyledMenuProps {
@@ -27,7 +27,7 @@ export const menu = styled.div<StyledMenuProps>`
   align-items: center;
   width: ${(props) => props.uISize + "px"};
   height: ${(props) => props.uISize + "px"};
-  background-color: ${({ theme }) => theme.colors.uIBackgroundColor};
+  background-color: ${({ theme }) => theme.colors.uIBackground};
 `;
 
 export const menuInner = styled.div`
@@ -47,7 +47,17 @@ export const navigationHint = styled.p`
 `;
 
 export const gameTitle = styled.h1`
-  font-size: ${({ theme }) => getGameScaledValue(theme, 100, "px")};
+  font-size: ${({ theme }) => getGameScaledValue(theme, 90, "px")};
+`;
+
+export const gameOver = styled.div``;
+
+export const gameOverTitle = styled.p`
+  font-size: ${({ theme }) => getGameScaledValue(theme, 55, "px")};
+`;
+
+export const gameOverHint = styled.p`
+  font-size: ${({ theme }) => getGameScaledValue(theme, 35, "px")};
 `;
 
 export const stats = styled.div`
@@ -63,11 +73,22 @@ export const statsIconImg = styled.img`
   height: ${({ theme }) => getGameScaledValue(theme, 70, "px")};
 `;
 export const score = styled.div`
-  border: ${({ theme }) => getGameScaledValue(theme, 4, "px")} solid red;
+  padding: ${({ theme }) => getGameScaledValue(theme, 25, "px")};
+  border-color: ${({ theme }) => theme.colors.optionsBorder};
+  border-style: solid;
+  border-width: ${({ theme }) => getGameScaledValue(theme, 8, "px")};
+  border-radius: ${({ theme }) => getGameScaledValue(theme, 10, "px")};
 `;
 export const scoreCurrent = styled.p``;
 export const scoreHigh = styled.p``;
 
 export const startButton = styled.button`
-  font-size: inherit;
+  font-size: ${({ theme }) => getGameScaledValue(theme, 55, "px")};
+  color: inherit;
+  cursor: pointer;
+  background: linear-gradient(229.34deg, #d7644a 8.35%, #de527a 89.61%);
+  padding: ${({ theme }) =>
+    `${getGameScaledValue(theme, 20, "px")}
+     ${getGameScaledValue(theme, 40, "px")}`};
+  border-radius: ${({ theme }) => getGameScaledValue(theme, 10, "px")}; ;
 `;

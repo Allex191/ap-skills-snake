@@ -26,7 +26,14 @@ const UILayer = () => {
       <St.menu uISize={uISize} isShow={isGameOver || isUIShown}>
         <St.menuInner>
           <St.gameTitle>Snake Game</St.gameTitle>
-          {isGameOver && <h1>Nice try , you have learned 200 hours</h1>}
+          {isGameOver && (
+            <St.gameOver>
+              <St.gameOverTitle>You have learned 200 hours.</St.gameOverTitle>
+              <St.gameOverHint>
+                *Learn more to get a job.
+              </St.gameOverHint>
+            </St.gameOver>
+          )}
           <St.stats>
             <St.statsIcon>
               <St.statsIconImg src="/stats.svg" />
