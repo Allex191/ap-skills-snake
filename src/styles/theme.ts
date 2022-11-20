@@ -4,7 +4,7 @@ const themeLight = {
   colors: {
     primary: "#ffffff",
     secondary: "#000000",
-    // uIBackgroundColor: "#fff200",
+    uIBackgroundColor: "#E7E6D1",
   },
 };
 
@@ -12,7 +12,7 @@ const themeDark = {
   colors: {
     primary: "black",
     secondary: "white",
-    // uIBackgroundColor: "#E7E6D1",
+    uIBackgroundColor: "#323232",
   },
 };
 

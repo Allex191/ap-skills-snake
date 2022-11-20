@@ -2,8 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 import { startGame } from "Redux/slices/snakeSlice";
-import { StyledUILayer } from "components/UILayer/UILayer.styled";
+import * as St from "components/UILayer/UILayer.styled";
 import { useDefaultDarkMode as useDefaultDeviceTheme } from "hooks/useDefaultDarkMode";
+import Settings from "components/UILayer/Settings";
 
 const UILayer = () => {
   const dispatch = useDispatch();
@@ -19,22 +20,29 @@ const UILayer = () => {
   useDefaultDeviceTheme();
 
   return (
-    <StyledUILayer uISize={uISize} className="UILayer">
-      {isGameOver && <h1>Game Over</h1>}
-      {isUIShown && (
-        <div style={{ backgroundColor: "white " }}>
-          <h1>Snake Game</h1>
-          <button id="start" onClick={() => dispatch(startGame())}>
+    <St.uILayer uISize={uISize}>
+      {isStartArrowsShown && <St.navigationHint>wasd</St.navigationHint>}
+
+      <St.menu uISize={uISize} isShow={isGameOver || isUIShown}>
+        <St.menuInner>
+          <St.gameTitle>Snake Game</St.gameTitle>
+          {isGameOver && <h1>Nice try , you have learned 200 hours</h1>}
+          <St.stats>
+            <St.statsIcon>
+              <St.statsIconImg src="/stats.svg" />
+            </St.statsIcon>
+            <St.score>
+              <St.scoreCurrent>Last Score:200h</St.scoreCurrent>
+              <St.scoreHigh>High Score:1000h</St.scoreHigh>
+            </St.score>
+          </St.stats>
+          <Settings />
+          <St.startButton id="start" onClick={() => dispatch(startGame())}>
             Start
-          </button>
-        </div>
-      )}
-      {isStartArrowsShown && (
-        <div>
-          <h1 style={{ color: "white" }}>wasd</h1>
-        </div>
-      )}
-    </StyledUILayer>
+          </St.startButton>
+        </St.menuInner>
+      </St.menu>
+    </St.uILayer>
   );
 };
 

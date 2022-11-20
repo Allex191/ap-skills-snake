@@ -4,7 +4,7 @@ import {
   ListenerEffectAPI,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
-import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/constants";
+import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/gameConst";
 import { Idirections } from "hooks/useKeysHandler";
 import { RootState } from "Redux/redux";
 import { setCurrentKey, startSnakeMovement } from "Redux/slices/snakeSlice";

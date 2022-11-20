@@ -21,15 +21,15 @@ Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 
 #### Medium-Priority
 
+- show points in canvas
 - show current presed key in first block/game border, mby person position
 - fix first move without direction restriction
-- movement animation
 - high score/local storage
 - option -+ for responsive padding or scale
-- dark theme
 - preloadedImagesObj types and nonNull
 - refactor/types utils
 - diferent aspect ratio for small devices
+- movement animation
 
 #### Low-Priority
 

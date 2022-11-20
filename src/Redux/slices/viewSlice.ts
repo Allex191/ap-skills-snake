@@ -4,7 +4,7 @@ import {
   GAME_WIDTH,
   SCREEN_PADDING,
   UI_RAW_PERCENTAGE,
-} from "data/constants";
+} from "data/gameConst";
 
 export interface IviewSliceState {
   windowWidth: number;
@@ -50,13 +50,14 @@ export const viewSlice = createSlice({
     setDefaultThemeMode: (state, action) => {
       state.isDark = action.payload;
     },
-    changeThemeMode: (state) => {
-      state.isDark = !state.isDark;
+    changeThemeMode: (state, action) => {
+      state.isDark = action.payload ? true : false;
+      state.isDark = action.payload === null && !state.isDark;
     },
   },
 });
 
-export const { setGameSizes, setDefaultThemeMode,changeThemeMode } =
+export const { setGameSizes, setDefaultThemeMode, changeThemeMode } =
   viewSlice.actions;
 
 export default viewSlice.reducer;

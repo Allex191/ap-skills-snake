@@ -1,4 +1,4 @@
-import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/constants";
+import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/gameConst";
 import { SnakeSliceState } from "Redux/slices/snakeSlice";
 
 export const getNextHeadPos = (

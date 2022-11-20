@@ -3,7 +3,7 @@ import {
   STROKE_STYLE_COLLECTED_ITEMS,
   STROKE_STYLE_SPAWNED_ITEM,
 } from "data/canvasImages";
-import { GAME_SPEED, ONE_FRAME_TIME } from "data/constants";
+import { GAME_SPEED, ONE_FRAME_TIME } from "data/gameConst";
 import { useKeysHandler } from "hooks/useKeysHandler";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

@@ -11,7 +11,7 @@ import {
   GAME_SPEED,
   GAME_WIDTH,
   ITEM_SIZE,
-} from "data/constants";
+} from "data/gameConst";
 import { getAllImagesId } from "utils/getAllImagesId";
 import { getRandomApplePos, CanvasItemShape } from "utils/utils";
 
@@ -141,6 +141,9 @@ export const snakeSlice = createSlice({
         spawnedImageArr[0] = allSkillsImages[indexToMatchNextImage]!;
       }
     },
+    changeSpeedOption: (state, action) => {
+      state.gameSpeed = action.payload;
+    },
   },
 });
 
@@ -154,6 +157,7 @@ export const {
   startSnakeMovement,
   setTriggerToRunGameLogic,
   updateSkillsImages,
+  changeSpeedOption,
 } = snakeSlice.actions;
 
 export default snakeSlice.reducer;
