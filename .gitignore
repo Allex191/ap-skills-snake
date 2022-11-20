@@ -18,7 +18,6 @@
 # misc
 .DS_Store
 README.local.md
-/public/
 
 # debug
 npm-debug.log*
