@@ -16,7 +16,6 @@ export const ALL_SKILLS_IMAGES: SkillImageArrShape = [
   { name: "me", url: "me.svg" },
   { name: "question", url: "question.svg" },
   { name: "idea", url: "idea.svg" },
-  { name: "dream", url: "dream.svg" },
   {
     name: "person-learning",
     url: "person-learning.svg",
