@@ -3,6 +3,9 @@ export const FALLBACK_IMAGE = {
   url: "apple.svg",
 };
 
+export const BG_PRIME_IMAGE = "grass-yellow.png";
+export const BG_EVEN_IMAGE = "grass-BLUE.png";
+
 export type ImageIdArr = string[];
 
 export type SkillsImageObj = {
