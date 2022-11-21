@@ -35,6 +35,7 @@ https://ap-skills-snake-game.vercel.app/
 
 #### Low-Priority
 
+- page load resize to smallest sizes or loading effect
 - dont collect non desired items "stress/ procrastination, etc"
 - fontsource
 - color change based on collected items

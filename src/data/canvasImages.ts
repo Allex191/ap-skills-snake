@@ -4,7 +4,7 @@ export const FALLBACK_IMAGE = {
 };
 
 export const BG_PRIME_IMAGE = "grass-yellow.png";
-export const BG_EVEN_IMAGE = "grass-BLUE.png";
+export const BG_EVEN_IMAGE = "grass-blue.png";
 
 export type ImageIdArr = string[];
 
