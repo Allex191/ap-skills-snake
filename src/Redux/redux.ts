@@ -9,6 +9,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
+
 startListeners();
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

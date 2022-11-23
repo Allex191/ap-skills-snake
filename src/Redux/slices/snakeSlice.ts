@@ -9,6 +9,7 @@ import {
   DIR_TYPES,
   GAME_HEIGHT,
   GAME_SPEED,
+  GAME_SQUARES,
   GAME_WIDTH,
   ITEM_SIZE,
 } from "data/gameConst";
@@ -19,6 +20,7 @@ export interface SnakeSliceState {
   isUIShown: boolean;
   isGameStarted: boolean;
   isGameOver: null | boolean;
+  isGameWin: boolean;
   gameSpeed: null | number;
   gameSizes: {
     gameWidth: number;
@@ -43,6 +45,7 @@ const initialState: SnakeSliceState = {
   isUIShown: true,
   isGameStarted: false,
   isGameOver: null,
+  isGameWin: false,
   gameSpeed: GAME_SPEED,
   gameSizes: {
     gameWidth: GAME_WIDTH,
@@ -107,6 +110,7 @@ export const snakeSlice = createSlice({
     },
     setSnakeNewCoords: (state, action) => {
       state.snakeCoords = action.payload;
+      state.isGameWin = action.payload.length === GAME_SQUARES;
     },
     setRandomApplePos: (
       state,

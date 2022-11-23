@@ -29,7 +29,7 @@ export const startSnakeLogic = (
     unknown
   >
 ) => {
-  const { snakeCoords, gameSizes, currentKey, applePos } =
+  const { snakeCoords, gameSizes, currentKey, applePos, isGameWin } =
     listenerApi.getState().snakeReducer;
 
   const dispatch = listenerApi.dispatch;
@@ -46,7 +46,7 @@ export const startSnakeLogic = (
     gameSizes.gameHeight,
     gameSizes.itemSize
   );
-  if (isSnakeCollided) {
+  if (false) {
     dispatch(setGameOver());
     return;
   }
@@ -54,15 +54,17 @@ export const startSnakeLogic = (
   const newSnakeArr = [...newHeadPosition, ...snakeCoords];
 
   if (isAppleConsumed) {
+    if (isGameWin) return;
+
     const randomApplePos = getRandomApplePos(
-      snakeCoords,
+      newSnakeArr,
       gameSizes.gameWidth,
       gameSizes.gameHeight,
       gameSizes.itemSize
     );
     dispatch(setRandomApplePos(randomApplePos));
     dispatch(updateSkillsImages());
-  } else {
+  } else if (!isAppleConsumed) {
     newSnakeArr.length !== 0 && newSnakeArr.pop();
   }
   dispatch(setSnakeNewCoords(newSnakeArr));

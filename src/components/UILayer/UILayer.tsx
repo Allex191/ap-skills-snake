@@ -28,7 +28,7 @@ const UILayer = () => {
           <St.gameTitle>Snake Game</St.gameTitle>
           {isGameOver && (
             <St.gameOver>
-              <St.gameOverTitle>You have learned 200 hours.</St.gameOverTitle>
+              <St.gameOverTitle>You have learned x hours.</St.gameOverTitle>
               <St.gameOverHint>
                 *Learn more to get a job.
               </St.gameOverHint>
@@ -39,8 +39,8 @@ const UILayer = () => {
               <St.statsIconImg src="/stats.svg" />
             </St.statsIcon>
             <St.score>
-              <St.scoreCurrent>Last Score:200h</St.scoreCurrent>
-              <St.scoreHigh>High Score:1000h</St.scoreHigh>
+              <St.scoreCurrent>Last Score:x h</St.scoreCurrent>
+              <St.scoreHigh>High Score:xx h</St.scoreHigh>
             </St.score>
           </St.stats>
           <Settings />

@@ -59,9 +59,6 @@ const GameLayer = () => {
     }
   }, [gameLoop, isSnakeReadyToMove]);
 
-  //dispatch userKeys
-  useKeysHandler(dispatch);
-
   //draw on canvas
   useEffect(() => {
     if (canvasRef.current) {
@@ -87,9 +84,13 @@ const GameLayer = () => {
     }
   }, [snakeCoords, isGameStarted, isGameOver]);
 
+  //dispatch userKeys
+  useKeysHandler(dispatch);
+
   useEffect(() => {
     preloadCanvasImages();
   }, []);
+
   return (
     <>
       <StyledGameLayer ref={canvasRef} width={gameWidth} height={gameHeight} />

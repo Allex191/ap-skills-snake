@@ -16,6 +16,8 @@ export const ITEM_SIZE = gameSizes.lg.itemSize.div13;
 export const SCREEN_PADDING = 200;
 export const UI_RAW_PERCENTAGE = 65;
 export const UI_ADITIONAL_SCALE = 0.1;
+export const GAME_SQUARES =
+  (GAME_WIDTH / ITEM_SIZE) * (GAME_HEIGHT / ITEM_SIZE);
 
 export const DIR_UP = "up";
 export const DIR_LEFT = "left";

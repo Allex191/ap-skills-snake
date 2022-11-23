@@ -7,6 +7,7 @@ A snake game which starts with collecting my current programming skills.
 Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
 
 ## Live Demo
+
 Version 0.5 Alpha
 https://ap-skills-snake-game.vercel.app/
 
@@ -14,8 +15,6 @@ https://ap-skills-snake-game.vercel.app/
 
 #### High-Priority
 
-- fix promise backgroundLayer img.onload
-- while loop applePos fix/enable
 - bug: apple in snake getRandomApplePos async in middleware mby
 - onLoad game calculate one frame value to be subtracted from gameSpeed
 - touch for mobile
@@ -40,5 +39,13 @@ https://ap-skills-snake-game.vercel.app/
 - fontsource
 - color change based on collected items
 - sound effects
+- gameLayer refactor useEffects
 
 #### Uncategorized
+
+#### Current working on
+
+- while loop newSkillPos fix/enable
+- set height of ui bigger uISize: { x: 0, y: 0 },
+- extend skills image array
+- make media querries if its too smal for mobile

@@ -1,4 +1,5 @@
 import { ImageIdArr } from "data/canvasImages";
+import { GAME_SQUARES } from "data/gameConst";
 import { PRELOADED_IMAGES_OBJ } from "./preloadCanvasImages";
 
 export const clearBoard = (
@@ -50,24 +51,22 @@ export const getRandomApplePos = (
     const y = randomY - (randomY % itemSize);
     return { x, y };
   };
-  let newPos = getXY();
 
-  let isRepeated = true;
-  let countTempDev = 0;
-  while (isRepeated && countTempDev < 500) {
-    if (countTempDev > 450) {
-      console.error("apple spawn in same area as snake or some error");
-    }
-    snake.forEach((object) => {
-      if (object.x !== newPos.x && object.y !== newPos.y) {
-        isRepeated = false;
-      } else {
-        newPos = getXY();
-      }
-    });
-    countTempDev++;
+  let newApplePos: CanvasItemShape = getXY();
+
+  const getIsAppleNotInSnake = () => {
+    return snake.every(
+      (obj) => obj.x !== newApplePos.x || obj.y !== newApplePos.y
+    );
+  };
+  let isAppleNotInSnake = getIsAppleNotInSnake();
+
+  while (!isAppleNotInSnake) {
+    newApplePos = getXY();
+    isAppleNotInSnake = getIsAppleNotInSnake();
   }
-  return [newPos];
+
+  return [newApplePos];
 };
 
 export const checkIsAppleConsumed = (headPos, applePos) => {
