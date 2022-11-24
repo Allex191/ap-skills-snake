@@ -6,7 +6,7 @@ export const preloadCanvasImages = async () => {
   ALL_SKILLS_IMAGES.forEach((object) => {
     const img = new Image();
     img.src = object.url;
-    PRELOADED_IMAGES_OBJ[object.url] = img;
+    PRELOADED_IMAGES_OBJ[object.name] = img;
   });
 
 };

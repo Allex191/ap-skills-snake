@@ -46,7 +46,7 @@ export const startSnakeLogic = (
     gameSizes.gameHeight,
     gameSizes.itemSize
   );
-  if (false) {
+  if (isSnakeCollided) {
     dispatch(setGameOver());
     return;
   }

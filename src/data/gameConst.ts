@@ -2,7 +2,7 @@
 const gameSizes = {
   lg: {
     size: 1680,
-    itemSize: { div13: 140, div14: 120, div15: 112, div16: 105 },
+    itemSize: { div12: 168, div13: 140, div14: 120, div15: 112, div16: 105 },
   },
   md: { size: 1260, itemSize: { div15: 84, div18: 70 } },
   sm: { size: 840, itemSize: { div15: 56, div20: 42 } },

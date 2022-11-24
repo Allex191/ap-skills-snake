@@ -15,14 +15,12 @@ https://ap-skills-snake-game.vercel.app/
 
 #### High-Priority
 
-- bug: apple in snake getRandomApplePos async in middleware mby
 - onLoad game calculate one frame value to be subtracted from gameSpeed
-- touch for mobile
 - getNeaxtPos refactor
+- divide blocks to skills and fill the gap with learning
 
 #### Medium-Priority
 
-- show points in canvas
 - show current presed key in first block/game border, mby person position
 - fix first move without direction restriction
 - high score/local storage
@@ -34,6 +32,7 @@ https://ap-skills-snake-game.vercel.app/
 
 #### Low-Priority
 
+- make a favicon
 - page load resize to smallest sizes or loading effect
 - dont collect non desired items "stress/ procrastination, etc"
 - fontsource
@@ -45,7 +44,8 @@ https://ap-skills-snake-game.vercel.app/
 
 #### Current working on
 
-- while loop newSkillPos fix/enable
-- set height of ui bigger uISize: { x: 0, y: 0 },
 - extend skills image array
+- touch for mobile
+- show points in canvas
+- set height of ui bigger uISize: { x: 0, y: 0 },
 - make media querries if its too smal for mobile

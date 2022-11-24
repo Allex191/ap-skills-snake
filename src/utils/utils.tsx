@@ -30,6 +30,8 @@ export const drawObject = (
         context.drawImage(img, object.x, object.y, itemSize, itemSize);
       };
       draw(PRELOADED_IMAGES_OBJ[spawnedOrCollectedImgDataArr[i]!]);
+      console.log("pre",PRELOADED_IMAGES_OBJ)
+      console.log("spawnedOrCollectedImgDataArr",PRELOADED_IMAGES_OBJ)
 
       context.strokeStyle = strokeStyle;
       context.lineWidth = 5;
