@@ -9,7 +9,6 @@ import {
   DIR_TYPES,
   GAME_HEIGHT,
   GAME_SPEED,
-  GAME_SQUARES,
   GAME_WIDTH,
   ITEM_SIZE,
 } from "data/gameConst";
