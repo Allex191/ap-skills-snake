@@ -11,6 +11,7 @@ const UILayer = () => {
 
   const {
     isGameOver,
+    isGameWin,
     isUIShown,
     isArrowsTempShown: isStartArrowsShown,
   } = useSelector((state: RootState) => state.snakeReducer);
@@ -23,17 +24,16 @@ const UILayer = () => {
     <St.uILayer uISize={uISize}>
       {isStartArrowsShown && <St.navigationHint>wasd</St.navigationHint>}
 
-      <St.menu uISize={uISize} isShow={isGameOver || isUIShown}>
+      <St.menu uISize={uISize} isShow={isGameOver || isUIShown || isGameWin}>
         <St.menuInner>
           <St.gameTitle>Snake Game</St.gameTitle>
           {isGameOver && (
             <St.gameOver>
               <St.gameOverTitle>You have learned x hours.</St.gameOverTitle>
-              <St.gameOverHint>
-                *Learn more to get a job.
-              </St.gameOverHint>
+              <St.gameOverHint>*Learn more to get a job.</St.gameOverHint>
             </St.gameOver>
           )}
+          {isGameWin && <div>Congrats now you have your dream job</div>}
           <St.stats>
             <St.statsIcon>
               <St.statsIconImg src="/stats.svg" />

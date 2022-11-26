@@ -13,7 +13,7 @@ import {
   GAME_WIDTH,
   ITEM_SIZE,
 } from "data/gameConst";
-import { getAllImagesId } from "utils/getAllImagesId";
+import { getAllStoryImagesId } from "utils/getAllStoryImagesId";
 import { getRandomApplePos, CanvasItemShape } from "utils/utils";
 
 export interface SnakeSliceState {
@@ -27,12 +27,12 @@ export interface SnakeSliceState {
     gameHeight: number;
     itemSize: number;
   };
+  snakeDir: DIR_TYPES;
+  currentKey: DIR_TYPES;
   snakeCoords: CanvasItemShape[];
   isSnakeReadyToMove: boolean;
   isArrowsTempShown: boolean;
   applePos: CanvasItemShape[];
-  snakeDir: DIR_TYPES;
-  currentKey: DIR_TYPES;
   triggerToRunGameLogic: boolean;
   skillsImagesData: {
     allSkillsImages: ImageIdArr;
@@ -52,15 +52,15 @@ const initialState: SnakeSliceState = {
     gameHeight: GAME_HEIGHT,
     itemSize: ITEM_SIZE,
   },
+  snakeDir: DIR_RIGHT,
+  currentKey: DIR_RIGHT,
   snakeCoords: [{ x: 0, y: 0 }],
   isSnakeReadyToMove: false,
   isArrowsTempShown: false,
   applePos: [{ x: 0, y: 0 }],
-  snakeDir: DIR_RIGHT,
-  currentKey: DIR_RIGHT,
   triggerToRunGameLogic: false,
   skillsImagesData: {
-    allSkillsImages: getAllImagesId(),
+    allSkillsImages: getAllStoryImagesId(),
     spawnedImage: SECOND_IMAGE_ARR_ID,
     collectedImages: FIRST_IMAGE_ARR_ID,
   },
@@ -81,6 +81,7 @@ export const snakeSlice = createSlice({
 
       state.isGameStarted = true;
       state.isGameOver = false;
+      state.isGameWin = false;
       state.isUIShown = false;
       state.isArrowsTempShown = true;
 
@@ -110,7 +111,6 @@ export const snakeSlice = createSlice({
     },
     setSnakeNewCoords: (state, action) => {
       state.snakeCoords = action.payload;
-      state.isGameWin = action.payload.length === GAME_SQUARES;
     },
     setRandomApplePos: (
       state,
@@ -135,18 +135,15 @@ export const snakeSlice = createSlice({
       const spawnedImageArr = state.skillsImagesData.spawnedImage;
       const allSkillsImages = state.skillsImagesData.allSkillsImages;
       const indexToMatchNextImage = state.snakeCoords.length + 1;
-      const snakeLength = state.snakeCoords.length;
 
       collectedImages.push(spawnedImageArr[0]!);
-
-      if (snakeLength >= allSkillsImages.length - 1) {
-        spawnedImageArr[0] = allSkillsImages[allSkillsImages.length - 1]!;
-      } else {
-        spawnedImageArr[0] = allSkillsImages[indexToMatchNextImage]!;
-      }
+      spawnedImageArr[0] = allSkillsImages[indexToMatchNextImage]!;
     },
     changeSpeedOption: (state, action) => {
       state.gameSpeed = action.payload;
+    },
+    setGameWin: (state) => {
+      state.isGameWin = true;
     },
   },
 });
@@ -162,6 +159,7 @@ export const {
   setTriggerToRunGameLogic,
   updateSkillsImages,
   changeSpeedOption,
+  setGameWin,
 } = snakeSlice.actions;
 
 export default snakeSlice.reducer;

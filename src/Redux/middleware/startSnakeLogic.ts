@@ -4,9 +4,11 @@ import {
   ListenerEffectAPI,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
+import { GAME_SQUARES } from "data/gameConst";
 import { RootState } from "Redux/redux";
 import {
   setGameOver,
+  setGameWin,
   setRandomApplePos,
   setSnakeDir,
   setSnakeNewCoords,
@@ -29,7 +31,7 @@ export const startSnakeLogic = (
     unknown
   >
 ) => {
-  const { snakeCoords, gameSizes, currentKey, applePos, isGameWin } =
+  const { snakeCoords, gameSizes, currentKey, applePos } =
     listenerApi.getState().snakeReducer;
 
   const dispatch = listenerApi.dispatch;
@@ -54,7 +56,11 @@ export const startSnakeLogic = (
   const newSnakeArr = [...newHeadPosition, ...snakeCoords];
 
   if (isAppleConsumed) {
-    if (isGameWin) return;
+    const isGameWin = newSnakeArr.length >= GAME_SQUARES;
+    if (isGameWin) {
+      dispatch(setGameWin());
+      return;
+    }
 
     const randomApplePos = getRandomApplePos(
       newSnakeArr,

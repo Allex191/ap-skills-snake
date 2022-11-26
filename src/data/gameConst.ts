@@ -2,17 +2,17 @@
 const gameSizes = {
   lg: {
     size: 1680,
-    itemSize: { div12: 168, div13: 140, div14: 120, div15: 112, div16: 105 },
+    itemSize: { div5: 336, div6: 280, div10: 168, div12: 140, div14: 120 },
   },
   md: { size: 1260, itemSize: { div15: 84, div18: 70 } },
   sm: { size: 840, itemSize: { div15: 56, div20: 42 } },
 };
 
-export const GAME_SPEED = 150;
+export const GAME_SPEED = 200;
 export const ONE_FRAME_TIME = 16.6;
 export const GAME_WIDTH = gameSizes.lg.size;
 export const GAME_HEIGHT = gameSizes.lg.size;
-export const ITEM_SIZE = gameSizes.lg.itemSize.div13;
+export const ITEM_SIZE = gameSizes.lg.itemSize.div6;
 export const SCREEN_PADDING = 200;
 export const UI_RAW_PERCENTAGE = 65;
 export const UI_ADITIONAL_SCALE = 0.1;

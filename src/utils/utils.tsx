@@ -1,5 +1,10 @@
-import { ImageIdArr } from "data/canvasImages";
-import { GAME_SQUARES } from "data/gameConst";
+import {
+  FALLBACK_IMG,
+  FIRST_IMAGE_ARR_ID,
+  ImageIdArr,
+  STROKE_DEVIATION_STORY_IMGS,
+  STROKE_STYLE_FIRST_SNAKE_IMG,
+} from "data/canvasImages";
 import { PRELOADED_IMAGES_OBJ } from "./preloadCanvasImages";
 
 export const clearBoard = (
@@ -26,16 +31,27 @@ export const drawObject = (
 ) => {
   if (context) {
     objectBody.forEach((object, i) => {
+      const isTheFirstSnakeImg =
+        i === 0 && spawnedOrCollectedImgDataArr[0] === FIRST_IMAGE_ARR_ID[0];
       const draw = (img: HTMLImageElement) => {
         context.drawImage(img, object.x, object.y, itemSize, itemSize);
       };
-      draw(PRELOADED_IMAGES_OBJ[spawnedOrCollectedImgDataArr[i]!]);
-      console.log("pre",PRELOADED_IMAGES_OBJ)
-      console.log("spawnedOrCollectedImgDataArr",PRELOADED_IMAGES_OBJ)
+      draw(
+        PRELOADED_IMAGES_OBJ[spawnedOrCollectedImgDataArr[i] || FALLBACK_IMG]
+      );
+      if (isTheFirstSnakeImg) {
+        context.strokeStyle = STROKE_STYLE_FIRST_SNAKE_IMG;
+      } else {
+        context.strokeStyle = strokeStyle;
+      }
 
-      context.strokeStyle = strokeStyle;
-      context.lineWidth = 5;
-      context.strokeRect(object.x, object.y, itemSize, itemSize);
+      context.lineWidth = 10;
+      context.strokeRect(
+        object.x + STROKE_DEVIATION_STORY_IMGS,
+        object.y + STROKE_DEVIATION_STORY_IMGS,
+        itemSize - STROKE_DEVIATION_STORY_IMGS,
+        itemSize - STROKE_DEVIATION_STORY_IMGS
+      );
     });
   }
 };
