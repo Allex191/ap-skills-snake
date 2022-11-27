@@ -55,6 +55,8 @@ export const manageUserMoveSnakeKey = (
         ? DIR_RIGHT
         : moveDown
         ? DIR_DOWN
+        : moveLeft
+        ? DIR_LEFT
         : null;
       startingMov && dispatch(startSnakeMovement(startingMov));
     }
