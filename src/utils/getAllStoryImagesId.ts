@@ -1,12 +1,26 @@
 import {
-  ALL_SKILLS_IMAGES,
+  ALL_STORY_IMAGES_RAW,
   FIRST_SKIPPED_IMGS,
   LAST_SKIPPED_IMGS,
   LAST_STORY_IMG,
+  NR_SKILLS_IMGS,
+  NR_STORY_USED_IMG,
+  
 } from "data/canvasImages";
 import { GAME_SQUARES } from "data/gameConst";
 
 export const getAllStoryImagesId = () => {
+  const connectingImage =
+    ALL_STORY_IMAGES_RAW[ALL_STORY_IMAGES_RAW.length - 1]!.name;
+
+  const nmbrAvailableGameSquares = GAME_SQUARES - NR_STORY_USED_IMG;
+
+  const individualSquares = Math.floor(
+    nmbrAvailableGameSquares / NR_SKILLS_IMGS
+  );
+
+  const nmbrRestConnectingImgs = nmbrAvailableGameSquares % NR_SKILLS_IMGS;
+
   const getConnectingImgs = (
     numberOfConnectingImg: number,
     lastImageName: string
@@ -17,33 +31,14 @@ export const getAllStoryImagesId = () => {
     }
     return arr;
   };
-
-  const connectingImage = ALL_SKILLS_IMAGES[ALL_SKILLS_IMAGES.length - 1]!.name;
-  const allSkippedImgs = FIRST_SKIPPED_IMGS + LAST_SKIPPED_IMGS;
-  const imgsWithoutSkipped = ALL_SKILLS_IMAGES.length - allSkippedImgs;
-
-  const nmbrAvailableGameSquares = GAME_SQUARES - ALL_SKILLS_IMAGES.length;
-
-  const nmbrIndividualConnectingImgs = Math.floor(
-    nmbrAvailableGameSquares / imgsWithoutSkipped
-  );
-
-  const nmbrRestConnectingImgs =
-    (nmbrAvailableGameSquares % imgsWithoutSkipped) + 2;
-
-  const connectingImgs = getConnectingImgs(
-    nmbrIndividualConnectingImgs,
-    connectingImage
-  );
+  const connectingImgs = getConnectingImgs(individualSquares, connectingImage);
   const restOfConnectingImgs = getConnectingImgs(
     nmbrRestConnectingImgs,
     connectingImage
   );
 
-  //change so the last skill its the last collected image
-
   const imagesIdArr: string[][] = [];
-  ALL_SKILLS_IMAGES.forEach((object, i, array) => {
+  ALL_STORY_IMAGES_RAW.forEach((object, i, array) => {
     const mainImgAndConnectingImgs = [object.name, ...connectingImgs];
     const isTheFirstSkippImg = i < FIRST_SKIPPED_IMGS;
     const isImgsBetween = i < array.length - LAST_SKIPPED_IMGS;
@@ -59,7 +54,6 @@ export const getAllStoryImagesId = () => {
   });
 
   const unpackedImagesIdArr = imagesIdArr.flat();
-
 
   return unpackedImagesIdArr;
 };

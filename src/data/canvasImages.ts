@@ -16,7 +16,7 @@ export type SkillsImageObj = {
 export type SkillImageArrShape = SkillsImageObj[];
 
 //every img should have a unique name, if update first or last N imgs, update also const bellow
-export const ALL_SKILLS_IMAGES: SkillImageArrShape = [
+export const ALL_STORY_IMAGES_RAW: SkillImageArrShape = [
   //first N non skipable imgs
   { name: "me", url: "/me.svg" },
   { name: "question", url: "/skills/question.svg" },
@@ -43,21 +43,27 @@ export const ALL_SKILLS_IMAGES: SkillImageArrShape = [
 ];
 export const FIRST_SKIPPED_IMGS = 3;
 export const LAST_SKIPPED_IMGS = 3;
-export const PLACE_FOR_LAST_IMGS = 1;
-const indexOfConnectingImg = ALL_SKILLS_IMAGES.length - 1;
-const indexOfTheLastStoryImg = ALL_SKILLS_IMAGES.length - 2;
+const indexOfConnectingImg = ALL_STORY_IMAGES_RAW.length - 1;
+const indexOfTheLastStoryImg = ALL_STORY_IMAGES_RAW.length - 2;
 
 export const FIRST_IMAGE_ARR_ID: ImageIdArr = [
-  ALL_SKILLS_IMAGES[0]?.name || fallbackImg.name,
+  ALL_STORY_IMAGES_RAW[0]?.name || fallbackImg.name,
 ];
 export const SECOND_IMAGE_ARR_ID: ImageIdArr = [
-  ALL_SKILLS_IMAGES[1]?.name || fallbackImg.name,
+  ALL_STORY_IMAGES_RAW[1]?.name || fallbackImg.name,
 ];
 export const FALLBACK_IMG = fallbackImg.name;
+const NR_FALLBACK_IMG = 1;
 
-export const LAST_STORY_IMG = ALL_SKILLS_IMAGES[indexOfTheLastStoryImg]!.name;
+export const LAST_STORY_IMG =
+  ALL_STORY_IMAGES_RAW[indexOfTheLastStoryImg]!.name;
 
-export const CONNECTING_IMG = ALL_SKILLS_IMAGES[indexOfConnectingImg]!.name;
+export const CONNECTING_IMG = ALL_STORY_IMAGES_RAW[indexOfConnectingImg]!.name;
+export const NR_LAST_IMG = 1;
+export const NR_STORY_USED_IMG =
+  ALL_STORY_IMAGES_RAW.length - NR_LAST_IMG - NR_FALLBACK_IMG;
+export const NR_SKILLS_IMGS =
+  NR_STORY_USED_IMG - FIRST_SKIPPED_IMGS - NR_LAST_IMG;
 
 export const STROKE_STYLE_SPAWNED_ITEM = "red";
 export const STROKE_STYLE_COLLECTED_ITEMS = "black";

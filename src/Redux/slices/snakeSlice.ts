@@ -143,6 +143,7 @@ export const snakeSlice = createSlice({
     },
     setGameWin: (state) => {
       state.isGameWin = true;
+      state.isSnakeReadyToMove = false;
     },
   },
 });
