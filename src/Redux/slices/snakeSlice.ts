@@ -74,9 +74,7 @@ export const snakeSlice = createSlice({
         state.gameSizes.itemSize *
         Math.floor(state.gameSizes.gameWidth / state.gameSizes.itemSize / 2);
 
-      state.snakeCoords = [{ x: 0, y: 0 }];
-      state.snakeCoords[0]!.x = middleOfScreen;
-      state.snakeCoords[0]!.y = middleOfScreen;
+      state.snakeCoords = [{ x: middleOfScreen, y: middleOfScreen }];
 
       state.isGameStarted = true;
       state.isGameOver = false;

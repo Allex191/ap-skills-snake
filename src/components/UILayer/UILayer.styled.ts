@@ -28,6 +28,8 @@ export const menu = styled.div<StyledMenuProps>`
   width: ${(props) => props.uISize + "px"};
   height: ${(props) => props.uISize + "px"};
   background-color: ${({ theme }) => theme.colors.uIBackground};
+  overflow-y: scroll;
+  overflow-x: auto;
 `;
 
 export const menuInner = styled.div`

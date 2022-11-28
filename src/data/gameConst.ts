@@ -17,7 +17,7 @@ const gameSizes = {
   sm: { size: 840, itemSize: { div15: 56, div20: 42 } },
 };
 
-export const GAME_SPEED = 170;
+export const GAME_SPEED = 190;
 export const ONE_FRAME_TIME = 16.6;
 export const GAME_WIDTH = gameSizes.lg.size;
 export const GAME_HEIGHT = gameSizes.lg.size;
@@ -32,6 +32,8 @@ export const DIR_UP = "up";
 export const DIR_LEFT = "left";
 export const DIR_DOWN = "down";
 export const DIR_RIGHT = "right";
+
+export const TOUCH_MOVES_TRESHOLD = 15;
 
 export type DIR_TYPES =
   | typeof DIR_UP

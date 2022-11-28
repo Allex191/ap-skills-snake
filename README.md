@@ -1,10 +1,10 @@
 ## A.P. Skills Snake Game
 
-A snake game which starts with collecting my current programming skills.
+A snake game which has the story of my current journey as a self-taught dev.
 
 #### Tech Stack
 
-Typescript ,Styled-Components, NextJs, Redux, Redux-Saga
+Typescript ,Styled-Components, NextJs, Redux,
 
 ## Live Demo
 
@@ -19,16 +19,13 @@ https://ap-skills-snake-game.vercel.app/
 
 #### Medium-Priority
 
-- getNeaxtPos refactor
+- getNextPos refactor
 - show current presed key in first block/game border, mby person position
-- fix first move without direction restriction
 - high score/local storage
 - option -+ for responsive padding or scale
 - preloadedImagesObj types and nonNull
 - refactor/types utils
 - diferent aspect ratio for small devices
-- movement animation
-- add start msg "can you complete the journey and get an offer"
 - test for getAllStoryImagesId
 
 #### Low-Priority
@@ -44,10 +41,14 @@ https://ap-skills-snake-game.vercel.app/
 
 #### Uncategorized
 
+- snake can eat the last square of itself
+- snake should eat move and when move grow
+
 #### Current working on
 
-- calc img padding for stroke
 - touch for mobile
+- ui size fix
+- calc img padding for stroke
 - show points in canvas
 - set height of ui bigger uISize: { x: 0, y: 0 },
 - make media querries if its too smal for mobile

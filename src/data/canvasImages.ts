@@ -55,10 +55,13 @@ export const SECOND_IMAGE_ARR_ID: ImageIdArr = [
 export const FALLBACK_IMG = fallbackImg.name;
 const NR_FALLBACK_IMG = 1;
 
-export const LAST_STORY_IMG =
-  ALL_STORY_IMAGES_RAW[indexOfTheLastStoryImg]!.name;
+export const LAST_STORY_IMG = (
+  ALL_STORY_IMAGES_RAW[indexOfTheLastStoryImg] || fallbackImg
+).name;
 
-export const CONNECTING_IMG = ALL_STORY_IMAGES_RAW[indexOfConnectingImg]!.name;
+export const CONNECTING_IMG =
+  (ALL_STORY_IMAGES_RAW[indexOfConnectingImg] || fallbackImg).name;
+
 export const NR_LAST_IMG = 1;
 export const NR_STORY_USED_IMG =
   ALL_STORY_IMAGES_RAW.length - NR_LAST_IMG - NR_FALLBACK_IMG;
