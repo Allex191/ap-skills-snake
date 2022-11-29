@@ -13,6 +13,10 @@ export const settingsIconImg = styled.img`
   height: ${({ theme }) => getGameScaledValue(theme, 80, "px")};
 `;
 
+export const settingsOptions = styled.div`
+  margin: auto;
+`;
+
 export const settingsOption = styled.div`
   padding-top: ${({ theme }) => getGameScaledValue(theme, 9, "px")};
   padding-bottom: ${({ theme }) => getGameScaledValue(theme, 9, "px")};
