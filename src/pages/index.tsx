@@ -2,7 +2,7 @@ import BackgroundLayer from "components/BackgroundLayer";
 import GameLayer from "components/GameLayer";
 import GamePageBG from "components/gamePageBG/GamePageBG";
 import { CanvasLayers } from "components/index.styled";
-import UILayer from "components/uILayer/UILayer";
+import UILayer from "components/UILayer/UILayer";
 import { useResize } from "hooks/useResize";
 import Head from "next/head";
 import { useSelector } from "react-redux";

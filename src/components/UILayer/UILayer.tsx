@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 import { startGame } from "Redux/slices/snakeSlice";
-import * as St from "components/uILayer/UILayer.styled";
+import * as St from "components/UILayer/UILayer.styled";
 import { useDefaultDarkMode as useDefaultDeviceTheme } from "hooks/useDefaultDarkMode";
-import Settings from "components/uILayer/Settings";
+import Settings from "components/UILayer/Settings";
 
 const UILayer = () => {
   const dispatch = useDispatch();

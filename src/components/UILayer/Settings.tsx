@@ -1,5 +1,5 @@
 import { GAME_OPTIONS } from "data/gameOptions";
-import * as St from "components/uILayer/Settings.styled";
+import * as St from "components/UILayer/Settings.styled";
 
 const Settings = () => {
   return (
