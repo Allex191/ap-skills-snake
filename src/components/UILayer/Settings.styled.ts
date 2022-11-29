@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { score } from "components/uILayer/UILayer.styled";
 import { getGameScaledValue } from "utils/getGameScaledValue";
 
 export const settings = styled.div`
@@ -13,7 +12,6 @@ export const settingsIconImg = styled.img`
   width: ${({ theme }) => getGameScaledValue(theme, 80, "px")};
   height: ${({ theme }) => getGameScaledValue(theme, 80, "px")};
 `;
-export const settingsOptions = styled(score)``;
 
 export const settingsOption = styled.div`
   padding-top: ${({ theme }) => getGameScaledValue(theme, 9, "px")};
