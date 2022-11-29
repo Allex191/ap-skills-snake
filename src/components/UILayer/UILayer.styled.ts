@@ -33,7 +33,7 @@ export const menu = styled.div<StyledMenuProps>`
 `;
 
 export const menuInner = styled.div`
-  width: 80%;
+  width: 85%;
   height: 90%;
   display: flex;
   flex-direction: column;
@@ -44,22 +44,24 @@ export const menuInner = styled.div`
 export const navigationHint = styled.p`
   position: absolute;
   z-index: 3;
-  color: white;
+  font-size: ${({ theme }) => getGameScaledValue(theme, 65, "px")};
+  font-weight: 700;
+  color: #ffffff;
   user-select: none;
 `;
 
 export const gameTitle = styled.h1`
-  font-size: ${({ theme }) => getGameScaledValue(theme, 90, "px")};
+  font-size: ${({ theme }) => getGameScaledValue(theme, 85, "px")};
 `;
 
 export const gameOver = styled.div``;
 
 export const gameOverTitle = styled.p`
-  font-size: ${({ theme }) => getGameScaledValue(theme, 55, "px")};
+  font-size: ${({ theme }) => getGameScaledValue(theme, 50, "px")};
 `;
 
 export const gameOverHint = styled.p`
-  font-size: ${({ theme }) => getGameScaledValue(theme, 35, "px")};
+  font-size: ${({ theme }) => getGameScaledValue(theme, 33, "px")};
 `;
 
 export const stats = styled.div`

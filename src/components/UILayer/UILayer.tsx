@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "Redux/redux";
 import { startGame } from "Redux/slices/snakeSlice";
-import * as St from "components/UILayer/UILayer.styled";
+import * as St from "components/uILayer/UILayer.styled";
 import { useDefaultDarkMode as useDefaultDeviceTheme } from "hooks/useDefaultDarkMode";
-import Settings from "components/UILayer/Settings";
+import Settings from "components/uILayer/Settings";
 
 const UILayer = () => {
   const dispatch = useDispatch();
@@ -22,11 +22,11 @@ const UILayer = () => {
 
   return (
     <St.uILayer uISize={uISize}>
-      {isStartArrowsShown && <St.navigationHint>wasd</St.navigationHint>}
+      {isStartArrowsShown && <St.navigationHint>WASD</St.navigationHint>}
 
       <St.menu uISize={uISize} isShow={isGameOver || isUIShown || isGameWin}>
         <St.menuInner>
-          <St.gameTitle>Snake Game</St.gameTitle>
+          <St.gameTitle>A.P Skills Snake</St.gameTitle>
           {isGameOver && (
             <St.gameOver>
               <St.gameOverTitle>You have learned x hours.</St.gameOverTitle>

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { score } from "components/UILayer/UILayer.styled";
+import { score } from "components/uILayer/UILayer.styled";
 import { getGameScaledValue } from "utils/getGameScaledValue";
 
 export const settings = styled.div`

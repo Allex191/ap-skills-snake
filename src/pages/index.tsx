@@ -1,11 +1,8 @@
 import BackgroundLayer from "components/BackgroundLayer";
 import GameLayer from "components/GameLayer";
-import {
-  CanvasLayers,
-  StyledContainer,
-  StyledOuterWrapper,
-} from "components/index.styled";
-import UILayer from "components/UILayer/UILayer";
+import GamePageBG from "components/gamePageBG/GamePageBG";
+import { CanvasLayers } from "components/index.styled";
+import UILayer from "components/uILayer/UILayer";
 import { useResize } from "hooks/useResize";
 import Head from "next/head";
 import { useSelector } from "react-redux";
@@ -22,19 +19,16 @@ export default function Home() {
         <title>A.P. Skills snake</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <StyledContainer>
-        <StyledOuterWrapper>
-          <CanvasLayers
-            gameScale={gameScale}
-            gameWidth={windowWidth}
-            gameHeight={windowHeight}
-          >
-            <BackgroundLayer />
-            <GameLayer />
-          </CanvasLayers>
-          <UILayer />
-        </StyledOuterWrapper>
-      </StyledContainer>
+      <CanvasLayers
+        gameScale={gameScale}
+        gameWidth={windowWidth}
+        gameHeight={windowHeight}
+      >
+        <BackgroundLayer />
+        <GameLayer />
+      </CanvasLayers>
+      <UILayer />
+      <GamePageBG />
     </>
   );
 }

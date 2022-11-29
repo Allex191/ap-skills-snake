@@ -9,6 +9,7 @@ declare module "@emotion/react" {
       uIBackground: string;
       optionsBorder: string;
       buttonStart: string;
+      pageBg: string;
     };
   }
 }

@@ -7,6 +7,7 @@ const themeLight = {
     uIBackground: "#E7E6D1",
     optionsBorder: "#565656",
     buttonStart: "#8a278a",
+    pageBg: "#70736e",
   },
 };
 
@@ -17,6 +18,8 @@ const themeDark = {
     uIBackground: "#323232",
     optionsBorder: "#d8d8d8",
     buttonStart: "#8a278a",
+    pageBg: "#3b3b3b",
+    
   },
 };
 

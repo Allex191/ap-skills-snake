@@ -46,7 +46,7 @@ https://ap-skills-snake-game.vercel.app/
 
 #### Current working on
 
-- touch for mobile
+- add zone for touch on mobile
 - ui size fix
 - calc img padding for stroke
 - show points in canvas
