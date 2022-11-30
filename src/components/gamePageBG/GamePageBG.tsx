@@ -13,6 +13,7 @@ const GamePageBG = () => {
   let prevY: null | number = null;
 
   const initializeTouchXY = (event: React.TouchEvent<HTMLDivElement>) => {
+    event.preventDefault();
     console.log(event);
     if (event.touches.length === 1) {
       prevX = event.touches[0]?.clientX || null;
@@ -21,6 +22,8 @@ const GamePageBG = () => {
   };
 
   const touchMovesHandler = (event: React.TouchEvent<HTMLDivElement>) => {
+    event.preventDefault();
+
     const directions: Idirections = {
       moveUp: false,
       moveDown: false,
