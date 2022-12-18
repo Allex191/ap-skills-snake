@@ -36,6 +36,12 @@
     // "strictNullChecks": true,
     "noImplicitAny": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "src/components/TimerTestC.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "next.config.mjs",
+    "src/components/TimerTestC.tsx"
+  ],
   "exclude": ["node_modules", ".next"]
 }

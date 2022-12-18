@@ -14,6 +14,10 @@ export interface IviewSliceState {
   uISize: number;
   uIItemsScale: number;
   isDark: boolean;
+  canvasLayersSize: {
+    width: number;
+    height: number;
+  };
 }
 
 const initialState: IviewSliceState = {
@@ -23,6 +27,10 @@ const initialState: IviewSliceState = {
   uIItemsScale: 1,
   uISize: 400,
   isDark: false,
+  canvasLayersSize: {
+    width: 0,
+    height: 0,
+  },
 };
 
 export const viewSlice = createSlice({
@@ -38,17 +46,17 @@ export const viewSlice = createSlice({
 
         state.gameScale = widthScale;
         state.uIItemsScale = widthScale + UI_ADITIONAL_SCALE;
-
         state.uISize = Math.floor(
           (widthScale * GAME_WIDTH * UI_RAW_PERCENTAGE) / 100
         );
-      } else {
+
+        // state.canvasLayersSize.height =
+      } else if (action.payload.width >= action.payload.height) {
         const heightScale =
           action.payload.height / (GAME_HEIGHT + SCREEN_PADDING);
 
         state.gameScale = heightScale;
         state.uIItemsScale = heightScale + UI_ADITIONAL_SCALE;
-
         state.uISize = Math.floor(
           (heightScale * GAME_HEIGHT * UI_RAW_PERCENTAGE) / 100
         );
