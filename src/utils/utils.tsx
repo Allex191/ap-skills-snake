@@ -95,7 +95,7 @@ export const checkIsAppleConsumed = (headPos, applePos) => {
   }
 };
 
-export const chechIfSnakeCollided = (
+export const checkIfSnakeCollided = (
   newHeadPosition,
   snake,
   gameWidth,

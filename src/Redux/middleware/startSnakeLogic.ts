@@ -16,7 +16,7 @@ import {
 } from "Redux/slices/snakeSlice";
 import { getNextHeadPos } from "utils/getNextHeadPos";
 import {
-  chechIfSnakeCollided,
+  checkIfSnakeCollided,
   checkIsAppleConsumed,
   getRandomApplePos,
 } from "utils/utils";
@@ -41,7 +41,7 @@ export const startSnakeLogic = (
     gameSizes.itemSize,
     currentKey
   );
-  const isSnakeCollided = chechIfSnakeCollided(
+  const isSnakeCollided = checkIfSnakeCollided(
     newHeadPosition,
     snakeCoords,
     gameSizes.gameWidth,
