@@ -6,15 +6,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "playwright": "playwright test",
     "jest": "jest",
     "jest:watch": "jest --watch",
-    "//Runs the tests only on Desktop Chrome": "",
-    "test:chrome": "playwright test --project=chromium",
-    "//Runs the tests in a specific file.": "",
-    "test:file": "playwright test example",
-    "//Runs the tests in debug mode.": "",
-    "test:debug": "playwright test --debug"
+    "playwright": "playwright test",
+    "playwright:chrome": "playwright test --project=chromium",
+    "playwright:file": "playwright test example",
+    "playwright:debug": "playwright test --debug"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",

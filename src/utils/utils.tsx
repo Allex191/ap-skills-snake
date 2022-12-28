@@ -87,8 +87,11 @@ export const getRandomApplePos = (
   return [newApplePos];
 };
 
-export const checkIsAppleConsumed = (headPos, applePos) => {
-  if (headPos[0].x === applePos[0].x && headPos[0].y === applePos[0].y) {
+export const checkIsAppleConsumed = (
+  headPos: CanvasItemShape[],
+  applePos: CanvasItemShape[]
+) => {
+  if (headPos[0]?.x === applePos[0]?.x && headPos[0]?.y === applePos[0]?.y) {
     return true;
   } else {
     return false;
