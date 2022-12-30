@@ -5,6 +5,7 @@ import {
   ThunkDispatch,
 } from "@reduxjs/toolkit";
 import { GAME_SQUARES } from "data/gameConst";
+import { startAppListening } from "Redux/middleware/listenerMiddleware";
 import { RootState } from "Redux/redux";
 import {
   setGameOver,
@@ -75,4 +76,11 @@ export const startSnakeLogic = (
   }
   dispatch(setSnakeNewCoords(newSnakeArr));
   dispatch(setSnakeDir(currentKey));
+};
+
+export const snakeMovementListener = () => {
+  startAppListening({
+    actionCreator: moveSnake,
+    effect: startSnakeLogic,
+  });
 };

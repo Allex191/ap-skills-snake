@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_UP } from "data/gameConst";
 import { Idirections } from "hooks/useKeysHandler";
+import { startAppListening } from "Redux/middleware/listenerMiddleware";
 import { RootState } from "Redux/redux";
 import { setCurrentKey, startSnakeMovement } from "Redux/slices/snakeSlice";
 
@@ -61,4 +62,11 @@ export const manageUserMoveSnakeKey = (
       startingMov && dispatch(startSnakeMovement(startingMov));
     }
   }
+};
+
+export const snakeKeyPressListener = () => {
+  startAppListening({
+    actionCreator: userPressedMoveSnakeKey,
+    effect: manageUserMoveSnakeKey,
+  });
 };

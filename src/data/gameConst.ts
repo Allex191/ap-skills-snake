@@ -40,3 +40,8 @@ export type DIR_TYPES =
   | typeof DIR_LEFT
   | typeof DIR_DOWN
   | typeof DIR_RIGHT;
+
+export const TOTAL_HOURS_TILL_JOB = 1700;
+const FIRST_BLOCK = 1;
+export const POINTS_PER_GAME_SQUARE =
+  TOTAL_HOURS_TILL_JOB / (GAME_SQUARES - FIRST_BLOCK);

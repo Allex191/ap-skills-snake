@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { AnyAction, Dispatch } from "redux";
-import { userPressedMoveSnakeKey } from "Redux/middleware/manageUserMoveSnakeKey";
+import { userPressedMoveSnakeKey } from "Redux/middleware/snakeKeyPressListener";
 
 interface IuseKeysHandler {
   (dispatch: Dispatch<AnyAction>);

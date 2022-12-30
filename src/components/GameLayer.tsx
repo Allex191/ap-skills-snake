@@ -7,7 +7,7 @@ import { GAME_SPEED, ONE_FRAME_TIME } from "data/gameConst";
 import { useKeysHandler } from "hooks/useKeysHandler";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { moveSnake } from "Redux/middleware/startSnakeLogic";
+import { moveSnake } from "Redux/middleware/snakeMovementListener";
 import { RootState } from "Redux/redux";
 import { preloadCanvasImages } from "utils/preloadCanvasImages";
 import { clearBoard, drawObject } from "utils/utils";

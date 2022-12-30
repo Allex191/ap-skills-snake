@@ -3,7 +3,7 @@ import { touchZoneRefT } from "components/gamePageBG/GamePageBG";
 import { TOUCH_MOVES_TRESHOLD } from "data/gameConst";
 import { Idirections } from "hooks/useKeysHandler";
 import { MutableRefObject, useEffect } from "react";
-import { userPressedMoveSnakeKey } from "Redux/middleware/manageUserMoveSnakeKey";
+import { userPressedMoveSnakeKey } from "Redux/middleware/snakeKeyPressListener";
 
 export const useTouchHandler = (
   touchZoneRef: MutableRefObject<touchZoneRefT>,
