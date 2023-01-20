@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 README.local.md
+todo.md
 
 # debug
 npm-debug.log*

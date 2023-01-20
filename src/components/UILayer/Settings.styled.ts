@@ -6,6 +6,7 @@ export const settings = styled.div`
 `;
 export const settingsIcon = styled.div`
   margin: auto;
+  user-select: none;
 `;
 
 export const settingsIconImg = styled.img`
@@ -15,6 +16,7 @@ export const settingsIconImg = styled.img`
 
 export const settingsOptions = styled.div`
   margin: auto;
+  user-select: none;
 `;
 
 export const settingsOption = styled.div`

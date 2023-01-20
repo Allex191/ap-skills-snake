@@ -70,11 +70,13 @@ export const stats = styled.div`
 `;
 export const statsIcon = styled.div`
   margin: auto;
+  user-select: none;
 `;
 
 export const statsIconImg = styled.img`
   width: ${({ theme }) => getGameScaledValue(theme, 70, "px")};
   height: ${({ theme }) => getGameScaledValue(theme, 70, "px")};
+  user-select: none;
 `;
 export const score = styled.div`
   padding: ${({ theme }) => getGameScaledValue(theme, 25, "px")};
@@ -94,5 +96,6 @@ export const startButton = styled.button`
   padding: ${({ theme }) =>
     `${getGameScaledValue(theme, 20, "px")}
      ${getGameScaledValue(theme, 40, "px")}`};
-  border-radius: ${({ theme }) => getGameScaledValue(theme, 10, "px")}; ;
+  border-radius: ${({ theme }) => getGameScaledValue(theme, 10, "px")};
+  user-select: none;
 `;

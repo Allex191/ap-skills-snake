@@ -1,9 +1,9 @@
 import { snakeKeyPressListener } from "Redux/middleware/snakeKeyPressListener";
 import { snakeMovementListener } from "Redux/middleware/snakeMovementListener";
-import { snakePointsListener } from "Redux/middleware/snakePointsListener";
+import { snakeScoreListener } from "Redux/middleware/snakeScoreListener";
 
 export const startListeners = () => {
   snakeMovementListener();
   snakeKeyPressListener();
-  snakePointsListener();
+  snakeScoreListener();
 };

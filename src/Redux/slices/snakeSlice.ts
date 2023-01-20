@@ -18,7 +18,7 @@ import { getRandomApplePos, CanvasItemShape } from "utils/utils";
 export interface SnakeSliceState {
   isUIShown: boolean;
   isGameStarted: boolean;
-  isGameOver: null | boolean;
+  isGameOver: boolean;
   isGameWin: boolean;
   gameSpeed: null | number;
   gameSizes: {
@@ -32,7 +32,6 @@ export interface SnakeSliceState {
   isSnakeReadyToMove: boolean;
   isArrowsTempShown: boolean;
   applePos: CanvasItemShape[];
-  triggerToRunGameLogic: boolean;
   skillsImagesData: {
     allSkillsImages: ImageIdArr;
     spawnedImage: ImageIdArr;
@@ -43,7 +42,7 @@ export interface SnakeSliceState {
 const initialState: SnakeSliceState = {
   isUIShown: true,
   isGameStarted: false,
-  isGameOver: null,
+  isGameOver: false,
   isGameWin: false,
   gameSpeed: GAME_SPEED,
   gameSizes: {
@@ -57,7 +56,6 @@ const initialState: SnakeSliceState = {
   isSnakeReadyToMove: false,
   isArrowsTempShown: false,
   applePos: [{ x: 0, y: 0 }],
-  triggerToRunGameLogic: false,
   skillsImagesData: {
     allSkillsImages: getAllStoryImagesId(),
     spawnedImage: SECOND_IMAGE_ARR_ID,
@@ -124,9 +122,6 @@ export const snakeSlice = createSlice({
     ) => {
       state.currentKey = action.payload;
     },
-    setTriggerToRunGameLogic: (state) => {
-      state.triggerToRunGameLogic = !state.triggerToRunGameLogic;
-    },
     updateSkillsImages: (state) => {
       const collectedImages = state.skillsImagesData.collectedImages;
       const spawnedImageArr = state.skillsImagesData.spawnedImage;
@@ -141,7 +136,9 @@ export const snakeSlice = createSlice({
     },
     setGameWin: (state) => {
       state.isGameWin = true;
+      state.isGameStarted = false;
       state.isSnakeReadyToMove = false;
+      state.isUIShown = true;
     },
   },
 });
@@ -154,7 +151,6 @@ export const {
   setSnakeDir,
   setCurrentKey,
   startSnakeMovement,
-  setTriggerToRunGameLogic,
   updateSkillsImages,
   changeSpeedOption,
   setGameWin,

@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { startListeners } from "Redux/middleware/listeners";
 import snakeReducer from "Redux/slices/snakeSlice";
 import viewReducer from "Redux/slices/viewSlice";
+import scoreReducer from "Redux/slices/scoreSlice";
 import { listenerMiddleware } from "./middleware/listenerMiddleware";
-import { startListeners } from "./middleware/listeners";
 
 export const store = configureStore({
-  reducer: { snakeReducer, viewReducer },
+  reducer: { snakeReducer, viewReducer, scoreReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
-
 startListeners();
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
