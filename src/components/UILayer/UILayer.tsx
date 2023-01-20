@@ -14,7 +14,8 @@ const UILayer = () => {
     isGameOver,
     isGameWin,
     isUIShown,
-    isArrowsTempShown: isStartArrowsShown,
+    isStartArrowsShown,
+    isGameStarted,
   } = useSelector((state: RootState) => state.snakeReducer);
 
   const { currentScore } = useSelector(
@@ -26,13 +27,20 @@ const UILayer = () => {
   );
   console.log("rendering");
 
-  const { uISize } = useSelector((state: RootState) => state.viewReducer);
+  const { uISize, canvasLayersSize } = useSelector(
+    (state: RootState) => state.viewReducer
+  );
 
   useDefaultDeviceTheme();
 
   return (
-    <St.uILayer uISize={uISize}>
+    <St.uILayer uISize={uISize} canvasLayersSize={canvasLayersSize}>
       {isStartArrowsShown && <St.navigationHint>WASD</St.navigationHint>}
+      {isGameStarted && (
+        <St.currentScoreArea>
+          Hours: {currentScoreNoDecimal}
+        </St.currentScoreArea>
+      )}
 
       <St.menu uISize={uISize} isShow={isGameOver || isUIShown || isGameWin}>
         <St.menuInner>

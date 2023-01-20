@@ -7,6 +7,11 @@ import {
   UI_RAW_PERCENTAGE,
 } from "data/gameConst";
 
+export type CanvasLayersSize = {
+  width: number;
+  height: number;
+};
+
 export interface IviewSliceState {
   windowWidth: number;
   windowHeight: number;
@@ -14,10 +19,7 @@ export interface IviewSliceState {
   uISize: number;
   uIItemsScale: number;
   isDark: boolean;
-  canvasLayersSize: {
-    width: number;
-    height: number;
-  };
+  canvasLayersSize: CanvasLayersSize;
 }
 
 const initialState: IviewSliceState = {

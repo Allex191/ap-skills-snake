@@ -25,7 +25,7 @@ export const manageUserMoveSnakeKey = (
     unknown
   >
 ) => {
-  const { isGameStarted, isArrowsTempShown, snakeDir } =
+  const { isGameStarted, isStartArrowsShown: isArrowsTempShown, snakeDir } =
     listenerApi.getState().snakeReducer;
 
   const dispatch = listenerApi.dispatch;

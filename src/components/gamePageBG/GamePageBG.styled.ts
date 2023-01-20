@@ -1,13 +1,9 @@
 import styled from "@emotion/styled";
+import { StyledAppDisplaySize } from "styles/shared.styled";
 
 export const pageBg = styled.div`
-  top: 5vh;
-  bottom: 5vh;
-  right: 5vw;
-  left: 5vw;
+  ${StyledAppDisplaySize}
   position: absolute;
-  width: 90vw;
-  height: 90vh;
 `;
 
 export const pageImg = styled.img`

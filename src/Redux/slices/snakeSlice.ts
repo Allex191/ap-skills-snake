@@ -30,7 +30,7 @@ export interface SnakeSliceState {
   currentKey: DIR_TYPES;
   snakeCoords: CanvasItemShape[];
   isSnakeReadyToMove: boolean;
-  isArrowsTempShown: boolean;
+  isStartArrowsShown: boolean;
   applePos: CanvasItemShape[];
   skillsImagesData: {
     allSkillsImages: ImageIdArr;
@@ -54,7 +54,7 @@ const initialState: SnakeSliceState = {
   currentKey: DIR_RIGHT,
   snakeCoords: [{ x: 0, y: 0 }],
   isSnakeReadyToMove: false,
-  isArrowsTempShown: false,
+  isStartArrowsShown: false,
   applePos: [{ x: 0, y: 0 }],
   skillsImagesData: {
     allSkillsImages: getAllStoryImagesId(),
@@ -78,7 +78,7 @@ export const snakeSlice = createSlice({
       state.isGameOver = false;
       state.isGameWin = false;
       state.isUIShown = false;
-      state.isArrowsTempShown = true;
+      state.isStartArrowsShown = true;
 
       state.applePos = getRandomApplePos(
         state.snakeCoords,
@@ -96,7 +96,7 @@ export const snakeSlice = createSlice({
     ) => {
       state.currentKey = action.payload;
       state.isSnakeReadyToMove = true;
-      state.isArrowsTempShown = false;
+      state.isStartArrowsShown = false;
     },
     setGameOver: (state) => {
       state.isGameOver = true;
