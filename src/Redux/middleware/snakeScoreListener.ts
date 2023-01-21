@@ -1,9 +1,13 @@
 import { FIRST_BLOCK, PTS_GAME_SQUARE_NO_FIRST } from "data/gameConst";
 import { startAppListening } from "Redux/middleware/listenerMiddleware";
-import { setCurrentScore } from "Redux/slices/scoreSlice";
+import {
+  setCurrentScore,
+  setHighScore,
+  setPrevScore,
+} from "Redux/slices/scoreSlice";
 import { startGame } from "Redux/slices/snakeSlice";
 
-const calculateCurrentScore = () => {
+export const snakeScoreListener = () => {
   startAppListening({
     predicate: (action, currentState, previousState) => {
       return (
@@ -15,8 +19,8 @@ const calculateCurrentScore = () => {
     effect: (arg1, arg2) => {
       const snakeState = arg2.getState().snakeReducer;
       const scoreState = arg2.getState().scoreReducer;
-
       let localCurrentScore = scoreState.currentScore;
+
       if (
         snakeState.isGameStarted &&
         snakeState.snakeCoords.length > FIRST_BLOCK
@@ -24,13 +28,15 @@ const calculateCurrentScore = () => {
         localCurrentScore += PTS_GAME_SQUARE_NO_FIRST;
         arg2.dispatch(setCurrentScore(localCurrentScore));
       }
+
       if (arg1.type === startGame.type) {
         arg2.dispatch(setCurrentScore(0));
+        arg2.dispatch(setPrevScore(localCurrentScore));
+      }
+
+      if (localCurrentScore > scoreState.highScore) {
+        arg2.dispatch(setHighScore(localCurrentScore));
       }
     },
   });
-};
-
-export const snakeScoreListener = () => {
-  calculateCurrentScore();
 };

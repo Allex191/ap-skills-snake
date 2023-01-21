@@ -76,10 +76,12 @@ export const gameOver = styled.div``;
 
 export const gameOverTitle = styled.p`
   font-size: ${({ theme }) => getGameScaledValue(theme, 50, "px")};
+  text-align: center;
 `;
 
 export const gameOverHint = styled.p`
   font-size: ${({ theme }) => getGameScaledValue(theme, 33, "px")};
+  text-align: center;
 `;
 
 export const stats = styled.div`
@@ -103,7 +105,7 @@ export const score = styled.div`
   border-width: ${({ theme }) => getGameScaledValue(theme, 8, "px")};
   border-radius: ${({ theme }) => getGameScaledValue(theme, 10, "px")};
 `;
-export const scoreCurrent = styled.p``;
+export const scorePrev = styled.p``;
 export const scoreHigh = styled.p``;
 
 export const startButton = styled.button`

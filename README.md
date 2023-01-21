@@ -21,7 +21,6 @@ https://ap-skills-snake-game.vercel.app/
 
 - getNextPos refactor
 - show current presed key in first block/game border, mby person position
-- high score/local storage
 - option -+ for responsive padding or scale
 - preloadedImagesObj types and nonNull
 - refactor/types utils
@@ -38,17 +37,16 @@ https://ap-skills-snake-game.vercel.app/
 - color change based on collected items
 - sound effects
 - gameLayer refactor useEffects
+- ui size fix
+- calc img padding for stroke
+- set height of ui bigger uISize: { x: 0, y: 0 },
+- make media querries if its too smal for mobile
 
 #### Uncategorized
 
 - snake can eat the last square of itself
-- snake should eat move and when move grow
+- snake should eat move and then grow
 
 #### Current working on
 
-- add zone for touch on mobile
-- ui size fix
-- calc img padding for stroke
-- show points in canvas
-- set height of ui bigger uISize: { x: 0, y: 0 },
-- make media querries if its too smal for mobile
+- add prevScore and highScore to localStorage

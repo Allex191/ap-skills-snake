@@ -18,14 +18,9 @@ const UILayer = () => {
     isGameStarted,
   } = useSelector((state: RootState) => state.snakeReducer);
 
-  const { currentScore } = useSelector(
+  const { currentScore, prevScore, highScore } = useSelector(
     (state: RootState) => state.scoreReducer
   );
-  const currentScoreNoDecimal = Math.floor(currentScore);
-  const remainingScoreTillFinal = Math.floor(
-    TOTAL_HOURS_TILL_JOB - currentScore
-  );
-  console.log("rendering");
 
   const { uISize, canvasLayersSize } = useSelector(
     (state: RootState) => state.viewReducer
@@ -33,12 +28,16 @@ const UILayer = () => {
 
   useDefaultDeviceTheme();
 
+  const getScoreNoDecimal = (score: number) => {
+    return score > 0 ? Math.floor(score) : 0;
+  };
+
   return (
     <St.uILayer uISize={uISize} canvasLayersSize={canvasLayersSize}>
       {isStartArrowsShown && <St.navigationHint>WASD</St.navigationHint>}
       {isGameStarted && (
         <St.currentScoreArea>
-          Hours: {currentScoreNoDecimal}
+          Hours: {getScoreNoDecimal(currentScore)}
         </St.currentScoreArea>
       )}
 
@@ -48,10 +47,10 @@ const UILayer = () => {
           {isGameOver && (
             <St.gameOver>
               <St.gameOverTitle>
-                You have learned {currentScoreNoDecimal} hours.
+                You have learned {getScoreNoDecimal(currentScore)} hours.
               </St.gameOverTitle>
               <St.gameOverHint>
-                *Learn {remainingScoreTillFinal} hours more to get a job.
+                Can you do {TOTAL_HOURS_TILL_JOB} hours?
               </St.gameOverHint>
             </St.gameOver>
           )}
@@ -61,8 +60,12 @@ const UILayer = () => {
               <St.statsIconImg src="/stats.svg" />
             </St.statsIcon>
             <St.score>
-              <St.scoreCurrent>Previous Score: x h</St.scoreCurrent>
-              <St.scoreHigh>High Score: xx h</St.scoreHigh>
+              <St.scorePrev>
+                Previous Score: {getScoreNoDecimal(prevScore)}h
+              </St.scorePrev>
+              <St.scoreHigh>
+                High Score: {getScoreNoDecimal(highScore)}h
+              </St.scoreHigh>
             </St.score>
           </St.stats>
           <Settings />
