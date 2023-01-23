@@ -59,8 +59,9 @@ export const LAST_STORY_IMG = (
   ALL_STORY_IMAGES_RAW[indexOfTheLastStoryImg] || fallbackImg
 ).name;
 
-export const CONNECTING_IMG =
-  (ALL_STORY_IMAGES_RAW[indexOfConnectingImg] || fallbackImg).name;
+export const CONNECTING_IMG = (
+  ALL_STORY_IMAGES_RAW[indexOfConnectingImg] || fallbackImg
+).name;
 
 export const NR_LAST_IMG = 1;
 export const NR_STORY_USED_IMG =

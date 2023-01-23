@@ -50,3 +50,4 @@ https://ap-skills-snake-game.vercel.app/
 #### Current working on
 
 - add prevScore and highScore to localStorage
+- fix current score and temporal hint control display
